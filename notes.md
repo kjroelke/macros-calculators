@@ -13,7 +13,9 @@ Women: BMR = 655 + (4.35 x weight in pounds) + (4.7 x height in inches) - (4.7 x
 
 Men: BMR = 66 + (6.23 x weight in pounds) + (12.7 x height in inches) - (6.8 x age in years)
 
-# 2. TDEE 
+# 2. Modifiers
+
+## TDEE 
 BMR x Activity Level Multipliers = TDEE
 
 Activity Level Multipliers:
@@ -24,7 +26,7 @@ Activity Level Multipliers:
 - Very Active: 1.725
 - Extremely Active: 1.9
 
-# 3. Calorie Goal: 
+## Calorie Goal: 
 TDEE * Deficit
 
 Deficits:
@@ -38,6 +40,7 @@ Deficits:
   - 0.8 g/LB is ideal to start
 - Men = 0.8 - 1.2 g/LB in general
   - 1.0 g/LB is ideal to start
+
 
 # 5. Fat Calculations
 - In a Deficit: 30% of Calorie Goal

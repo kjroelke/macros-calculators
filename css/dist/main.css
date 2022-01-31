@@ -32,23 +32,22 @@ header > * {
 
 main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: stretch;
   margin: 0 auto;
   max-width: 88vw;
+  padding: 65px 0;
 }
 main form {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
   border: 0.5rem solid #007aeb;
   border-radius: 1rem;
-  padding: 6.5rem 0;
-  margin: 2rem 15vw;
   font-size: 2rem;
 }
 main form fieldset {
@@ -76,16 +75,23 @@ main form fieldset input {
   padding: 1rem;
 }
 main form button {
+  transition: all 0.2s ease;
   border: 0.5rem solid #007aeb;
   border-radius: 1rem;
-  transition: all 0.2s ease;
-  background-color: transparent;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
+  background-color: #007aeb;
+  color: white;
+  margin-top: auto;
   cursor: pointer;
 }
 main form button:hover, main form button:focus, main form button:active {
+  background-color: transparent;
+  border: 0.5rem solid #007aeb;
+  border-radius: 1rem;
   transform: scale(1.03);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
+  color: #007aeb;
 }
 main form output {
   border: 0.5rem solid #007aeb;
@@ -124,4 +130,17 @@ footer a:hover, footer a:focus, footer a:active {
 
 .hidden {
   display: none;
+}
+
+.form__header {
+  background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
+  background-color: #007aeb;
+  padding: 2rem;
+}
+.form__header h2 {
+  color: white;
+  text-align: center;
+}
+.form__content {
+  padding: 3rem;
 }

@@ -69,14 +69,13 @@ header {
 	}
 }
 main {
-	@include displayFlex(column, flex-start, stretch);
+	@include displayFlex(row, space-around, stretch);
 	margin: 0 auto;
 	max-width: 88vw;
+	padding: 65px 0;
 	form {
-		@include displayFlex(column, flex-start, center);
+		@include displayFlex(column, flex-start, stretch);
 		@include mainBorder;
-		padding: 6.5rem 0;
-		margin: 2rem 15vw;
 		font-size: 2rem;
 
 		fieldset {
@@ -100,15 +99,21 @@ main {
 			}
 		}
 		button {
-			@include mainBorder;
 			@include transitionStandard;
-			background-color: transparent;
+			@include mainBorder;
+			font-size: 1.6rem;
 			padding: 1rem 2rem;
+			background-color: $color-primary;
+			color: white;
+			margin-top: auto;
 			cursor: pointer;
 			&:hover,
 			&:focus,
 			&:active {
+				background-color: transparent;
+				@include mainBorder;
 				@include cssHover;
+				color: $color-primary;
 			}
 		}
 		output {
@@ -143,4 +148,19 @@ footer {
 
 .hidden {
 	display: none;
+}
+
+.form {
+	&__header {
+		@include linearGradientDarken;
+		background-color: $color-primary;
+		padding: 2rem;
+		h2 {
+			color: white;
+			text-align: center;
+		}
+	}
+	&__content {
+		padding: 3rem;
+	}
 }

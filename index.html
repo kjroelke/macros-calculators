@@ -18,9 +18,12 @@
 	  <h2>Hopefully.</h2>
   </header>
   <main>
-	  <form id="bmr-calculator">
-		  <h2>Step 1: BMR Calulator!</h2>
-		  <fieldset>
+	  <form id="bmr-calculator" class="form">
+		  <div class="form__header">
+			  <h2>Step 1: BMR Calulator!</h2>
+		  </div>
+		  <div class="form__content">
+		  	<fieldset>
 			  <legend>Gender</legend>
 			  <div class="radio--options">
 			  <input type="radio" name="gender"  value="Male">
@@ -30,9 +33,8 @@
 			</div>
 		</fieldset>
 		<fieldset>
-			<legend>Client Info</legend>
-			<label for="weight">
-			Weight (in pounds)</label>
+				<legend>Client Info</legend>
+			<label for="weight">Weight (in pounds)</label>
 			<input required name="weight" type="number" id="weight">
 			<fieldset>
 				<legend>Height</legend>
@@ -41,15 +43,38 @@
 				<label for="height">In</label>
 				<input required id="height--in" type="number" name="height">
 			</fieldset>
-			<label for="age">
-			Age</label>
+			<label for="age">Age</label>
 			<input required type="number" id="age" name="age">
 		</fieldset>
 		<button type="submit">Calculate that BMR!</button>
+	</div>
 		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
 	</form>
-	  <form id="macro-calculator" action="/"><h2>Macro Calulator!</h2>
-		<button type="submit">Calculate those macros!</button>
+	<form id="modifiers" class="form">
+		<div class="form__header">
+			<h2>Step 2: Modifiers!</h2>
+		</div>
+		<div class="form__content">
+			<button type="submit">Submit those modifiers!</button>
+		</div>
+		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
+	</form>
+	<form id="protein-calculator" class="form">
+		<div class="form__header">
+			<h2>Step 3: Protein Calculator!</h2>
+		</div>
+		<div class="form__content">
+			<button type="submit">Calculate those macros!</button>
+		</div>
+		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
+	</form>
+	<form id="macro-calculator" class="form">
+		<div class="form__header">
+			<h2>Macro Calulator!</h2>
+		</div>
+		<div class="form__content">
+			<button type="submit">Calculate those macros!</button>
+		</div>
 		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
 	</form>
   </main>
