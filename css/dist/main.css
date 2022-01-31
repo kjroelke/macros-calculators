@@ -21,17 +21,82 @@ header {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
+  background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
+  padding: 6.5rem 0;
+  background-color: #007aeb;
+}
+header > * {
+  color: white;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin: 0 auto;
+  max-width: 88vw;
+}
 main form {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: center;
+  border: 0.5rem solid #007aeb;
+  border-radius: 1rem;
+  padding: 6.5rem 0;
+  margin: 2rem 15vw;
+  font-size: 2rem;
+}
+main form fieldset {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: flex-start;
-  margin: 0 auto;
-  padding: 65px 0;
+  padding: 2rem;
+}
+main form fieldset:not(:last-child) {
+  margin-bottom: 2rem;
+}
+main form fieldset legend {
+  color: #007aeb;
+  font-weight: 700;
+}
+main form fieldset label {
+  margin-bottom: 1rem;
+}
+main form fieldset input {
+  margin-bottom: 2rem;
+  border: 1px solid #545454;
+  border-radius: 0;
+  padding: 1rem;
+}
+main form button {
+  border: 0.5rem solid #007aeb;
+  border-radius: 1rem;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+main form button:hover, main form button:focus, main form button:active {
+  transform: scale(1.03);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
+}
+main form output {
+  border: 0.5rem solid #007aeb;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: stretch;
+  padding: 3rem;
+  margin: 1rem 0;
 }
 
 footer {
@@ -40,7 +105,23 @@ footer {
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
+  background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
+  padding: 6.5rem 0;
+  background-color: #007aeb;
 }
-footer p {
+footer > * {
+  color: white;
   text-align: center;
+}
+footer a {
+  color: white;
+  font-weight: 700;
+}
+footer a:hover, footer a:focus, footer a:active {
+  font-size: 1.8rem;
+  transition: all 0.2s ease;
+}
+
+.hidden {
+  display: none;
 }

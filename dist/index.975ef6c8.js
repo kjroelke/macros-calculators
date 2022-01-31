@@ -519,20 +519,88 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"8lqZg":[function(require,module,exports) {
-/**
- * Create copyright text with a dynamic date and URL campaign builder for GA inside a div with the ID of 'copyright.'
- * @param {string} brandName Name of the brand
- * @param {string} builder Name of the person/org building the site
- * @param {string} site Home URL of the builder. HTTP is added automatically.
- */ function myCopyright(brandName, builder, site) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _copyright = require("./modules/copyright");
+var _copyrightDefault = parcelHelpers.interopDefault(_copyright);
+var _bmr = require("./modules/bmr");
+var _bmrDefault = parcelHelpers.interopDefault(_bmr);
+_copyrightDefault.default('K.J. Roelke', 'K.J. Roelke', 'kj.roelke.info');
+const forms = Array.from(document.forms);
+forms.forEach((form, index)=>{
+    if (index === 0) _bmrDefault.default(form);
+});
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/copyright":"8Y6tQ","./modules/bmr":"8ZDDN"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"8Y6tQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function myCopyright(brandName, builder, site) {
     const copyright = document.getElementById('copyright');
     const thisYear = new Date().getFullYear();
     const brand = brandName.replace(/ /g, '');
     const builderLink = `<a href="https://${site}?utm_source=${brand}&utm_medium=website_footer&utm_campaign=copyright" target ="_blank">${builder}</a>`;
     copyright.innerHTML = `<p>&copy; ${thisYear} ${brandName} All Rights Reserved.<br/>Site built by ${builderLink}</p>`;
 }
-myCopyright('K.J. Roelke', 'K.J. Roelke', 'kj.roelke.info');
+exports.default = myCopyright;
 
-},{}]},["7nZVA","8lqZg"], "8lqZg", "parcelRequirece37")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8ZDDN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function calculateBMR(form) {
+    const output = form.querySelector('output');
+    const weight = document.getElementById('weight'), age = document.getElementById('age'), heightFt = document.getElementById('height--ft'), heightIn = document.getElementById('height--in');
+    form.addEventListener('submit', (event)=>{
+        event.preventDefault();
+        let gender = '', bmr = 0, height = heightFt.value * 12 + +heightIn.value;
+        console.log(height);
+        const genderOptions = document.getElementsByName('gender');
+        genderOptions.forEach((el, i)=>{
+            if (el.checked) gender = genderOptions[i].value;
+        });
+        if (!output.classList.contains('hidden')) return;
+        output.classList.remove('hidden');
+        if (gender === 'Female') bmr = 655 + 4.35 * weight.value + 4.7 * height - 4.7 * age.value;
+        if (gender === 'Male') bmr = 66 + 6.23 * weight.value + 12.7 * height - 6.8 * age.value;
+        bmr = Math.round(bmr);
+        output.dataset.gender = gender;
+        output.dataset.age = age.value;
+        output.dataset.weight = weight.value;
+        output.dataset.height = height;
+        output.dataset.bmr = bmr;
+        output.innerHTML = `<span><strong>BMR:</strong> ${bmr}</span>`;
+    });
+}
+exports.default = calculateBMR;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["7nZVA","8lqZg"], "8lqZg", "parcelRequirece37")
 
 //# sourceMappingURL=index.975ef6c8.js.map

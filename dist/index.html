@@ -15,32 +15,40 @@
 	  <h2>Hopefully.</h2>
   </header>
   <main>
-	  <form id="bmr-calculator" action="/">
-		  <h2>BMR Calulator!</h2>
+	  <form id="bmr-calculator">
+		  <h2>Step 1: BMR Calulator!</h2>
 		  <fieldset>
 			  <legend>Gender</legend>
-			  <input type="radio" name="gender" id="gender--male"> Male
-			  <input type="radio" name="gender" id="gender--female" checked=""> Female
+			  <div class="radio--options">
+			  <input type="radio" name="gender" value="Male">
+			  <label for="gender--male">Male</label>
+			  <input type="radio" name="gender" checked="" value="Female">
+			  <label for="gender--female">Female</label>
+			</div>
 		</fieldset>
 		<fieldset>
 			<legend>Client Info</legend>
 			<label for="weight">
 			Weight (in pounds)</label>
-			<input type="number">
-			<label for="height">
-			Height (in inches)</label>
-			<input type="number">
+			<input required="" name="weight" type="number" id="weight">
+			<fieldset>
+				<legend>Height</legend>
+				<label for="height">Ft</label>
+				<input required="" id="height--ft" type="number" name="height">
+				<label for="height">In</label>
+				<input required="" id="height--in" type="number" name="height">
+			</fieldset>
 			<label for="age">
 			Age</label>
-			<input type="number">
+			<input required="" type="number" id="age" name="age">
 		</fieldset>
-		<button type="button">Calculate that BMR!</button>
-		<output class="bmr-calculator--answer answer">Answer goes here.</output>
+		<button type="submit">Calculate that BMR!</button>
+		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
 	</form>
 	  <form id="macro-calculator" action="/"><h2>Macro Calulator!</h2>
-		<button type="button">Calculate those macros!</button>
+		<button type="submit">Calculate those macros!</button>
+		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
 	</form>
-	<output class="bmr-calculator--answer answer">Answer goes here.</output>
   </main>
   <footer id="copyright"></footer>
 </body>

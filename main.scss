@@ -21,6 +21,24 @@ $font-body: Arial;
 	justify-content: $main;
 	align-items: $cross;
 }
+@mixin mainBorder($color: $color-primary, $width: 0.5rem, $rounded: 1rem) {
+	border: $width solid $color;
+	border-radius: $rounded;
+}
+@mixin linearGradientDarken($direction: to right bottom) {
+	background-image: linear-gradient(
+		$direction,
+		transparent,
+		rgba(0, 0, 0, 0.35)
+	);
+}
+@mixin transitionStandard {
+	transition: all 0.2s ease;
+}
+@mixin cssHover {
+	transform: scale(1.03);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
+}
 
 // Base
 *,
@@ -42,18 +60,87 @@ body {
 	font-family: $font-body;
 }
 header {
-	@include displayFlex(column);
+	@include displayFlex(column, flex-start, center);
+	@include linearGradientDarken;
+	padding: 6.5rem 0;
+	background-color: $color-primary;
+	& > * {
+		color: white;
+	}
 }
 main {
+	@include displayFlex(column, flex-start, stretch);
+	margin: 0 auto;
+	max-width: 88vw;
 	form {
-		@include displayFlex(column);
-		margin: 0 auto;
-		padding: 65px 0;
+		@include displayFlex(column, flex-start, center);
+		@include mainBorder;
+		padding: 6.5rem 0;
+		margin: 2rem 15vw;
+		font-size: 2rem;
+
+		fieldset {
+			@include displayFlex(column);
+			padding: 2rem;
+
+			&:not(:last-child) {
+				margin-bottom: 2rem;
+			}
+			legend {
+				color: $color-primary;
+				font-weight: 700;
+			}
+			label {
+				margin-bottom: 1rem;
+			}
+			input {
+				margin-bottom: 2rem;
+				@include mainBorder($color-grey--dark, 1px, 0);
+				padding: 1rem;
+			}
+		}
+		button {
+			@include mainBorder;
+			@include transitionStandard;
+			background-color: transparent;
+			padding: 1rem 2rem;
+			cursor: pointer;
+			&:hover,
+			&:focus,
+			&:active {
+				@include cssHover;
+			}
+		}
+		output {
+			@include mainBorder;
+			@include displayFlex(column, space-around, stretch);
+			padding: 3rem;
+			margin: 1rem 0;
+		}
 	}
 }
+
 footer {
 	@include displayFlex(column, center, stretch);
-	p {
+	@include linearGradientDarken;
+	padding: 6.5rem 0;
+	background-color: $color-primary;
+	& > * {
+		color: white;
 		text-align: center;
 	}
+	a {
+		color: white;
+		font-weight: 700;
+		&:hover,
+		&:focus,
+		&:active {
+			font-size: 1.8rem;
+			@include transitionStandard;
+		}
+	}
+}
+
+.hidden {
+	display: none;
 }
