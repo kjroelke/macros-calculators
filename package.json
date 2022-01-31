@@ -1,0 +1,14 @@
+{
+  "name": "macros-calculators",
+  "version": "1.0.0",
+  "description": "A simple, HTML based calculator for macros",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "author": "KJ Roelke",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.2.1"
+  }
+}
