@@ -1,4 +1,3 @@
-console.log('hello');
 /**
  * Create copyright text with a dynamic date and URL campaign builder for GA inside a div with the ID of 'copyright.'
  * @param {string} brandName Name of the brand
