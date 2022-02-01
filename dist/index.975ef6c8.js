@@ -530,7 +530,19 @@ forms.forEach((form, index)=>{
     if (index === 0) _bmrDefault.default(form);
 });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/copyright":"8Y6tQ","./modules/bmr":"8ZDDN"}],"gkKU3":[function(require,module,exports) {
+},{"./modules/copyright":"8Y6tQ","./modules/bmr":"8ZDDN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8Y6tQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function myCopyright(brandName, builder, site) {
+    const copyright = document.getElementById('copyright');
+    const thisYear = new Date().getFullYear();
+    const brand = brandName.replace(/ /g, '');
+    const builderLink = `<a href="https://${site}?utm_source=${brand}&utm_medium=website_footer&utm_campaign=copyright" target ="_blank">${builder}</a>`;
+    copyright.innerHTML = `<p>&copy; ${thisYear} ${brandName} All Rights Reserved.<br/>Site built by ${builderLink}</p>`;
+}
+exports.default = myCopyright;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -560,19 +572,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"8Y6tQ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function myCopyright(brandName, builder, site) {
-    const copyright = document.getElementById('copyright');
-    const thisYear = new Date().getFullYear();
-    const brand = brandName.replace(/ /g, '');
-    const builderLink = `<a href="https://${site}?utm_source=${brand}&utm_medium=website_footer&utm_campaign=copyright" target ="_blank">${builder}</a>`;
-    copyright.innerHTML = `<p>&copy; ${thisYear} ${brandName} All Rights Reserved.<br/>Site built by ${builderLink}</p>`;
-}
-exports.default = myCopyright;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8ZDDN":[function(require,module,exports) {
+},{}],"8ZDDN":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function calculateBMR(form) {

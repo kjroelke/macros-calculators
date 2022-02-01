@@ -45,7 +45,7 @@ main form {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: stretch;
+  align-items: flex-start;
   border: 0.5rem solid #007aeb;
   border-radius: 1rem;
   font-size: 2rem;
@@ -82,7 +82,7 @@ main form button {
   padding: 1rem 2rem;
   background-color: #007aeb;
   color: white;
-  margin-top: auto;
+  margin-top: 3rem;
   cursor: pointer;
 }
 main form button:hover, main form button:focus, main form button:active {
@@ -94,15 +94,21 @@ main form button:hover, main form button:focus, main form button:active {
   color: #007aeb;
 }
 main form output {
-  border: 0.5rem solid #007aeb;
+  border: 0 solid transparent;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: stretch;
+  background-color: #007aeb;
+  background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
+  align-self: center;
   padding: 3rem;
   margin: 1rem 0;
+}
+main form output * {
+  color: white;
 }
 
 footer {
@@ -136,11 +142,17 @@ footer a:hover, footer a:focus, footer a:active {
   background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
   background-color: #007aeb;
   padding: 2rem;
+  align-self: stretch;
 }
 .form__header h2 {
   color: white;
   text-align: center;
 }
 .form__content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 3rem;
 }

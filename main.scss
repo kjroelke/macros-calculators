@@ -74,7 +74,7 @@ main {
 	max-width: 88vw;
 	padding: 65px 0;
 	form {
-		@include displayFlex(column, flex-start, stretch);
+		@include displayFlex(column);
 		@include mainBorder;
 		font-size: 2rem;
 
@@ -105,7 +105,8 @@ main {
 			padding: 1rem 2rem;
 			background-color: $color-primary;
 			color: white;
-			margin-top: auto;
+			// margin-top: auto;
+			margin-top: 3rem;
 			cursor: pointer;
 			&:hover,
 			&:focus,
@@ -117,10 +118,16 @@ main {
 			}
 		}
 		output {
-			@include mainBorder;
+			@include mainBorder(transparent, 0);
 			@include displayFlex(column, space-around, stretch);
+			background-color: $color-primary;
+			@include linearGradientDarken;
+			align-self: center;
 			padding: 3rem;
 			margin: 1rem 0;
+			& * {
+				color: white;
+			}
 		}
 	}
 }
@@ -155,12 +162,14 @@ footer {
 		@include linearGradientDarken;
 		background-color: $color-primary;
 		padding: 2rem;
+		align-self: stretch;
 		h2 {
 			color: white;
 			text-align: center;
 		}
 	}
 	&__content {
+		@include displayFlex(column);
 		padding: 3rem;
 	}
 }

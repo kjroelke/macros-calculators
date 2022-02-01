@@ -55,9 +55,33 @@
 			<h2>Step 2: Modifiers!</h2>
 		</div>
 		<div class="form__content">
-			<button type="submit">Submit those modifiers!</button>
+			<div class="form__content--tdee">
+				<label for="TDEE">Total Daily Energy Expenditure</label>
+				<select name="TDEE" id="tdee">
+					<option value="1.2">Sedentary</option>
+					<option value="1.37">Lighty Active</option>
+					<option value="1.46">Light to Moderately Active</option>
+					<option value="1.55">Moderately Active</option>
+					<option value="1.725">Very Active</option>
+					<option value="1.9">Extremely Active</option>
+				</select>
+			</div>
+			<div class="form__content--deficit">
+				<label for="deficit">Deficit Selector</label>
+				<select name="deficit" id="deficit">
+					<option value=".1">10%</option>
+					<option value=".15" default>15%</option>
+					<option value=".2">20%</option>
+				</select>
+			</div>
+		<button type="submit">Submit those modifiers!</button>
 		</div>
-		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
+		<output class="modifiers--answer answer">
+			<ul>
+				<li>TDEE: BMR x Activity</li>
+				<li>Calorie Goal: TDEE * Deficit</li>
+			</ul>
+		</output>
 	</form>
 	<form id="protein-calculator" class="form">
 		<div class="form__header">
