@@ -522,15 +522,14 @@ function hmrAcceptRun(bundle, id) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _copyright = require("./modules/copyright");
 var _copyrightDefault = parcelHelpers.interopDefault(_copyright);
-var _bmr = require("./modules/bmr");
-var _bmrDefault = parcelHelpers.interopDefault(_bmr);
-_copyrightDefault.default('K.J. Roelke', 'K.J. Roelke', 'kj.roelke.info');
-const forms = Array.from(document.forms);
-forms.forEach((form, index)=>{
-    if (index === 0) _bmrDefault.default(form);
-});
+var _controller = require("./controller");
+var _controllerDefault = parcelHelpers.interopDefault(_controller);
+var _model = require("./model");
+const controller = new _controllerDefault.default();
+controller.calculate();
+_copyrightDefault.default('KJ Roelke', 'kjroelke.online');
 
-},{"./modules/copyright":"8Y6tQ","./modules/bmr":"8ZDDN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8Y6tQ":[function(require,module,exports) {
+},{"./modules/copyright":"8Y6tQ","./controller":"gCE4p","./model":"dEDha","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8Y6tQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function myCopyright(brandName, builder, site) {
@@ -572,34 +571,127 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"8ZDDN":[function(require,module,exports) {
+},{}],"gCE4p":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-function calculateBMR(form) {
-    const output = form.querySelector('output');
-    const weight = document.getElementById('weight'), age = document.getElementById('age'), heightFt = document.getElementById('height--ft'), heightIn = document.getElementById('height--in');
-    form.addEventListener('submit', (event)=>{
-        event.preventDefault();
-        let gender = '', bmr = 0, height = heightFt.value * 12 + +heightIn.value;
-        console.log(height);
-        const genderOptions = document.getElementsByName('gender');
-        genderOptions.forEach((el, i)=>{
-            if (el.checked) gender = genderOptions[i].value;
+var _bmr = require("./modules/bmr");
+var _bmrDefault = parcelHelpers.interopDefault(_bmr);
+var _tdee = require("./modules/tdee");
+var _tdeeDefault = parcelHelpers.interopDefault(_tdee);
+class Controller {
+    constructor(){
+        this.forms = Array.from(document.forms);
+    }
+    calculate() {
+        this.forms.forEach((form, index)=>{
+            if (index === 0) _bmrDefault.default.calculate(form);
+            if (index === 1) _tdeeDefault.default.calculate(form);
         });
-        if (!output.classList.contains('hidden')) return;
-        output.classList.remove('hidden');
-        if (gender === 'Female') bmr = 655 + 4.35 * weight.value + 4.7 * height - 4.7 * age.value;
-        if (gender === 'Male') bmr = 66 + 6.23 * weight.value + 12.7 * height - 6.8 * age.value;
-        bmr = Math.round(bmr);
-        output.dataset.gender = gender;
-        output.dataset.age = age.value;
-        output.dataset.weight = weight.value;
-        output.dataset.height = height;
-        output.dataset.bmr = bmr;
-        output.innerHTML = `<span><strong>BMR:</strong> ${bmr}</span>`;
-    });
+    }
 }
-exports.default = calculateBMR;
+exports.default = Controller;
+
+},{"./modules/bmr":"8ZDDN","./modules/tdee":"4LGou","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8ZDDN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class BMR {
+    constructor(){
+        this.weight = 0;
+        this.age = 0;
+        this.heightFt = 0;
+        this.heightIn = 0;
+    }
+    getValues(el) {
+        return document.getElementById(el);
+    }
+    setValues(el) {
+        if (el === 'weight') this.weight = Number(this.getValues('weight').value);
+        if (el === 'age') this.age = Number(this.getValues('age').value);
+        if (el === 'heightFt') this.heightFt = Number(this.getValues('height--ft').value);
+        if (el === 'heightIn') this.heightIn = Number(this.getValues('height--in').value);
+    }
+    calculate(form) {
+        const output = form.querySelector('output');
+        form.addEventListener('submit', (event)=>{
+            event.preventDefault();
+            this.setValues('weight');
+            this.setValues('age');
+            this.setValues('heightFt');
+            this.setValues('heightIn');
+            let gender = '', bmr = 0, height = this.heightFt * 12 + this.heightIn;
+            const genderOptions = document.getElementsByName('gender');
+            genderOptions.forEach((el, i)=>{
+                if (el.checked) gender = genderOptions[i].value;
+            });
+            if (!output.classList.contains('hidden')) return;
+            output.classList.remove('hidden');
+            if (gender === 'Female') bmr = 655 + 4.35 * this.weight + 4.7 * height - 4.7 * this.age;
+            if (gender === 'Male') bmr = 66 + 6.23 * this.weight + 12.7 * height - 6.8 * this.age;
+            bmr = Math.round(bmr);
+            output.dataset.gender = gender;
+            output.dataset.age = age.value;
+            output.dataset.weight = weight.value;
+            output.dataset.height = height;
+            output.dataset.bmr = bmr;
+            output.innerHTML = `<span><strong>BMR:</strong> ${bmr}</span>`;
+        });
+    }
+}
+exports.default = bmr = new BMR();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4LGou":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class TDEE {
+    constructor(){
+        this.tdee = document.getElementById('tdee');
+        this.deficit = document.getElementById('deficit');
+        this.tdeeValue = 0;
+        this.deficitValue = 0;
+    }
+    setValue(el) {
+        const value = +el.options[el.selectedIndex].value;
+        return value;
+    }
+    calculate(form) {
+        const output = form.querySelector('output');
+        form.addEventListener('submit', (event)=>{
+            event.preventDefault();
+            this.tdeeValue = this.setValue(this.tdee);
+            this.deficitValue = this.setValue(this.deficit);
+            if (!output.classList.contains('hidden')) return;
+            output.classList.remove('hidden');
+            const calorieGoal = this.tdeeValue * this.deficitValue;
+            output.innerHTML = `
+            <span><strong>TDEE Value:</strong> ${this.tdeeValue}</span> <span><strong>Deficit Value:</strong> ${this.deficitValue}</span>
+            <span><strong>Calorie Goal:</strong> ${calorieGoal}</span>`;
+        });
+    }
+}
+exports.default = tdee = new TDEE(); // getValues(el) {
+ // 		return document.getElementById(el);
+ // 	}
+ // 	setValues(el) {
+ // 		if (el === 'weight') this.weight = Number(this.getValues('weight').value);
+ // 		if (el === 'age') this.age = Number(this.getValues('age').value);
+ // 		if (el === 'heightFt')
+ // 			this.heightFt = Number(this.getValues('height--ft').value);
+ // 		if (el === 'heightIn')
+ // 			this.heightIn = Number(this.getValues('height--in').value);
+ // 	}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = state = {
+    gender: '',
+    bmr: 0,
+    modifiers: {
+        activity: 0,
+        deficit: 0
+    },
+    calorieGoal: 0
+};
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["7nZVA","8lqZg"], "8lqZg", "parcelRequirece37")
 
