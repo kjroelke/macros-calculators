@@ -14,9 +14,14 @@ body {
   box-sizing: border-box;
   font-size: 1.6rem;
   font-family: Arial;
+  display: grid;
+  grid-template-columns: [left-spacer] 6% [column-1] 1fr [column-2] 1fr [column-3] 1fr [content-end] 6% [right-spacer];
+  grid-template-rows: [header] 1fr [content-start] auto [content-end] 1fr [footer];
 }
 
 header {
+  grid-row: header;
+  grid-column: left-spacer/right-spacer;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -31,6 +36,8 @@ header > * {
 }
 
 main {
+  grid-row: content-start/content-end;
+  grid-column: column-1/content-end;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -112,6 +119,8 @@ main form output * {
 }
 
 footer {
+  grid-row: content-end/footer;
+  grid-column: 1/-1;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

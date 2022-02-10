@@ -1,0 +1,19 @@
+button {
+	@include transitionStandard;
+	@include mainBorder;
+	font-size: 1.6rem;
+	padding: 1rem 2rem;
+	background-color: $color-primary;
+	color: white;
+	// margin-top: auto;
+	margin-top: 3rem;
+	cursor: pointer;
+	&:hover,
+	&:focus,
+	&:active {
+		background-color: transparent;
+		@include mainBorder;
+		@include cssHover;
+		color: $color-primary;
+	}
+}

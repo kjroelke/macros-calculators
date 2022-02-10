@@ -1,0 +1,30 @@
+@mixin displayFlex(
+	$direction: row,
+	$main: flex-start,
+	$cross: flex-start,
+	$wrap: wrap
+) {
+	display: flex;
+	flex-direction: $direction;
+	flex-wrap: $wrap;
+	justify-content: $main;
+	align-items: $cross;
+}
+@mixin mainBorder($color: $color-primary, $width: 0.5rem, $rounded: 1rem) {
+	border: $width solid $color;
+	border-radius: $rounded;
+}
+@mixin linearGradientDarken($direction: to right bottom) {
+	background-image: linear-gradient(
+		$direction,
+		transparent,
+		rgba(0, 0, 0, 0.35)
+	);
+}
+@mixin transitionStandard {
+	transition: all 0.2s ease;
+}
+@mixin cssHover {
+	transform: scale(1.03);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
+}

@@ -1,0 +1,43 @@
+form {
+	@include displayFlex(column);
+	@include mainBorder;
+	font-size: 2rem;
+
+	fieldset {
+		@include displayFlex(column);
+		padding: 2rem;
+
+		&:not(:last-child) {
+			margin-bottom: 2rem;
+		}
+		legend {
+			color: $color-primary;
+			font-weight: 700;
+		}
+		label {
+			margin-bottom: 1rem;
+		}
+		input {
+			margin-bottom: 2rem;
+			@include mainBorder($color-grey--dark, 1px, 0);
+			padding: 1rem;
+		}
+	}
+}
+
+.form {
+	&__header {
+		@include linearGradientDarken;
+		background-color: $color-primary;
+		padding: 2rem;
+		align-self: stretch;
+		h2 {
+			color: white;
+			text-align: center;
+		}
+	}
+	&__content {
+		@include displayFlex(column);
+		padding: 3rem;
+	}
+}

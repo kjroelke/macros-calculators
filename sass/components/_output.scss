@@ -1,0 +1,12 @@
+output {
+	@include mainBorder(transparent, 0);
+	@include displayFlex(column, space-around, stretch);
+	background-color: $color-primary;
+	@include linearGradientDarken;
+	align-self: center;
+	padding: 3rem;
+	margin: 1rem 0;
+	& * {
+		color: white;
+	}
+}

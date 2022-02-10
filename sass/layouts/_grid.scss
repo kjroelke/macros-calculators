@@ -1,0 +1,20 @@
+body {
+	display: grid;
+	grid-template-columns: [left-spacer] 6% [column-1] 1fr [column-2] 1fr [column-3] 1fr [content-end] 6% [right-spacer];
+	grid-template-rows: [header] 1fr [content-start] auto [content-end] 1fr [footer];
+}
+
+header {
+	grid-row: header;
+	grid-column: left-spacer / right-spacer;
+}
+
+main {
+	grid-row: content-start / content-end;
+	grid-column: column-1 / content-end;
+}
+
+footer {
+	grid-row: content-end / footer;
+	grid-column: 1 / -1;
+}
