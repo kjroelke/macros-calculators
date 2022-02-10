@@ -1,7 +1,7 @@
-import myCopyright from './modules/copyright';
-import Controller from './controller';
-import { state } from './model';
+import controller from './controller';
+import view from './view';
 
-const controller = new Controller();
-controller.calculate();
-myCopyright('KJ Roelke', 'kjroelke.online');
+function init() {
+	view.addHandlerRender(controller.onFormSubmit);
+}
+init();
