@@ -34,6 +34,10 @@ main {
   color: #3d1c11;
 }
 
+section {
+  margin-bottom: 2em;
+}
+
 form {
   border: 0.5rem solid #3d1c11;
   border-radius: 1rem;
@@ -77,17 +81,17 @@ body footer {
   grid-column: 1/-1;
 }
 
-main {
+main .calculators {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 2em;
 }
-main #bmr-calculator {
+main .calculators #bmr-calculator {
   grid-column: 1/2;
   grid-row: 1/-1;
 }
-main #modifiers, main #macro-calculator, main #protein-calculator {
+main .calculators #modifiers, main .calculators #macro-calculator, main .calculators #protein-calculator {
   grid-column: 2/3;
 }
 header {
@@ -184,7 +188,7 @@ footer a:hover, footer a:focus, footer a:active {
   align-items: flex-start;
 }
 
-#modifiers .form__content > *:not(:last-child), main #protein-calculator .form__content > *:not(:last-child), main #macro-calculator .form__content > *:not(:last-child) {
+#modifiers .form__content > *:not(:last-child), main .calculators #protein-calculator .form__content > *:not(:last-child), main .calculators #macro-calculator .form__content > *:not(:last-child) {
   margin-bottom: 1em;
 }
 
@@ -208,22 +212,46 @@ button:hover, button:focus, button:active {
   color: #3d1c11;
 }
 
-output {
-  border: 0 solid transparent;
+.answer {
+  border: 0.5rem solid #3d1c11;
   border-radius: 1rem;
+  background-color: white;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: stretch;
-  background-color: #3d1c11;
-  background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
-  padding: 3rem;
-  margin: 1rem;
-  color: white;
+  overflow: hidden;
+  color: #3d1c11;
 }
-output * {
-  color: white;
+.answer * {
+  color: #3d1c11;
 }
-
+.answer__header {
+  background-color: #d2bdb6;
+  padding: 2em;
+}
+.answer__header h2 {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 700;
+}
+.answer__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 3em;
+}
+.answer__container .percents, .answer__container .totals {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.answer__container .percents > *, .answer__container .totals > * {
+  margin: 0 0.5em;
+}
 /* Nice. */

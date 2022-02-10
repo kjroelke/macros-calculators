@@ -1,12 +1,32 @@
-output {
-	@include mainBorder(transparent, 0);
-	@include displayFlex(column, space-around, stretch);
-	background-color: $color-primary;
-	@include linearGradientDarken;
-	padding: 3rem;
-	margin: 1rem;
-	color: white;
+.answer {
+	@include mainBorder($color-primary);
+	background-color: white;
+	@include displayFlex(column, flex-start, stretch);
+	overflow: hidden;
+	color: $color-primary;
 	& * {
-		color: white;
+		color: $color-primary;
+	}
+	&__header {
+		background-color: $color-secondary--light;
+		padding: 2em;
+		h2 {
+			text-transform: uppercase;
+			text-align: center;
+			font-weight: 700;
+		}
+	}
+	&__container {
+		@include displayFlex(row, space-around);
+		padding: 3em;
+		.percents {
+			@include displayFlex(row, center, center);
+			& > * {
+				margin: 0 0.5em;
+			}
+		}
+		.totals {
+			@extend .percents;
+		}
 	}
 }

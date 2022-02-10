@@ -24,7 +24,9 @@ main {
 	padding: 6.5rem 0;
 	color: $color-primary;
 }
-
+section {
+	margin-bottom: 2em;
+}
 form {
 	@include mainBorder;
 	font-size: 2rem;

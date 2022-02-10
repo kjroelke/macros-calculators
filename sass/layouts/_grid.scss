@@ -20,21 +20,24 @@ body {
 	}
 }
 main {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(3, 1fr);
-	gap: 2em;
-	#bmr-calculator {
-		grid-column: 1 / 2;
-		grid-row: 1 / -1;
-	}
-	#modifiers {
-		grid-column: 2 / 3;
-	}
-	#protein-calculator {
-		@extend #modifiers;
-	}
-	#macro-calculator {
-		@extend #modifiers;
+	.calculators {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		gap: 2em;
+
+		#bmr-calculator {
+			grid-column: 1 / 2;
+			grid-row: 1 / -1;
+		}
+		#modifiers {
+			grid-column: 2 / 3;
+		}
+		#protein-calculator {
+			@extend #modifiers;
+		}
+		#macro-calculator {
+			@extend #modifiers;
+		}
 	}
 }

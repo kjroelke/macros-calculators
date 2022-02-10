@@ -6,7 +6,7 @@ class Form {
 	/** Takes an HTML string to render to the form's output.
 	 * @param markup {string} - the HTML to markup.
 	 */
-	renderOutput(markup, state) {
+	renderOutput(markup) {
 		if (!this.output.classList.contains('hidden')) return;
 		this.output.classList.remove('hidden');
 		this.output.innerHTML = markup;

@@ -20,12 +20,12 @@ class View {
 		let markup = `<h1>Hello there.</h1>`;
 		if (form === this.bmr.form.id) {
 			markup = `<span><strong>BMR:</strong> ${state.bmr}</span>`;
-			this.bmr.renderOutput(markup, state);
+			this.bmr.renderOutput(markup);
 		}
 		if (form === this.tdee.form.id) {
-			markup = `<span><strong>TDEE Value:</strong> ${state.tdeeValue}</span> <span><strong>Deficit Value:</strong> ${state.deficitValue}</span>
+			markup = `<span><strong>TDEE Value:</strong> ${state.tdee}</span>
             <span><strong>Calorie Goal:</strong> ${state.calorieGoal}</span>`;
-			this.tdee.renderOutput(markup, state);
+			this.tdee.renderOutput(markup);
 		}
 	}
 }
