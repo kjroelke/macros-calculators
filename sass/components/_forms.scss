@@ -1,34 +1,9 @@
-form {
-	@include displayFlex(column);
-	@include mainBorder;
-	font-size: 2rem;
-
-	fieldset {
-		@include displayFlex(column);
-		padding: 2rem;
-
-		&:not(:last-child) {
-			margin-bottom: 2rem;
-		}
-		legend {
-			color: $color-primary;
-			font-weight: 700;
-		}
-		label {
-			margin-bottom: 1rem;
-		}
-		input {
-			margin-bottom: 2rem;
-			@include mainBorder($color-grey--dark, 1px, 0);
-			padding: 1rem;
-		}
-	}
-}
-
 .form {
+	background-color: white;
+	@include displayFlex(column);
 	&__header {
 		@include linearGradientDarken;
-		background-color: $color-primary;
+		background-color: $color-secondary;
 		padding: 2rem;
 		align-self: stretch;
 		h2 {
@@ -37,7 +12,32 @@ form {
 		}
 	}
 	&__content {
-		@include displayFlex(column);
+		@include displayFlex(column, flex-start, stretch);
 		padding: 3rem;
+		&--fields {
+			@include displayFlex(row, space-around);
+		}
+	}
+	button {
+		margin: auto 1em 1em 1em;
+		align-self: start;
+	}
+	.answer {
+		align-self: start;
+	}
+}
+
+#bmr-calculator {
+	@include displayFlex(column, flex-start, stretch);
+	width: calc(80rem);
+	.form__content {
+		@include displayFlex(row, space-between);
+	}
+}
+#modifiers {
+	.form__content {
+		& > *:not(:last-child) {
+			margin-bottom: 1em;
+		}
 	}
 }

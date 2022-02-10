@@ -1,8 +1,8 @@
 header {
 	@include displayFlex(column, flex-start, center);
+	background-color: $color-secondary;
 	@include linearGradientDarken;
 	padding: 6.5rem 0;
-	background-color: $color-primary;
 	& > * {
 		color: white;
 	}

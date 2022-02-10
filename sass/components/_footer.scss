@@ -1,8 +1,8 @@
 footer {
 	@include displayFlex(column, center, stretch);
+	background-color: $color-primary--light;
 	@include linearGradientDarken;
 	padding: 6.5rem 0;
-	background-color: $color-primary;
 	& > * {
 		color: white;
 		text-align: center;

@@ -15,11 +15,36 @@ body {
 	box-sizing: border-box;
 	font-size: 1.6rem;
 	font-family: $font-body;
+	background-color: $color-secondary--light;
 }
 
 main {
-	@include displayFlex(row, space-around, stretch);
 	margin: 0 auto;
 	max-width: 88vw;
 	padding: 6.5rem 0;
+	color: $color-primary;
+}
+
+form {
+	@include mainBorder;
+	font-size: 2rem;
+	fieldset {
+		padding: 2rem;
+
+		&:not(:last-child) {
+			margin-bottom: 2rem;
+		}
+		legend {
+			color: $color-primary;
+			font-weight: 700;
+		}
+		label {
+			margin-bottom: 1rem;
+		}
+		input {
+			margin-bottom: 2rem;
+			@include mainBorder($color-grey--dark, 1px, 0);
+			padding: 1rem;
+		}
+	}
 }

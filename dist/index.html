@@ -16,36 +16,36 @@
 	</header>
   <main>
 	  <form id="bmr-calculator" class="form">
-		  <div class="form__header">
-			  <h2>Step 1: BMR Calulator!</h2>
-		  </div>
-		  <div class="form__content">
-		  	<fieldset>
-			  <legend>Gender</legend>
-			  <div class="radio--options">
-			  <input type="radio" name="gender" value="Male">
-			  <label for="gender--male">Male</label>
-			  <input type="radio" name="gender" checked="" value="Female">
-			  <label for="gender--female">Female</label>
+		<div class="form__header">
+			<h2>Step 1: BMR Calculator!</h2>
+		</div>
+		<div class="form__content">
+				<fieldset>
+				  	<legend>Gender</legend>
+				  	<div class="radio--options">
+				  		<input type="radio" name="gender" value="Male">
+				  		<label for="gender--male">Male</label>
+				  		<input type="radio" name="gender" checked="" value="Female">
+				  		<label for="gender--female">Female</label>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Client Info</legend>
+					<label for="weight">Weight (in pounds)</label>
+					<input required="" name="weight" type="number" id="weight">
+					<fieldset>
+						<legend>Height</legend>
+						<label for="height">Ft</label>
+						<input required="" id="height--ft" type="number" name="height">
+						<label for="height">In</label>
+						<input required="" id="height--in" type="number" name="height">
+					</fieldset>
+					<label for="age">Age</label>
+					<input required="" type="number" id="age" name="age">
+				</fieldset>
 			</div>
-		</fieldset>
-		<fieldset>
-				<legend>Client Info</legend>
-				<label for="weight">Weight (in pounds)</label>
-				<input required="" name="weight" type="number" id="weight">
-			<fieldset>
-				<legend>Height</legend>
-				<label for="height">Ft</label>
-				<input required="" id="height--ft" type="number" name="height">
-				<label for="height">In</label>
-				<input required="" id="height--in" type="number" name="height">
-			</fieldset>
-			<label for="age">Age</label>
-			<input required="" type="number" id="age" name="age">
-		</fieldset>
-		<button type="submit">Calculate that BMR!</button>
-	</div>
-		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
+			<button type="submit">Calculate that BMR!</button>
+			<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
 	</form>
 	<form id="modifiers" class="form">
 		<div class="form__header">
@@ -71,8 +71,8 @@
 					<option value=".2" selected="">20%</option>
 				</select>
 			</div>
-		<button type="submit">Submit those modifiers!</button>
 		</div>
+		<button type="submit">Submit those modifiers!</button>
 		<output class="modifiers--answer answer hidden">
 			<ul>
 				<li>TDEE: BMR x Activity</li>
@@ -85,17 +85,17 @@
 			<h2>Step 3: Protein Calculator!</h2>
 		</div>
 		<div class="form__content">
-			<button type="submit">Calculate those macros!</button>
 		</div>
+		<button type="submit">Calculate those macros!</button>
 		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
 	</form>
 	<form id="macro-calculator" class="form">
 		<div class="form__header">
-			<h2>Macro Calulator!</h2>
+			<h2>Macro Calculator!</h2>
 		</div>
 		<div class="form__content">
-			<button type="submit">Calculate those macros!</button>
 		</div>
+		<button type="submit">Calculate those macros!</button>
 		<output class="bmr-calculator--answer answer hidden">Answer goes here.</output>
 	</form>
   </main>

@@ -1,20 +1,40 @@
 body {
 	display: grid;
-	grid-template-columns: [left-spacer] 6% [column-1] 1fr [column-2] 1fr [column-3] 1fr [content-end] 6% [right-spacer];
+	grid-template-columns: minmax(0, 6%) [content-start] auto [content-end] minmax(
+			0,
+			6%
+		);
 	grid-template-rows: [header] 1fr [content-start] auto [content-end] 1fr [footer];
-}
 
-header {
-	grid-row: header;
-	grid-column: left-spacer / right-spacer;
+	header {
+		grid-row: header / content-start;
+		grid-column: 1 / -1;
+	}
+	main {
+		grid-row: content-start / content-end;
+		grid-column: content-start / content-end;
+	}
+	footer {
+		grid-row: content-end / footer;
+		grid-column: 1 / -1;
+	}
 }
-
 main {
-	grid-row: content-start / content-end;
-	grid-column: column-1 / content-end;
-}
-
-footer {
-	grid-row: content-end / footer;
-	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	gap: 2em;
+	#bmr-calculator {
+		grid-column: 1 / 2;
+		grid-row: 1 / -1;
+	}
+	#modifiers {
+		grid-column: 2 / 3;
+	}
+	#protein-calculator {
+		@extend #modifiers;
+	}
+	#macro-calculator {
+		@extend #modifiers;
+	}
 }

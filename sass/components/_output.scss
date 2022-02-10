@@ -3,9 +3,9 @@ output {
 	@include displayFlex(column, space-around, stretch);
 	background-color: $color-primary;
 	@include linearGradientDarken;
-	align-self: center;
 	padding: 3rem;
-	margin: 1rem 0;
+	margin: 1rem;
+	color: white;
 	& * {
 		color: white;
 	}
