@@ -520,26 +520,112 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"8lqZg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _copyright = require("./modules/copyright");
-var _copyrightDefault = parcelHelpers.interopDefault(_copyright);
 var _controller = require("./controller");
 var _controllerDefault = parcelHelpers.interopDefault(_controller);
-var _model = require("./model");
-const controller = new _controllerDefault.default();
-controller.calculate();
-_copyrightDefault.default('KJ Roelke', 'kjroelke.online');
+var _view = require("./view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+function init() {
+    _viewDefault.default.addHandlerRender(_controllerDefault.default.onFormSubmit);
+}
+init();
 
-},{"./modules/copyright":"8Y6tQ","./controller":"gCE4p","./model":"dEDha","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8Y6tQ":[function(require,module,exports) {
+},{"./controller":"gCE4p","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view":"ai2uB"}],"gCE4p":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-function myCopyright(brandName, builder, site) {
-    const copyright = document.getElementById('copyright');
-    const thisYear = new Date().getFullYear();
-    const brand = brandName.replace(/ /g, '');
-    const builderLink = `<a href="https://${site}?utm_source=${brand}&utm_medium=website_footer&utm_campaign=copyright" target ="_blank">${builder}</a>`;
-    copyright.innerHTML = `<p>&copy; ${thisYear} ${brandName} All Rights Reserved.<br/>Site built by ${builderLink}</p>`;
+var _model = require("./model");
+var _modelDefault = parcelHelpers.interopDefault(_model);
+var _tdee = require("./modules/Views/tdee");
+var _tdeeDefault = parcelHelpers.interopDefault(_tdee);
+var _view = require("./view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class Controller {
+    constructor(Model, View){
+        this.model = Model;
+        this.view = View;
+    }
+    /** Subscribed to the AddHandlerRender(), this prevents page reload and calls in the Maths.
+	 * @param ev {object} - the Event
+	 */ onFormSubmit(ev) {
+        ev.preventDefault();
+        // The Maths by Model
+        _modelDefault.default.calculate(ev.target, ev.target.id);
+        // The Output by View
+        _viewDefault.default.handleOutput(ev.target.id, _modelDefault.default.state);
+    }
 }
-exports.default = myCopyright;
+exports.default = new Controller(_modelDefault.default, _viewDefault.default); /** MVC Calculate
+ * 1. View Receives a Form
+ * 2. Controller Passes View info to Model
+ * 3. Model Does some Math
+ *   - Updates State
+ * 4. Controller tells View to update Output
+ */ 
+
+},{"./model":"dEDha","./modules/Views/tdee":"09oNs","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class Model {
+    state = {
+        person: {
+            gender: '',
+            weight: 0,
+            heightFt: 0,
+            heightIn: 0,
+            age: 0
+        },
+        bmr: 0,
+        calorieGoal: 0,
+        modifiers: {
+            activity: 0,
+            deficit: 0
+        },
+        tdee: 0
+    };
+    calculate(form, id) {
+        switch(id){
+            case 'bmr-calculator':
+                this.#calcBMR(form);
+                break;
+            case 'modifiers':
+                try {
+                    this.#calcTDEE(form);
+                } catch (err) {
+                    alert(err);
+                }
+                break;
+        }
+    }
+     #getOptionsValue(el) {
+        const value = +el.options[el.selectedIndex].value;
+        return value;
+    }
+     #calcTDEE(form) {
+        const activity = form.querySelector('#tdee'), deficit = form.querySelector('#deficit');
+        this.state.modifiers.activity = this.#getOptionsValue(activity);
+        this.state.modifiers.deficit = this.#getOptionsValue(deficit);
+        if (this.state.bmr === 0) throw 'Calculate BMR First!!';
+        this.state.tdee = Math.round(this.state.bmr * this.state.modifiers.activity);
+        this.state.calorieGoal = Math.round(this.state.tdee - this.state.tdee * this.state.modifiers.deficit);
+    }
+     #calcHeight(ft, inch) {
+        const height = Number(ft.value) * 12 + Number(inch.value);
+        return height;
+    }
+     #calcBMR(form1) {
+        const weight = form1.querySelector('#weight'), heightFt = form1.querySelector('#height--ft'), heightIn = form1.querySelector('#height--in'), age = form1.querySelector('#age'), genderOptions = form1.querySelectorAll('input[type="radio"]'), height = this.#calcHeight(heightFt, heightIn);
+        this.state.person.weight = Number(weight.value);
+        this.state.person.age = Number(age.value);
+        this.state.person.heightFt = Number(heightFt.value);
+        this.state.person.heightIn = Number(heightIn.value);
+        let bmr = 0;
+        genderOptions.forEach((el1, i)=>{
+            if (el1.checked) this.state.person.gender = genderOptions[i].value;
+        });
+        bmr = this.state.person.gender === 'Female' ? bmr = 655 + 4.35 * this.state.person.weight + 4.7 * height - 4.7 * this.state.person.age : 66 + 6.23 * this.state.person.weight + 12.7 * height - 6.8 * this.state.person.age;
+        this.state.bmr = Math.round(bmr);
+    }
+}
+exports.default = new Model();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -571,127 +657,96 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"gCE4p":[function(require,module,exports) {
+},{}],"09oNs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _form = require("../../Form");
+var _formDefault = parcelHelpers.interopDefault(_form);
+
+},{"../../Form":"gUX6g","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gUX6g":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _bmr = require("./modules/bmr");
-var _bmrDefault = parcelHelpers.interopDefault(_bmr);
-var _tdee = require("./modules/tdee");
-var _tdeeDefault = parcelHelpers.interopDefault(_tdee);
-class Controller {
-    constructor(){
-        this.forms = Array.from(document.forms);
+parcelHelpers.export(exports, "tdee", ()=>tdee
+);
+parcelHelpers.export(exports, "bmr", ()=>bmr
+);
+parcelHelpers.export(exports, "protein", ()=>protein
+);
+parcelHelpers.export(exports, "macros", ()=>macros
+);
+class Form {
+    constructor(id){
+        this.form = document.getElementById(id);
+        this.output = this.form.querySelector('output');
     }
-    calculate() {
-        this.forms.forEach((form, index)=>{
-            if (index === 0) _bmrDefault.default.calculate(form);
-            if (index === 1) _tdeeDefault.default.calculate(form);
-        });
+    /** Takes an HTML string to render to the form's output.
+	 * @param markup {string} - the HTML to markup.
+	 */ renderOutput(markup, state) {
+        if (!this.output.classList.contains('hidden')) return;
+        this.output.classList.remove('hidden');
+        this.output.innerHTML = markup;
     }
 }
-exports.default = Controller;
+const tdee = new Form('modifiers');
+const bmr = new Form('bmr-calculator');
+const protein = new Form('protein-calculator');
+const macros = new Form('macro-calculator');
 
-},{"./modules/bmr":"8ZDDN","./modules/tdee":"4LGou","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8ZDDN":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ai2uB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-class BMR {
+var _copyright = require("./modules/copyright");
+var _copyrightDefault = parcelHelpers.interopDefault(_copyright);
+var _form = require("./Form");
+class View {
+    forms = document.querySelectorAll('form');
+    tdee = _form.tdee;
+    bmr = _form.bmr;
+    proteins = _form.protein;
+    macros = _form.macros;
     constructor(){
-        this.weight = 0;
-        this.age = 0;
-        this.heightFt = 0;
-        this.heightIn = 0;
+        _copyrightDefault.default('KJ Roelke', 'kjroelke.online');
     }
-    getValues(el) {
-        return document.getElementById(el);
+    /** Attaches a callback function to each form's 'submit' and passes along the event.
+	 * @param handler {function} - the callback function
+	 */ addHandlerRender(handler) {
+        this.forms.forEach((form)=>form.addEventListener('submit', handler)
+        );
     }
-    setValues(el) {
-        if (el === 'weight') this.weight = Number(this.getValues('weight').value);
-        if (el === 'age') this.age = Number(this.getValues('age').value);
-        if (el === 'heightFt') this.heightFt = Number(this.getValues('height--ft').value);
-        if (el === 'heightIn') this.heightIn = Number(this.getValues('height--in').value);
-    }
-    calculate(form) {
-        const output = form.querySelector('output');
-        form.addEventListener('submit', (event)=>{
-            event.preventDefault();
-            this.setValues('weight');
-            this.setValues('age');
-            this.setValues('heightFt');
-            this.setValues('heightIn');
-            let gender = '', bmr = 0, height = this.heightFt * 12 + this.heightIn;
-            const genderOptions = document.getElementsByName('gender');
-            genderOptions.forEach((el, i)=>{
-                if (el.checked) gender = genderOptions[i].value;
-            });
-            if (!output.classList.contains('hidden')) return;
-            output.classList.remove('hidden');
-            if (gender === 'Female') bmr = 655 + 4.35 * this.weight + 4.7 * height - 4.7 * this.age;
-            if (gender === 'Male') bmr = 66 + 6.23 * this.weight + 12.7 * height - 6.8 * this.age;
-            bmr = Math.round(bmr);
-            output.dataset.gender = gender;
-            output.dataset.age = age.value;
-            output.dataset.weight = weight.value;
-            output.dataset.height = height;
-            output.dataset.bmr = bmr;
-            output.innerHTML = `<span><strong>BMR:</strong> ${bmr}</span>`;
-        });
+    handleOutput(form, state) {
+        let markup = `<h1>Hello there.</h1>`;
+        if (form === this.bmr.form.id) {
+            markup = `<span><strong>BMR:</strong> ${state.bmr}</span>`;
+            this.bmr.renderOutput(markup, state);
+        }
+        if (form === this.tdee.form.id) {
+            markup = `<span><strong>TDEE Value:</strong> ${state.tdeeValue}</span> <span><strong>Deficit Value:</strong> ${state.deficitValue}</span>
+            <span><strong>Calorie Goal:</strong> ${state.calorieGoal}</span>`;
+            this.tdee.renderOutput(markup, state);
+        }
     }
 }
-exports.default = bmr = new BMR();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4LGou":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-class TDEE {
-    constructor(){
-        this.tdee = document.getElementById('tdee');
-        this.deficit = document.getElementById('deficit');
-        this.tdeeValue = 0;
-        this.deficitValue = 0;
-    }
-    setValue(el) {
-        const value = +el.options[el.selectedIndex].value;
-        return value;
-    }
-    calculate(form) {
-        const output = form.querySelector('output');
-        form.addEventListener('submit', (event)=>{
-            event.preventDefault();
-            this.tdeeValue = this.setValue(this.tdee);
-            this.deficitValue = this.setValue(this.deficit);
-            if (!output.classList.contains('hidden')) return;
-            output.classList.remove('hidden');
-            const calorieGoal = this.tdeeValue * this.deficitValue;
-            output.innerHTML = `
-            <span><strong>TDEE Value:</strong> ${this.tdeeValue}</span> <span><strong>Deficit Value:</strong> ${this.deficitValue}</span>
-            <span><strong>Calorie Goal:</strong> ${calorieGoal}</span>`;
-        });
-    }
+exports.default = new View();
+// BMR View Markup
+function bmrOutput(markup) {
+    // Move to the View?
+    output.dataset.gender = gender;
+    output.dataset.age = age.value;
+    output.dataset.weight = weight.value;
+    output.dataset.height = height;
+    output.dataset.bmr = bmr;
 }
-exports.default = tdee = new TDEE(); // getValues(el) {
- // 		return document.getElementById(el);
- // 	}
- // 	setValues(el) {
- // 		if (el === 'weight') this.weight = Number(this.getValues('weight').value);
- // 		if (el === 'age') this.age = Number(this.getValues('age').value);
- // 		if (el === 'heightFt')
- // 			this.heightFt = Number(this.getValues('height--ft').value);
- // 		if (el === 'heightIn')
- // 			this.heightIn = Number(this.getValues('height--in').value);
- // 	}
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/copyright":"8Y6tQ","./Form":"gUX6g"}],"8Y6tQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = state = {
-    gender: '',
-    bmr: 0,
-    modifiers: {
-        activity: 0,
-        deficit: 0
-    },
-    calorieGoal: 0
-};
+function myCopyright(brandName, builder, site) {
+    const copyright = document.getElementById('copyright');
+    const thisYear = new Date().getFullYear();
+    const brand = brandName.replace(/ /g, '');
+    const builderLink = `<a href="https://${site}?utm_source=${brand}&utm_medium=website_footer&utm_campaign=copyright" target ="_blank">${builder}</a>`;
+    copyright.innerHTML = `<p>&copy; ${thisYear} ${brandName} All Rights Reserved.<br/>Site built by ${builderLink}</p>`;
+}
+exports.default = myCopyright;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["7nZVA","8lqZg"], "8lqZg", "parcelRequirece37")
 

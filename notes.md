@@ -20,7 +20,7 @@ BMR x Activity Level Multipliers = TDEE
 
 Activity Level Multipliers:
 - Sedentary: 1.2
-- Lightly Active: 1.37
+- Lightly Active: 1.375
 - Light to Moderately Active: 1.46
 - Moderately Active: 1.55
 - Very Active: 1.725

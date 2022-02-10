@@ -10,7 +10,10 @@
 	</head>
 	<body>
 <body>
-  
+	<header>
+		<h1>A Fool-Proof Macro Calculator</h1>
+		<h2>Hopefully.</h2>
+	</header>
   <main>
 	  <form id="bmr-calculator" class="form">
 		  <div class="form__header">
@@ -28,8 +31,8 @@
 		</fieldset>
 		<fieldset>
 				<legend>Client Info</legend>
-			<label for="weight">Weight (in pounds)</label>
-			<input required="" name="weight" type="number" id="weight">
+				<label for="weight">Weight (in pounds)</label>
+				<input required="" name="weight" type="number" id="weight">
 			<fieldset>
 				<legend>Height</legend>
 				<label for="height">Ft</label>
@@ -52,8 +55,8 @@
 			<div class="form__content--tdee">
 				<label for="TDEE">Total Daily Energy Expenditure</label>
 				<select name="TDEE" id="tdee">
-					<option value="1.2">Sedentary</option>
-					<option value="1.37">Lighty Active</option>
+					<option value="1.2">Sedentary | < 5k Steps</option>
+					<option value="1.375">Lighty Active</option>
 					<option value="1.46">Light to Moderately Active</option>
 					<option value="1.55">Moderately Active</option>
 					<option value="1.725">Very Active</option>
@@ -64,8 +67,8 @@
 				<label for="deficit">Deficit Selector</label>
 				<select name="deficit" id="deficit">
 					<option value=".1">10%</option>
-					<option value=".15" default="">15%</option>
-					<option value=".2">20%</option>
+					<option value=".15">15%</option>
+					<option value=".2" selected="">20%</option>
 				</select>
 			</div>
 		<button type="submit">Submit those modifiers!</button>
