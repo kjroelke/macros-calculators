@@ -534,8 +534,6 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _model = require("./model");
 var _modelDefault = parcelHelpers.interopDefault(_model);
-var _tdee = require("./modules/Views/tdee");
-var _tdeeDefault = parcelHelpers.interopDefault(_tdee);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class Controller {
@@ -561,9 +559,10 @@ exports.default = new Controller(_modelDefault.default, _viewDefault.default); /
  * 4. Controller tells View to update Output
  */ 
 
-},{"./model":"dEDha","./modules/Views/tdee":"09oNs","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
+},{"./model":"dEDha","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _form = require("./Form");
 class Model {
     state = {
         person: {
@@ -577,9 +576,27 @@ class Model {
         calorieGoal: 0,
         modifiers: {
             activity: 0,
-            deficit: 0
+            deficit: 0,
+            protein: 0
         },
-        tdee: 0
+        tdee: 0,
+        macros: {
+            fats: {
+                percentage: 30,
+                grams: 0,
+                calories: 0
+            },
+            proteins: {
+                percentage: 30,
+                grams: 0,
+                calories: 0
+            },
+            carbs: {
+                percentage: 30,
+                grams: 0,
+                calories: 0
+            }
+        }
     };
     calculate(form, id) {
         switch(id){
@@ -590,44 +607,127 @@ class Model {
                 try {
                     this.#calcTDEE(form);
                 } catch (err) {
-                    alert(err);
+                    console.error(err);
+                }
+                break;
+            case 'protein-calculator':
+                try {
+                    this.#calcMacros(form);
+                } catch (err1) {
+                    console.error(err1);
                 }
                 break;
         }
-    }
-     #getOptionsValue(el) {
-        const value = +el.options[el.selectedIndex].value;
-        return value;
-    }
-     #calcTDEE(form) {
-        const activity = form.querySelector('#tdee'), deficit = form.querySelector('#deficit');
-        this.state.modifiers.activity = this.#getOptionsValue(activity);
-        this.state.modifiers.deficit = this.#getOptionsValue(deficit);
-        if (this.state.bmr === 0) throw 'Calculate BMR First!!';
-        this.state.tdee = Math.round(this.state.bmr * this.state.modifiers.activity);
-        this.state.calorieGoal = Math.round(this.state.tdee - this.state.tdee * this.state.modifiers.deficit);
     }
      #calcHeight(ft, inch) {
         const height = Number(ft.value) * 12 + Number(inch.value);
         return height;
     }
-     #calcBMR(form1) {
-        const weight = form1.querySelector('#weight'), heightFt = form1.querySelector('#height--ft'), heightIn = form1.querySelector('#height--in'), age = form1.querySelector('#age'), genderOptions = form1.querySelectorAll('input[type="radio"]'), height = this.#calcHeight(heightFt, heightIn);
-        this.state.person.weight = Number(weight.value);
-        this.state.person.age = Number(age.value);
-        this.state.person.heightFt = Number(heightFt.value);
-        this.state.person.heightIn = Number(heightIn.value);
-        let bmr = 0;
+     #getOptionsValue(el) {
+        const value = +el.options[el.selectedIndex].value;
+        return value;
+    }
+     #calcBMR(form) {
+        // Get Form Values
+        const weightVal = form.querySelector('#weight'), heightFtVal = form.querySelector('#height--ft'), heightInVal = form.querySelector('#height--in'), ageVal = form.querySelector('#age'), genderOptions = form.querySelectorAll('input[type="radio"]'), height = this.#calcHeight(heightFtVal, heightInVal);
+        // Set State to Form Values
+        this.state.person = {
+            weight: Number(weightVal.value),
+            age: Number(ageVal.value),
+            heightFt: Number(heightFtVal.value),
+            heightIn: Number(heightInVal.value)
+        };
         genderOptions.forEach((el1, i)=>{
             if (el1.checked) this.state.person.gender = genderOptions[i].value;
         });
-        bmr = this.state.person.gender === 'Female' ? bmr = 655 + 4.35 * this.state.person.weight + 4.7 * height - 4.7 * this.state.person.age : 66 + 6.23 * this.state.person.weight + 12.7 * height - 6.8 * this.state.person.age;
+        // Destructure State
+        const { person: { weight , age , gender  } ,  } = this.state;
+        let bmr = 0;
+        // Calc BMR
+        bmr = gender === 'Female' ? 655 + 4.35 * weight + 4.7 * height - 4.7 * age : 66 + 6.23 * weight + 12.7 * height - 6.8 * age;
         this.state.bmr = Math.round(bmr);
+    }
+     #calcTDEE(form1) {
+        // Get Values
+        const activityVal = form1.querySelector('#tdee'), deficitVal = form1.querySelector('#deficit');
+        // Destructure State
+        const { bmr  } = this.state;
+        let { calorieGoal , tdee , modifiers: { activity , deficit  } ,  } = this.state;
+        if (bmr === 0) throw 'Calculate BMR First!!';
+        activity = this.#getOptionsValue(activityVal);
+        deficit = this.#getOptionsValue(deficitVal);
+        // The Math
+        tdee = Math.round(bmr * activity);
+        if (deficit < 1) calorieGoal = Math.round(tdee - tdee * deficit);
+        if (deficit === 1) calorieGoal = tdee;
+        if (deficit > 1) calorieGoal = Math.round(tdee * deficit);
+        // Update State
+        this.state.modifiers = {
+            activity: activity,
+            deficit: deficit
+        };
+        this.state.tdee = tdee;
+        this.state.calorieGoal = calorieGoal;
+    }
+     #calcMacros(form2) {
+        if (this.state.tdee === 0) throw 'Do the rest of the form first!';
+        // Get Form
+        const proteinMod = form2.querySelector('#protein-modifier');
+        // Destructure State
+        let { macros , modifiers  } = this.state;
+        const { calorieGoal  } = this.state;
+        // Set Protein Modifier to State
+        modifiers.protein = this.#getOptionsValue(proteinMod);
+        // Calc Proteins
+        this.#calcProteins(macros.proteins, modifiers.protein);
+        // Calc Fats
+        this.#calcFats(macros.fats);
+        // Calc Carbs
+        this.#calcCarbs(macros, calorieGoal);
+        console.log(this.state);
+    }
+     #calcProteins(proteins, modifier) {
+        let { grams , calories , percentage  } = proteins;
+        grams = Math.round(this.state.person.weight * modifier);
+        calories = Math.round(grams * 4);
+        percentage = Math.round(calories / this.state.calorieGoal * 100);
+        this.state.macros.proteins = {
+            grams: grams,
+            calories: calories,
+            percentage: percentage
+        };
+    }
+     #calcFats(fats) {
+        let { grams , calories , percentage  } = fats;
+        percentage = 30;
+        calories = Math.round(percentage / 100 * this.state.calorieGoal);
+        grams = Math.round(calories / 9);
+        this.state.macros.fats = {
+            grams: grams,
+            calories: calories,
+            percentage: percentage
+        };
+    }
+     #calcCarbs(macros, goal) {
+        let { carbs: { grams: cGrams , percentage: cPercent , calories: cCals  } , fats: { calories: fCals  } , proteins: { calories: pCals  } ,  } = macros;
+        /**
+		 * The Maths
+		 * Goal = 1828
+		 * fCals =
+		 *
+		 */ cCals = Math.round(goal - fCals - pCals);
+        cGrams = Math.round(cCals / 4);
+        cPercent = Math.round(cCals / goal * 100);
+        this.state.macros.carbs = {
+            calories: cCals,
+            grams: cGrams,
+            percentage: cPercent
+        };
     }
 }
 exports.default = new Model();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Form":"gUX6g"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -657,39 +757,79 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"09oNs":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _form = require("../../Form");
-var _formDefault = parcelHelpers.interopDefault(_form);
-
-},{"../../Form":"gUX6g","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gUX6g":[function(require,module,exports) {
+},{}],"gUX6g":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "tdee", ()=>tdee
-);
 parcelHelpers.export(exports, "bmr", ()=>bmr
+);
+parcelHelpers.export(exports, "mods", ()=>mods
+);
+parcelHelpers.export(exports, "calories", ()=>calories
 );
 parcelHelpers.export(exports, "protein", ()=>protein
 );
-parcelHelpers.export(exports, "macros", ()=>macros
-);
 class Form {
+    #query = '.totals__';
     constructor(id){
         this.form = document.getElementById(id);
-        this.output = this.form.querySelector('output');
+        this.output = document.querySelector(this.#query.concat(id));
+        this.macros = document.querySelector('.percents');
     }
     /** Takes an HTML string to render to the form's output.
 	 * @param markup {string} - the HTML to markup.
 	 */ renderOutput(markup) {
-        if (!this.output.classList.contains('hidden')) return;
-        this.output.classList.remove('hidden');
-        this.output.innerHTML = markup;
+        this.output.insertAdjacentHTML('beforeend', `<span>${markup} calories</span>`);
     }
 }
-const tdee = new Form('modifiers');
 const bmr = new Form('bmr-calculator');
-const protein = new Form('protein-calculator');
-const macros = new Form('macro-calculator');
+const mods = new Form('modifiers');
+const calories = new Form('calorie-goal');
+class ProteinForm extends Form {
+    #formContent = '';
+    label = this.form.querySelector('#protein--gender');
+    constructor(id){
+        super(id);
+    }
+    updateOptions(gender) {
+        if (gender === 'Female') this.#formContent = `
+			<label for="protein">
+				<strong>${gender}</strong> Protein Modifier (grams per lb.)</label>
+					<select name="protein" id="protein-modifier">
+						<option value="0.6">0.6</option>
+						<option value="0.7">.07</option>
+						<option value="0.8" selected>0.8</option>
+						<option value="0.9">0.9</option>
+						<option value="1.0">1.0</option>
+					</select>`;
+        if (gender === 'Male') this.#formContent = `
+			<label for="protein">
+				<strong>${gender}</strong> Protein Modifier (grams per lb.)</label>
+					<select name="protein" id="protein-modifier">
+						<option value="0.8">0.8</option>
+						<option value="0.9">0.9</option>
+						<option value="1.0" selected>1.0</option>
+						<option value="1.1">1.1</option>
+						<option value="1.2">1.2</option>
+					</select>`;
+        this.form.querySelector('.form__content').innerHTML = this.#formContent;
+    }
+    renderMacros(markup) {
+        this.macros.innerHTML = `
+		<div class="percent__proteins">
+			<h2>Protein:</h2>
+			<span>${markup.proteins.percentage}% | ${markup.proteins.grams}g</span>
+		</div>
+		<div class="percent__fats">
+			<h2>Fats:</h2>
+			<span>${markup.fats.percentage}% | ${markup.fats.grams}g</span>
+		</div>
+		<div class="percent__carbs">
+			<h2>Carbs:</h2>
+			<span>${markup.carbs.percentage}% | ${markup.carbs.grams}g</span>
+		</div>`;
+    }
+}
+const protein = new ProteinForm('protein-calculator');
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ai2uB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -699,10 +839,10 @@ var _copyrightDefault = parcelHelpers.interopDefault(_copyright);
 var _form = require("./Form");
 class View {
     forms = document.querySelectorAll('form');
-    tdee = _form.tdee;
+    mods = _form.mods;
+    calorieGoal = _form.calories;
     bmr = _form.bmr;
     proteins = _form.protein;
-    macros = _form.macros;
     constructor(){
         _copyrightDefault.default('KJ Roelke', 'kjroelke.online');
     }
@@ -713,28 +853,18 @@ class View {
         );
     }
     handleOutput(form, state) {
-        let markup = `<h1>Hello there.</h1>`;
         if (form === this.bmr.form.id) {
-            markup = `<span><strong>BMR:</strong> ${state.bmr}</span>`;
-            this.bmr.renderOutput(markup);
+            this.bmr.renderOutput(state.bmr);
+            this.proteins.updateOptions(state.person.gender);
         }
-        if (form === this.tdee.form.id) {
-            markup = `<span><strong>TDEE Value:</strong> ${state.tdee}</span>
-            <span><strong>Calorie Goal:</strong> ${state.calorieGoal}</span>`;
-            this.tdee.renderOutput(markup);
+        if (form === this.mods.form.id) {
+            this.mods.renderOutput(state.tdee);
+            this.calorieGoal.renderOutput(state.calorieGoal);
         }
+        if (form === this.proteins.form.id) this.proteins.renderMacros(state.macros);
     }
 }
 exports.default = new View();
-// BMR View Markup
-function bmrOutput(markup) {
-    // Move to the View?
-    output.dataset.gender = gender;
-    output.dataset.age = age.value;
-    output.dataset.weight = weight.value;
-    output.dataset.height = height;
-    output.dataset.bmr = bmr;
-}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/copyright":"8Y6tQ","./Form":"gUX6g"}],"8Y6tQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

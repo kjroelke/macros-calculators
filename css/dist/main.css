@@ -165,7 +165,7 @@ footer a:hover, footer a:focus, footer a:active {
   align-items: flex-start;
 }
 .form button {
-  margin: auto 1em 1em 1em;
+  margin: auto auto 2em 1.5em;
   align-self: start;
 }
 .form .answer {
@@ -188,6 +188,13 @@ footer a:hover, footer a:focus, footer a:active {
   align-items: flex-start;
 }
 
+#modifiers .form__content > *, main .calculators #protein-calculator .form__content > *, main .calculators #macro-calculator .form__content > * {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
 #modifiers .form__content > *:not(:last-child), main .calculators #protein-calculator .form__content > *:not(:last-child), main .calculators #macro-calculator .form__content > *:not(:last-child) {
   margin-bottom: 1em;
 }
@@ -249,7 +256,7 @@ button:hover, button:focus, button:active {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .answer__container .percents > *, .answer__container .totals > * {
   margin: 0 0.5em;

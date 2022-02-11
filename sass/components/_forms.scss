@@ -19,7 +19,7 @@
 		}
 	}
 	button {
-		margin: auto 1em 1em 1em;
+		margin: auto auto 2em 1.5em;
 		align-self: start;
 	}
 	.answer {
@@ -36,8 +36,11 @@
 }
 #modifiers {
 	.form__content {
-		& > *:not(:last-child) {
-			margin-bottom: 1em;
+		& > * {
+			@include displayFlex(column);
+			&:not(:last-child) {
+				margin-bottom: 1em;
+			}
 		}
 	}
 }

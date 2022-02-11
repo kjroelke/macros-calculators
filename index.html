@@ -24,14 +24,14 @@
 		  </div>
 		  <div class="answer__container">
 		  	<div class="totals">
-				  <div class="totals__bmr">
-					  <h2>BMR:</h2><span>A number</span>
+				  <div class="totals__bmr-calculator">
+					  <h2>BMR:</h2>
 			  	</div>
 			  	<div class="totals__modifiers">
-				  	<h2>Total Daily Energy Expenditure (TDEE):</h2><span>A number</span>
+				  	<h2>TDEE:</h2>
 			  	</div>
 			  	<div class="totals__calorie-goal">
-					  <h2>Calorie Goal:</h2><span>A number</span>
+					  <h2>Calorie Goal:</h2>
 			  	</div>
 				</div>
 				<div class="percents">
@@ -95,6 +95,7 @@
 					<option value=".1">10%</option>
 					<option value=".15" >15%</option>
 					<option value=".2" selected>20%</option>
+					<option value="1">Maintenance</option>
 				</select>
 			</div>
 		</div>
@@ -102,17 +103,9 @@
 	</form>
 	<form id="protein-calculator" class="form">
 		<div class="form__header">
-			<h2>Step 3: Protein Modifer!</h2>
+			<h2>Step 3: Macro Calculator!</h2>
 		</div>
 		<div class="form__content">
-			<label for="protein"><strong id="protein--gender">Gender</strong> Protein Modifier (grams per lb.)</label>
-			<select name="protein" id="protein-modifier">
-				<option value=".6">.6</option>
-				<option value=".7">.7</option>
-				<option value=".8" selected>.8</option>
-				<option value=".9">.9</option>
-				<option value="1">1.0</option>
-			</select>
 		</div>
 		<button type="submit">Calculate those macros!</button>
 	</form>

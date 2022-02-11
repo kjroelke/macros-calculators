@@ -44,10 +44,16 @@ Deficits:
 
 # 5. Fat Calculations
 - In a Deficit: 30% of Calorie Goal
-- In Maintenance: x% of Calorie Goal
+- In Maintenance: 30% of Calorie Goal
 - In Surplus: x% of Calorie Goal
 
-
+# 6. Macro Calculations:
+- Weight * Protein Modifier = Protein (g)
+  - Protein * 4 = Protein Cal
+- 30% of Calorie Goal = Fat (g)
+  - Fat * 9 = Fat (cal)
+- Calorie Goal - Fat(cal) - Protein(cal) = Carbs (cal)
+  - Carbs / 4 = Carbs (g)
 
 ## Personal note:
 - Women: 187g protein max

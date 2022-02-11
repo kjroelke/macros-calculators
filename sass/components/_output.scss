@@ -20,7 +20,7 @@
 		@include displayFlex(row, space-around);
 		padding: 3em;
 		.percents {
-			@include displayFlex(row, center, center);
+			@include displayFlex(row, center, flex-start);
 			& > * {
 				margin: 0 0.5em;
 			}

@@ -1,5 +1,4 @@
 import model from './model';
-import tdee from './modules/Views/tdee';
 import View from './view';
 
 class Controller {
@@ -13,7 +12,6 @@ class Controller {
 	 */
 	onFormSubmit(ev) {
 		ev.preventDefault();
-
 		// The Maths by Model
 		model.calculate(ev.target, ev.target.id);
 

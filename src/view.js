@@ -3,10 +3,10 @@ import * as form from './Form';
 
 class View {
 	forms = document.querySelectorAll('form');
-	tdee = form.tdee;
+	mods = form.mods;
+	calorieGoal = form.calories;
 	bmr = form.bmr;
 	proteins = form.protein;
-	macros = form.macros;
 	constructor() {
 		myCopyright('KJ Roelke', 'kjroelke.online');
 	}
@@ -17,27 +17,18 @@ class View {
 		this.forms.forEach((form) => form.addEventListener('submit', handler));
 	}
 	handleOutput(form, state) {
-		let markup = `<h1>Hello there.</h1>`;
 		if (form === this.bmr.form.id) {
-			markup = `<span><strong>BMR:</strong> ${state.bmr}</span>`;
-			this.bmr.renderOutput(markup);
+			this.bmr.renderOutput(state.bmr);
+			this.proteins.updateOptions(state.person.gender);
 		}
-		if (form === this.tdee.form.id) {
-			markup = `<span><strong>TDEE Value:</strong> ${state.tdee}</span>
-            <span><strong>Calorie Goal:</strong> ${state.calorieGoal}</span>`;
-			this.tdee.renderOutput(markup);
+		if (form === this.mods.form.id) {
+			this.mods.renderOutput(state.tdee);
+			this.calorieGoal.renderOutput(state.calorieGoal);
+		}
+		if (form === this.proteins.form.id) {
+			this.proteins.renderMacros(state.macros);
 		}
 	}
 }
 
 export default new View();
-
-// BMR View Markup
-function bmrOutput(markup) {
-	// Move to the View?
-	output.dataset.gender = gender;
-	output.dataset.age = age.value;
-	output.dataset.weight = weight.value;
-	output.dataset.height = height;
-	output.dataset.bmr = bmr;
-}
