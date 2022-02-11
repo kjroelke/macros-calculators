@@ -2,7 +2,6 @@
 Display: Professor
 Header: Cormorant
 Body: Mulish
-
 */
 .hidden {
   display: none;
@@ -71,6 +70,11 @@ body {
 body header {
   grid-row: header/content-start;
   grid-column: 1/-1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
 }
 body main {
   grid-row: content-start/content-end;
@@ -79,13 +83,55 @@ body main {
 body footer {
   grid-row: content-end/footer;
   grid-column: 1/-1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+main .answer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+@media screen and (max-width: 25.875em) {
+  main .answer {
+    order: 2;
+  }
+}
 main .calculators {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 2em;
+}
+@media screen and (max-width: 53.75em) {
+  main .calculators {
+    order: 1;
+  }
+  main .calculators > * {
+    align-self: stretch;
+  }
+}
+@media screen and (max-width: 53.75em) {
+  main .calculators {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 }
 main .calculators #bmr-calculator {
   grid-column: 1/2;
@@ -95,25 +141,19 @@ main .calculators #modifiers, main .calculators #macro-calculator, main .calcula
   grid-column: 2/3;
 }
 header {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
   background-color: #8c6548;
   background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
-  padding: 6.5rem 0;
+  padding: 6.5rem 2rem;
 }
 header > * {
   color: white;
+  text-align: center;
+}
+header h1 {
+  margin-bottom: 1em;
 }
 
 footer {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch;
   background-color: #743c18;
   background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
   padding: 6.5rem 0;
@@ -178,7 +218,6 @@ footer a:hover, footer a:focus, footer a:active {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch;
-  width: calc(80rem);
 }
 #bmr-calculator .form__content {
   display: flex;
@@ -186,6 +225,9 @@ footer a:hover, footer a:focus, footer a:active {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
+}
+#bmr-calculator .form__content *:first-child {
+  margin-right: 2rem;
 }
 
 #modifiers .form__content > *, main .calculators #protein-calculator .form__content > *, main .calculators #macro-calculator .form__content > * {
@@ -223,11 +265,6 @@ button:hover, button:focus, button:active {
   border: 0.5rem solid #3d1c11;
   border-radius: 1rem;
   background-color: white;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: stretch;
   overflow: hidden;
   color: #3d1c11;
 }
@@ -251,6 +288,11 @@ button:hover, button:focus, button:active {
   align-items: flex-start;
   padding: 3em;
 }
+@media screen and (max-width: 25.875em) {
+  .answer__container {
+    padding: 1em;
+  }
+}
 .answer__container .percents, .answer__container .totals {
   display: flex;
   flex-direction: row;
@@ -260,5 +302,22 @@ button:hover, button:focus, button:active {
 }
 .answer__container .percents > *, .answer__container .totals > * {
   margin: 0 0.5em;
+}
+@media screen and (max-width: 25.875em) {
+  .answer__container .percents, .answer__container .totals {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .answer__container .percents > *, .answer__container .totals > * {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 }
 /* Nice. */

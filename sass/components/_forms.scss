@@ -29,9 +29,11 @@
 
 #bmr-calculator {
 	@include displayFlex(column, flex-start, stretch);
-	width: calc(80rem);
 	.form__content {
 		@include displayFlex(row, space-between);
+		& *:first-child {
+			margin-right: 2rem;
+		}
 	}
 }
 #modifiers {

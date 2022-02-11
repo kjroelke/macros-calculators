@@ -1,9 +1,12 @@
 header {
-	@include displayFlex(column, flex-start, center);
 	background-color: $color-secondary;
 	@include linearGradientDarken;
-	padding: 6.5rem 0;
+	padding: 6.5rem 2rem;
 	& > * {
 		color: white;
+		text-align: center;
+	}
+	h1 {
+		margin-bottom: 1em;
 	}
 }

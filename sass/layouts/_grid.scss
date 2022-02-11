@@ -9,6 +9,7 @@ body {
 	header {
 		grid-row: header / content-start;
 		grid-column: 1 / -1;
+		@include displayFlex(column, flex-start, center);
 	}
 	main {
 		grid-row: content-start / content-end;
@@ -17,15 +18,32 @@ body {
 	footer {
 		grid-row: content-end / footer;
 		grid-column: 1 / -1;
+		@include displayFlex(column, center, stretch);
 	}
 }
 main {
+	@include displayFlex(column);
+	.answer {
+		align-self: stretch;
+		@include displayFlex(column, flex-start, stretch);
+		@include responsive($bp-mobile) {
+			order: 2;
+		}
+	}
 	.calculators {
+		@include responsive($bp-tablet) {
+			order: 1;
+			& > * {
+				align-self: stretch;
+			}
+		}
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-rows: repeat(2, 1fr);
 		gap: 2em;
-
+		@include responsive($bp-tablet) {
+			@include displayFlex(column);
+		}
 		#bmr-calculator {
 			grid-column: 1 / 2;
 			grid-row: 1 / -1;
