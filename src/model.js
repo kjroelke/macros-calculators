@@ -1,4 +1,4 @@
-import { calories, protein } from './Form';
+import { calories, protein } from './modules/Form';
 
 class Model {
 	state = {

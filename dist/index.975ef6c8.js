@@ -562,7 +562,7 @@ exports.default = new Controller(_modelDefault.default, _viewDefault.default); /
 },{"./model":"dEDha","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _form = require("./Form");
+var _form = require("./modules/Form");
 class Model {
     state = {
         person: {
@@ -727,7 +727,7 @@ class Model {
 }
 exports.default = new Model();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Form":"gUX6g"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/Form":"6DnbK"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -757,7 +757,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"gUX6g":[function(require,module,exports) {
+},{}],"6DnbK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "bmr", ()=>bmr
@@ -836,7 +836,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _copyright = require("./modules/copyright");
 var _copyrightDefault = parcelHelpers.interopDefault(_copyright);
-var _form = require("./Form");
+var _form = require("./modules/Form");
 class View {
     forms = document.querySelectorAll('form');
     mods = _form.mods;
@@ -866,7 +866,7 @@ class View {
 }
 exports.default = new View();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/copyright":"8Y6tQ","./Form":"gUX6g"}],"8Y6tQ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/copyright":"8Y6tQ","./modules/Form":"6DnbK"}],"8Y6tQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function myCopyright(brandName, builder, site) {

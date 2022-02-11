@@ -1,5 +1,5 @@
 import myCopyright from './modules/copyright';
-import * as form from './Form';
+import * as form from './modules/Form';
 
 class View {
 	forms = document.querySelectorAll('form');
