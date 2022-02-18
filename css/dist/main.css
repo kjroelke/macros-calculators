@@ -46,6 +46,7 @@ section {
 form {
   border: 0.5rem solid #3d1c11;
   border-radius: 1rem;
+  overflow: hidden;
   font-size: 2rem;
 }
 form fieldset {
@@ -60,12 +61,6 @@ form fieldset legend {
 }
 form fieldset label {
   margin-bottom: 1rem;
-}
-form fieldset input {
-  margin-bottom: 2rem;
-  border: 1px solid #5a585c;
-  border-radius: 0;
-  padding: 1rem;
 }
 
 body {
@@ -259,6 +254,7 @@ button, #reset {
   transition: all 0.2s ease;
   border: 0.5rem solid #3d1c11;
   border-radius: 1rem;
+  overflow: hidden;
   font-size: 1.6rem;
   padding: 1rem 2rem;
   background-color: #3d1c11;
@@ -270,16 +266,21 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
   background-color: transparent;
   border: 0.5rem solid #3d1c11;
   border-radius: 1rem;
+  overflow: hidden;
   transform: scale(1.03);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
   color: #3d1c11;
 }
 
+#reset {
+  margin: 0;
+}
+
 .answer {
   border: 0.5rem solid #3d1c11;
   border-radius: 1rem;
-  background-color: white;
   overflow: hidden;
+  background-color: white;
   color: #3d1c11;
 }
 .answer * {
@@ -299,13 +300,16 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   padding: 3em;
 }
 @media screen and (max-width: 25.875em) {
   .answer__container {
     padding: 1em;
   }
+}
+.answer__container > * {
+  margin: 1em;
 }
 .answer__container .percents, .answer__container .totals {
   display: flex;
