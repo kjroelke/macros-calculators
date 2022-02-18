@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/index.d65ae3ee.css">
 		<title>Macro Calculations</title>
-		<meta name="description" content="A simple HTML5 Template for new projects.">
+		<meta name="description" content="A simple Macro Calculator.">
 		<script defer="" src="/index.975ef6c8.js"></script>
 	</head>
 	<body>
@@ -68,6 +68,26 @@
 					</fieldset>
 					<label for="age">Age</label>
 					<input required="" type="number" id="age" name="age">
+				</fieldset>
+				<fieldset id="health">
+					<legend>Any extra health conditions?</legend>
+					<div class="form__content--health-selector">
+				  		<div class="radio__options--option" id="option-1">
+							  <input type="radio" name="health-selector" value="Yes">
+				  		<label for="health-selector">Yes</label></div>
+						  <div class="radio__options--option" id="option-2">
+							  <input type="radio" name="health-selector" checked="" value="No">
+							  <label for="health-selector">No</label>
+						  </div>
+						  <fieldset class="form__content--health-condition">
+							  <input type="checkbox" name="condition1" value="Hyperthyroid">
+							  <label for="condition1">Hyperthyroid</label>
+							  <input type="checkbox" name="condition2" value="Diabetes">
+							  <label for="condition2">Diabetes</label>
+							  <input type="checkbox" name="condition3" value="PCOS">
+							  <label for="condition3">PCOS</label>
+						  </fieldset>
+					</div>
 				</fieldset>
 			</div>
 			<button type="submit">Calculate that BMR!</button>
