@@ -16,3 +16,6 @@ button {
 		color: $color-primary;
 	}
 }
+#reset {
+	@extend button;
+}

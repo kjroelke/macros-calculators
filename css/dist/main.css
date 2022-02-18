@@ -7,6 +7,12 @@ Body: Mulish
   display: none;
 }
 
+.inactive {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  transition-delay: 250ms;
+}
+
 *,
 *::after,
 *::before {
@@ -204,9 +210,17 @@ footer a:hover, footer a:focus, footer a:active {
   justify-content: space-around;
   align-items: flex-start;
 }
-.form button {
-  margin: auto auto 2em 1.5em;
-  align-self: start;
+.form__submission {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 1em;
+  margin-bottom: 1em;
+}
+.form__submission button, .form__submission #reset {
+  margin-bottom: 1em;
 }
 .form .answer {
   align-self: start;
@@ -241,7 +255,7 @@ footer a:hover, footer a:focus, footer a:active {
   margin-bottom: 1em;
 }
 
-button {
+button, #reset {
   transition: all 0.2s ease;
   border: 0.5rem solid #3d1c11;
   border-radius: 1rem;
@@ -252,7 +266,7 @@ button {
   margin-top: 3rem;
   cursor: pointer;
 }
-button:hover, button:focus, button:active {
+button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:active {
   background-color: transparent;
   border: 0.5rem solid #3d1c11;
   border-radius: 1rem;

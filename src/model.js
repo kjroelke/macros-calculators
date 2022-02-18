@@ -153,7 +153,6 @@ class Model {
 
 		// Calc Carbs
 		this.#calcCarbs(macros, calorieGoal);
-		console.log(this.state);
 	}
 	#calcProteins(proteins, modifier) {
 		let { grams, calories, percentage } = proteins;

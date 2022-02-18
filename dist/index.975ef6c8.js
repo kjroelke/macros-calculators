@@ -684,7 +684,6 @@ class Model {
         this.#calcFats(macros.fats);
         // Calc Carbs
         this.#calcCarbs(macros, calorieGoal);
-        console.log(this.state);
     }
      #calcProteins(proteins, modifier) {
         let { grams , calories , percentage  } = proteins;
@@ -843,25 +842,64 @@ class View {
     calorieGoal = _form.calories;
     bmr = _form.bmr;
     proteins = _form.protein;
+    submissionMessage = `<span>Thanks! On to the next step.</span>`;
+    finalMessage = `<span>All done! Check the breakdown</span>`;
     constructor(){
         _copyrightDefault.default('KJ Roelke', 'kjroelke.online');
+        this.forms.forEach((form, i)=>{
+            if (i === 0) return;
+            // Disable all form controls
+            for(i = 0; i < form.length; i++)form[i].setAttribute('disabled', '');
+        });
+        this.addRenderSubmission();
     }
-    /** Attaches a callback function to each form's 'submit' and passes along the event.
+    /** Attaches a callback function to each form's 'submit' and passes along the event. Implemented in the `init()` at index.js
 	 * @param handler {function} - the callback function
 	 */ addHandlerRender(handler) {
-        this.forms.forEach((form)=>form.addEventListener('submit', handler)
+        this.forms.forEach((form)=>{
+            form.addEventListener('submit', handler);
+        });
+    }
+    addRenderSubmission() {
+        this.forms.forEach((form1, i)=>{
+            form1.addEventListener('submit', (e)=>{
+                const form = e.target;
+                const id = form.dataset.step;
+                const submission = form.querySelector('.form__submission');
+                submission.insertAdjacentHTML('beforeend', i != 2 ? this.submissionMessage : this.finalMessage);
+                if (id != 3) {
+                    this.#toggleStyle([
+                        form,
+                        this.forms[id]
+                    ]);
+                    this.#enableForm(this.forms[id]);
+                }
+                const reset = document.getElementById('reset');
+                const resetParent = reset.closest('form');
+                if (form === resetParent) {
+                    window.scrollTo(0, 0);
+                    location.reload();
+                }
+            });
+        });
+    }
+     #toggleStyle(forms) {
+        forms.forEach((form)=>form.classList.toggle('inactive')
         );
     }
-    handleOutput(form, state) {
-        if (form === this.bmr.form.id) {
+     #enableForm(form) {
+        for(let i = 0; i < form.length; i++)form[i].disabled = false;
+    }
+    handleOutput(form2, state) {
+        if (form2 === this.bmr.form.id) {
             this.bmr.renderOutput(state.bmr);
             this.proteins.updateOptions(state.person.gender);
         }
-        if (form === this.mods.form.id) {
+        if (form2 === this.mods.form.id) {
             this.mods.renderOutput(state.tdee);
             this.calorieGoal.renderOutput(state.calorieGoal);
         }
-        if (form === this.proteins.form.id) this.proteins.renderMacros(state.macros);
+        if (form2 === this.proteins.form.id) this.proteins.renderMacros(state.macros);
     }
 }
 exports.default = new View();

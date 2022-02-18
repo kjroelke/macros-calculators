@@ -18,9 +18,13 @@
 			@include displayFlex(row, space-around);
 		}
 	}
-	button {
-		margin: auto auto 2em 1.5em;
-		align-self: start;
+	&__submission {
+		@include displayFlex(column);
+		margin-left: 1em;
+		margin-bottom: 1em;
+		button {
+			margin-bottom: 1em;
+		}
 	}
 	.answer {
 		align-self: start;

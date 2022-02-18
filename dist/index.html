@@ -39,7 +39,7 @@
 			</div>
 	  </section>
 	  <section class="calculators">
-	  <form id="bmr-calculator" class="form">
+	  <form id="bmr-calculator" data-step="1" class="form">
 		<div class="form__header">
 			<h2>Step 1: Person Info!</h2>
 		</div>
@@ -58,21 +58,23 @@
 				<fieldset>
 					<legend>Client Info</legend>
 					<label for="weight">Weight (in pounds)</label>
-					<input required="" name="weight" type="number" id="weight">
+					<input name="weight" type="number" id="weight">
 					<fieldset>
 						<legend>Height</legend>
 						<label for="height">Ft</label>
-						<input required="" id="height--ft" type="number" name="height">
+						<input id="height--ft" type="number" name="height">
 						<label for="height">In</label>
-						<input required="" id="height--in" type="number" name="height">
+						<input id="height--in" type="number" name="height">
 					</fieldset>
 					<label for="age">Age</label>
-					<input required="" type="number" id="age" name="age">
+					<input type="number" id="age" name="age">
 				</fieldset>
 			</div>
-			<button type="submit">Calculate that BMR!</button>
+			<div class="form__submission">
+				<button type="submit">Calculate that BMR!</button>
+			</div>
 	</form>
-	<form id="modifiers" class="form">
+	<form id="modifiers" data-step="2" class="form inactive">
 		<div class="form__header">
 			<h2>Step 2: Modifiers!</h2>
 		</div>
@@ -98,15 +100,22 @@
 				</select>
 			</div>
 		</div>
-		<button type="submit">Submit those modifiers!</button>
+		<div class="form__submission">
+			<button type="submit">Submit those modifiers!</button>
+
+		</div>
 	</form>
-	<form id="protein-calculator" class="form">
+	<form id="protein-calculator" data-step="3" class="form inactive">
 		<div class="form__header">
 			<h2>Step 3: Macro Calculator!</h2>
 		</div>
 		<div class="form__content">
 		</div>
-		<button type="submit">Calculate those macros!</button>
+		<div class="form__submission">
+			<button type="submit">Calculate those macros!</button>
+			<button type="submit" id="reset">Reset the calculator.</button>
+
+		</div>
 	</form>
 	</section>
   </main>
