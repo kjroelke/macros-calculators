@@ -61,6 +61,12 @@ form fieldset legend {
 }
 form fieldset label {
   margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+form fieldset h3 {
+  margin-top: 2rem;
+  font-size: 2rem;
 }
 
 body {
@@ -237,6 +243,9 @@ footer a:hover, footer a:focus, footer a:active {
 }
 #bmr-calculator .form__content *:first-child {
   margin-right: 2rem;
+}
+#bmr-calculator #height {
+  margin-top: 2rem;
 }
 
 #modifiers .form__content > *, main .calculators #protein-calculator .form__content > *, main .calculators #macro-calculator .form__content > * {

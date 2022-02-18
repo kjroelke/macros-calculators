@@ -1,4 +1,4 @@
-import { calories, protein } from './modules/Form';
+// import calcMacros from './modules/macroCalculator';
 
 class Model {
 	state = {
@@ -29,7 +29,7 @@ class Model {
 				calories: 0,
 			},
 			carbs: {
-				percentage: 30,
+				percentage: 0,
 				grams: 0,
 				calories: 0,
 			},
@@ -50,6 +50,7 @@ class Model {
 			case 'protein-calculator':
 				try {
 					this.#calcMacros(form);
+					// calcMacros(form, this.state);
 				} catch (err) {
 					console.error(err);
 				}
@@ -71,7 +72,8 @@ class Model {
 			heightFtVal = form.querySelector('#height--ft'),
 			heightInVal = form.querySelector('#height--in'),
 			ageVal = form.querySelector('#age'),
-			genderOptions = form.querySelectorAll('input[type="radio"]'),
+			genderOptions = form.querySelectorAll('#gender input[type="radio"]'),
+			healthOptions = form.querySelectorAll('#health input[type="radio"]'),
 			height = this.#calcHeight(heightFtVal, heightInVal);
 
 		// Set State to Form Values
@@ -98,6 +100,7 @@ class Model {
 				? 655 + 4.35 * weight + 4.7 * height - 4.7 * age
 				: 66 + 6.23 * weight + 12.7 * height - 6.8 * age;
 		this.state.bmr = Math.round(bmr);
+		if (healthOptions) console.log(healthOptions);
 	}
 
 	#calcTDEE(form) {
@@ -168,7 +171,6 @@ class Model {
 
 	#calcFats(fats) {
 		let { grams, calories, percentage } = fats;
-		percentage = 30;
 		calories = Math.round((percentage / 100) * this.state.calorieGoal);
 		grams = Math.round(calories / 9);
 		this.state.macros.fats = {
@@ -184,12 +186,6 @@ class Model {
 			fats: { calories: fCals },
 			proteins: { calories: pCals },
 		} = macros;
-		/**
-		 * The Maths
-		 * Goal = 1828
-		 * fCals =
-		 *
-		 */
 		cCals = Math.round(goal - fCals - pCals);
 		cGrams = Math.round(cCals / 4);
 		cPercent = Math.round((cCals / goal) * 100);

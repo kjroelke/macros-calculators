@@ -1,126 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="css/dist/main.min.css" />
-		<title>Macro Calculations</title>
-		<meta
-			name="description"
-			content="A simple Macro Calculator."
-		/>
-		<script defer src="src/index.js" type="module"></script>
-	</head>
-	<body>
-<body>
-	<header>
-		<h1>A Fool-Proof Macro Calculator</h1>
-		<h2>Eventually!</h2>
-	</header>
-  <main>
-	  <section class="answer">
-		  <div class="answer__header">
-			  <h2>Macros Breakdown</h2>
-		  </div>
-		  <div class="answer__container">
-		  	<div class="totals">
-				  <div class="totals__bmr-calculator">
-					  <h2>BMR:</h2>
-			  	</div>
-			  	<div class="totals__modifiers">
-				  	<h2>TDEE:</h2>
-			  	</div>
-			  	<div class="totals__calorie-goal">
-					  <h2>Calorie Goal:</h2>
-			  	</div>
-				</div>
-				<div class="percents">
-					<div class="percent__proteins"><h2>Protein:</h2><span>40%</span></div>
-					<div class="percent__fats"><h2>Fats:</h2><span>30%</span></div>
-					<div class="percent__carbs"><h2>Carbs:</h2><span>30%</span></div>
-				</div>
-				<input type="reset" id="reset">
-			</div>
-	  </section>
-	  <section class="calculators">
-	  <form id="bmr-calculator" data-step="1" class="form">
-		<div class="form__header">
-			<h2>Step 1: Person Info!</h2>
-		</div>
-		<div class="form__content">
-				<fieldset>
-				  	<legend>Gender</legend>
-				  	<div class="radio__options">
-				  		<div class="radio__options--option" id="option-1"><input type="radio" name="gender"  value="Male">
-				  		<label for="gender--male">Male</label></div>
-						  <div class="radio__options--option" id="option-2">
-							  <input type="radio" name="gender" checked value="Female">
-							  <label for="gender--female">Female</label>
-						  </div>
-					</div>
-				</fieldset>
-				<fieldset>
-					<legend>Client Info</legend>
-					<label for="weight">Weight (in pounds)</label>
-					<input required name="weight" type="number" id="weight">
-					<fieldset>
-						<legend>Height</legend>
-						<label for="height">Ft</label>
-						<input required id="height--ft" type="number" name="height">
-						<label for="height">In</label>
-						<input required id="height--in" type="number" name="height">
-					</fieldset>
-					<label for="age">Age</label>
-					<input required type="number" id="age" name="age">
-				</fieldset>
-			</div>
-			<div class="form__submission">
-				<button type="submit">Calculate that BMR!</button>
-			</div>
-	</form>
-	<form id="modifiers" data-step="2" class="form inactive">
-		<div class="form__header">
-			<h2>Step 2: Modifiers!</h2>
-		</div>
-		<div class="form__content">
-			<div class="form__content--tdee">
-				<label for="TDEE">Total Daily Energy Expenditure</label>
-				<select name="TDEE" id="tdee">
-					<option value="1.2">Sedentary | < 5k Steps</option>
-					<option value="1.375">Lighty Active</option>
-					<option value="1.46">Light to Moderately Active</option>
-					<option value="1.55">Moderately Active</option>
-					<option value="1.725">Very Active</option>
-					<option value="1.9">Extremely Active</option>
-				</select>
-			</div>
-			<div class="form__content--deficit">
-				<label for="deficit">Deficit Selector</label>
-				<select name="deficit" id="deficit">
-					<option value=".1">10%</option>
-					<option value=".15" >15%</option>
-					<option value=".2" selected>20%</option>
-					<option value="1">Maintenance</option>
-				</select>
-			</div>
-		</div>
-		<div class="form__submission">
-			<button type="submit">Submit those modifiers!</button>
 
-		</div>
-	</form>
-	<form id="protein-calculator" data-step="3" class="form inactive">
-		<div class="form__header">
-			<h2>Step 3: Macro Calculator!</h2>
-		</div>
-		<div class="form__content">
-		</div>
-		<div class="form__submission">
-			<button type="submit">Calculate those macros!</button>
-		</div>
-	</form>
-	</section>
-  </main>
-  <footer id="copyright"></footer>
-</body>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="css/dist/main.min.css" />
+	<title>Macro Calculations</title>
+	<meta name="description" content="A simple Macro Calculator." />
+	<script defer src="src/index.js" type="module"></script>
+</head>
+
+<body>
+
+	<body>
+		<header>
+			<h1>A Fool-Proof Macro Calculator</h1>
+			<h2>Eventually!</h2>
+		</header>
+		<main>
+			<section class="answer">
+				<div class="answer__header">
+					<h2>Macros Breakdown</h2>
+				</div>
+				<div class="answer__container">
+					<div class="totals">
+						<div class="totals__bmr-calculator">
+							<h2>BMR:</h2>
+						</div>
+						<div class="totals__modifiers">
+							<h2>TDEE:</h2>
+						</div>
+						<div class="totals__calorie-goal">
+							<h2>Calorie Goal:</h2>
+						</div>
+					</div>
+					<div class="percents">
+						<div class="percent__proteins">
+							<h2>Protein:</h2><span>40%</span>
+						</div>
+						<div class="percent__fats">
+							<h2>Fats:</h2><span>30%</span>
+						</div>
+						<div class="percent__carbs">
+							<h2>Carbs:</h2><span>30%</span>
+						</div>
+					</div>
+					<input type="reset" id="reset">
+				</div>
+			</section>
+			<section class="calculators">
+				<form id="bmr-calculator" data-step="1" class="form">
+					<div class="form__header">
+						<h2>Step 1: Person Info!</h2>
+					</div>
+					<div class="form__content">
+						<fieldset id="gender">
+							<legend>Gender</legend>
+							<div class="radio__options">
+								<div class="radio__options--option" id="option-1">
+									<input type="radio" name="gender" value="Male">
+									<label for="gender">Male</label>
+								</div>
+								<div class="radio__options--option" id="option-2">
+									<input type="radio" name="gender" checked value="Female">
+									<label for="gender">Female</label>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset id="body">
+							<legend>Client Info</legend>
+							<label for="weight">Weight (in pounds)</label>
+							<input required name="weight" type="number" id="weight">
+							<fieldset id="height">
+								<legend>Height</legend>
+								<label for="height">Ft</label>
+								<input required id="height--ft" type="number" name="height">
+								<label for="height">In</label>
+								<input required id="height--in" type="number" name="height">
+							</fieldset>
+							<label for="age">Age</label>
+							<input required type="number" id="age" name="age">
+						</fieldset>
+						<fieldset id="health">
+							<legend>Extra Health Conditions?</legend>
+							<div class="radio__options">
+								<div class="radio__options--option" id="health-option-1">
+									<input type="radio" name="healthCondition" value="true">
+									<label for="healthCondition">Yes</label>
+								</div>
+								<div class="radio__options--option" id="health-option-2">
+									<input type="radio" name="healthCondition" value="false">
+									<label for="healthCondition">No</label>
+								</div>
+							</div>
+
+						</fieldset>
+					</div>
+					<div class="form__submission">
+						<button type="submit">Calculate that BMR!</button>
+					</div>
+				</form>
+				<form id="modifiers" data-step="2" class="form inactive">
+					<div class="form__header">
+						<h2>Step 2: Modifiers!</h2>
+					</div>
+					<div class="form__content">
+						<div class="form__content--tdee">
+							<label for="TDEE">Total Daily Energy Expenditure</label>
+							<select name="TDEE" id="tdee">
+								<option value="1.2">Sedentary | < 5k Steps</option>
+								<option value="1.375">Lighty Active</option>
+								<option value="1.46">Light to Moderately Active</option>
+								<option value="1.55">Moderately Active</option>
+								<option value="1.725">Very Active</option>
+								<option value="1.9">Extremely Active</option>
+							</select>
+						</div>
+						<div class="form__content--deficit">
+							<label for="deficit">Deficit Selector</label>
+							<select name="deficit" id="deficit">
+								<option value=".1">10%</option>
+								<option value=".15">15%</option>
+								<option value=".2" selected>20%</option>
+								<option value="1">Maintenance</option>
+							</select>
+						</div>
+					</div>
+					<div class="form__submission">
+						<button type="submit">Submit those modifiers!</button>
+
+					</div>
+				</form>
+				<form id="protein-calculator" data-step="3" class="form inactive">
+					<div class="form__header">
+						<h2>Step 3: Macro Calculator!</h2>
+					</div>
+					<div class="form__content">
+					</div>
+					<div class="form__submission">
+						<button type="submit">Calculate those macros!</button>
+					</div>
+				</form>
+			</section>
+		</main>
+		<footer id="copyright"></footer>
+	</body>
+
 </html>

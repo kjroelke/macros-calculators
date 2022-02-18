@@ -68,6 +68,32 @@ class ProteinForm extends Form {
 			<span>${markup.carbs.percentage}% | ${markup.carbs.grams}g</span>
 		</div>`;
 	}
+	customMacros() {
+		const markup = `
+		<label for="custom-macros">Custom Macro Selectors</label>
+			<select name="custom-macros" id="custom-macos">
+				<option value="0.6">0.6</option>
+				<option value="0.7">.07</option>
+				<option value="0.8" selected>0.8</option>
+				<option value="0.9">0.9</option>
+				<option value="1.0">1.0</option>
+			</select>`;
+		return markup;
+	}
+	pregnancyMarkup() {
+		const markup = `<div class="radio__options">
+								<h3>Pregnant?</h3>
+								<div class="radio__options--option" id="pregnant-option-1">
+									<input type="radio" name="pregnant" value="true">
+									<label for="pregnant">Yes</label>
+								</div>
+								<div class="radio__options--option" id="pregnant-option-2">
+									<input type="radio" name="pregnant" value="false">
+									<label for="pregnant">No</label>
+								</div>
+							</div>`;
+		return markup;
+	}
 }
 
 export const protein = new ProteinForm('protein-calculator');
