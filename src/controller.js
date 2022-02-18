@@ -21,11 +21,3 @@ class Controller {
 }
 
 export default new Controller(model, View);
-
-/** MVC Calculate
- * 1. View Receives a Form
- * 2. Controller Passes View info to Model
- * 3. Model Does some Math
- *   - Updates State
- * 4. Controller tells View to update Output
- */

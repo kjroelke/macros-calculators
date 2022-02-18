@@ -1,8 +1,6 @@
 .answer {
 	@include mainBorder($color-primary);
 	background-color: white;
-
-	overflow: hidden;
 	color: $color-primary;
 	& * {
 		color: $color-primary;
@@ -17,13 +15,16 @@
 		}
 	}
 	&__container {
-		@include displayFlex(row, space-around);
+		@include displayFlex(row, space-around, center);
 		padding: 3em;
 		@include responsive($bp-mobile) {
 			padding: 1em;
 		}
+		& > * {
+			margin: 1em;
+		}
 		.percents {
-			@include displayFlex(row, center, flex-start);
+			@include displayFlex(row, center);
 			& > * {
 				margin: 0 0.5em;
 			}

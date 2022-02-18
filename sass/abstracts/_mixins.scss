@@ -13,6 +13,7 @@
 @mixin mainBorder($color: $color-primary, $width: 0.5rem, $rounded: 1rem) {
 	border: $width solid $color;
 	border-radius: $rounded;
+	overflow: hidden;
 }
 @mixin linearGradientDarken($direction: to right bottom) {
 	background-image: linear-gradient(

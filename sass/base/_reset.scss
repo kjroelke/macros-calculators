@@ -43,10 +43,5 @@ form {
 		label {
 			margin-bottom: 1rem;
 		}
-		input {
-			margin-bottom: 2rem;
-			@include mainBorder($color-grey--dark, 1px, 0);
-			padding: 1rem;
-		}
 	}
 }

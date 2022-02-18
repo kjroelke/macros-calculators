@@ -3,6 +3,9 @@ import * as form from './modules/Form';
 
 class View {
 	forms = document.querySelectorAll('form');
+	reset = document.getElementById('reset');
+	main = document.querySelector('main');
+	coords = this.main.getBoundingClientRect();
 	mods = form.mods;
 	calorieGoal = form.calories;
 	bmr = form.bmr;
@@ -18,9 +21,9 @@ class View {
 				form[i].setAttribute('disabled', '');
 			}
 		});
-		this.addRenderSubmission();
+		this.renderConfirmation();
+		this.reset.addEventListener('click', this.resetForm.bind(this));
 	}
-
 	/** Attaches a callback function to each form's 'submit' and passes along the event. Implemented in the `init()` at index.js
 	 * @param handler {function} - the callback function
 	 */
@@ -29,7 +32,7 @@ class View {
 			form.addEventListener('submit', handler);
 		});
 	}
-	addRenderSubmission() {
+	renderConfirmation() {
 		this.forms.forEach((form, i) => {
 			form.addEventListener('submit', (e) => {
 				const form = e.target;
@@ -43,14 +46,12 @@ class View {
 					this.#toggleStyle([form, this.forms[id]]);
 					this.#enableForm(this.forms[id]);
 				}
-				const reset = document.getElementById('reset');
-				const resetParent = reset.closest('form');
-				if (form === resetParent) {
-					window.scrollTo(0, 0);
-					location.reload();
-				}
 			});
 		});
+	}
+	resetForm() {
+		window.scrollTo(0, this.coords.y);
+		location.reload();
 	}
 	#toggleStyle(forms) {
 		forms.forEach((form) => form.classList.toggle('inactive'));
