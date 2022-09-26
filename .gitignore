@@ -2,3 +2,5 @@ node_modules/
 .parcel-cache
 ./Macro Calculations.pdf
 .DS_Store
+.env
+notes.md

@@ -9,6 +9,7 @@
   "author": "KJ Roelke",
   "license": "ISC",
   "devDependencies": {
+    "dotenv": "^16.0.2",
     "parcel": "^2.2.1"
   }
 }

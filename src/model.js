@@ -1,5 +1,3 @@
-// import calcMacros from './modules/macroCalculator';
-
 class Model {
 	state = {
 		person: {
@@ -50,7 +48,6 @@ class Model {
 			case 'protein-calculator':
 				try {
 					this.#calcMacros(form);
-					// calcMacros(form, this.state);
 				} catch (err) {
 					console.error(err);
 				}
