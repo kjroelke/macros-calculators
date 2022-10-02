@@ -29,14 +29,14 @@ body {
   box-sizing: border-box;
   font-size: 1.6rem;
   font-family: Arial;
-  background-color: #d2bdb6;
+  background-color: rgb(210, 189, 182);
 }
 
 main {
   margin: 0 auto;
   max-width: 88vw;
   padding: 6.5rem 0;
-  color: #3d1c11;
+  color: rgb(61, 28, 17);
 }
 
 section {
@@ -44,7 +44,7 @@ section {
 }
 
 form {
-  border: 0.5rem solid #3d1c11;
+  border: 0.5rem solid rgb(61, 28, 17);
   border-radius: 1rem;
   overflow: hidden;
   font-size: 2rem;
@@ -56,7 +56,7 @@ form fieldset:not(:last-child) {
   margin-bottom: 2rem;
 }
 form fieldset legend {
-  color: #3d1c11;
+  color: rgb(61, 28, 17);
   font-weight: 700;
 }
 form fieldset label {
@@ -148,7 +148,7 @@ main .calculators #modifiers, main .calculators #macro-calculator, main .calcula
   grid-column: 2/3;
 }
 header {
-  background-color: #8c6548;
+  background-color: rgb(140, 101, 72);
   background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
   padding: 6.5rem 2rem;
 }
@@ -161,7 +161,7 @@ header h1 {
 }
 
 footer {
-  background-color: #743c18;
+  background-color: rgb(116, 60, 24);
   background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
   padding: 6.5rem 0;
 }
@@ -188,7 +188,7 @@ footer a:hover, footer a:focus, footer a:active {
 }
 .form__header {
   background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
-  background-color: #8c6548;
+  background-color: rgb(140, 101, 72);
   padding: 2rem;
   align-self: stretch;
 }
@@ -220,7 +220,7 @@ footer a:hover, footer a:focus, footer a:active {
   margin-left: 1em;
   margin-bottom: 1em;
 }
-.form__submission button, .form__submission #reset {
+.form__submission button {
   margin-bottom: 1em;
 }
 .form .answer {
@@ -248,37 +248,37 @@ footer a:hover, footer a:focus, footer a:active {
   margin-top: 2rem;
 }
 
-#modifiers .form__content > *, main .calculators #protein-calculator .form__content > *, main .calculators #macro-calculator .form__content > * {
+#modifiers .form__content > * {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
 }
-#modifiers .form__content > *:not(:last-child), main .calculators #protein-calculator .form__content > *:not(:last-child), main .calculators #macro-calculator .form__content > *:not(:last-child) {
+#modifiers .form__content > *:not(:last-child) {
   margin-bottom: 1em;
 }
 
 button, #reset {
   transition: all 0.2s ease;
-  border: 0.5rem solid #3d1c11;
+  border: 0.5rem solid rgb(61, 28, 17);
   border-radius: 1rem;
   overflow: hidden;
   font-size: 1.6rem;
   padding: 1rem 2rem;
-  background-color: #3d1c11;
+  background-color: rgb(61, 28, 17);
   color: white;
   margin-top: 3rem;
   cursor: pointer;
 }
 button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:active {
   background-color: transparent;
-  border: 0.5rem solid #3d1c11;
+  border: 0.5rem solid rgb(61, 28, 17);
   border-radius: 1rem;
   overflow: hidden;
   transform: scale(1.03);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
-  color: #3d1c11;
+  color: rgb(61, 28, 17);
 }
 
 #reset {
@@ -286,17 +286,17 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
 }
 
 .answer {
-  border: 0.5rem solid #3d1c11;
+  border: 0.5rem solid rgb(61, 28, 17);
   border-radius: 1rem;
   overflow: hidden;
   background-color: white;
-  color: #3d1c11;
+  color: rgb(61, 28, 17);
 }
 .answer * {
-  color: #3d1c11;
+  color: rgb(61, 28, 17);
 }
 .answer__header {
-  background-color: #d2bdb6;
+  background-color: rgb(210, 189, 182);
   padding: 2em;
 }
 .answer__header h2 {
@@ -347,4 +347,3 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
     align-items: flex-start;
   }
 }
-/* Nice. */

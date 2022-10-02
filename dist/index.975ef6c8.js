@@ -537,6 +537,7 @@ var _controller = require("./controller");
 var _controllerDefault = parcelHelpers.interopDefault(_controller);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
+// import '../sass/main.scss';
 function init() {
     (0, _viewDefault.default).addHandlerRender((0, _controllerDefault.default).onFormSubmit);
 }

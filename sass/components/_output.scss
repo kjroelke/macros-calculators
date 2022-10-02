@@ -1,12 +1,15 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
 .answer {
-	@include mainBorder($color-primary);
+	@include mixins.mainBorder(variables.$color-primary);
 	background-color: white;
-	color: $color-primary;
+	color: variables.$color-primary;
 	& * {
-		color: $color-primary;
+		color: variables.$color-primary;
 	}
 	&__header {
-		background-color: $color-secondary--light;
+		background-color: variables.$color-secondary--light;
 		padding: 2em;
 		h2 {
 			text-transform: uppercase;
@@ -15,24 +18,24 @@
 		}
 	}
 	&__container {
-		@include displayFlex(row, space-around, center);
+		@include mixins.displayFlex(row, space-around, center);
 		padding: 3em;
-		@include responsive($bp-mobile) {
+		@include mixins.responsive(variables.$bp-mobile) {
 			padding: 1em;
 		}
 		& > * {
 			margin: 1em;
 		}
 		.percents {
-			@include displayFlex(row, center);
+			@include mixins.displayFlex(row, center);
 			& > * {
 				margin: 0 0.5em;
 			}
-			@include responsive($bp-mobile) {
-				@include displayFlex(column);
+			@include mixins.responsive(variables.$bp-mobile) {
+				@include mixins.displayFlex(column);
 				& > * {
 					margin: 0.5em;
-					@include displayFlex(column);
+					@include mixins.displayFlex(column);
 				}
 			}
 		}

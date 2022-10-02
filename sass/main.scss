@@ -1,16 +1,16 @@
-@import './vendors/fonts';
+@use './vendors/fonts';
 
-@import './abstracts/variables';
-@import './abstracts/mixins';
-@import './abstracts/utilities';
+@use './abstracts/variables';
+@use './abstracts/mixins';
+@use './abstracts/utilities';
 
-@import './base/reset';
-@import './base/typography';
+@use './base/reset';
+@use './base/typography';
 
-@import './layouts/grid';
+@use './layouts/grid';
 
-@import './components/header';
-@import './components/footer';
-@import './components/forms';
-@import './components/buttons';
-@import './components/output';
+@use './components/header';
+@use './components/footer';
+@use './components/forms';
+@use './components/buttons';
+@use './components/output';

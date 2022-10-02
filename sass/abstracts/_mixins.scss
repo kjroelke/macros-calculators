@@ -1,3 +1,5 @@
+@use './variables';
+
 @mixin displayFlex(
 	$direction: row,
 	$main: flex-start,
@@ -10,7 +12,11 @@
 	justify-content: $main;
 	align-items: $cross;
 }
-@mixin mainBorder($color: $color-primary, $width: 0.5rem, $rounded: 1rem) {
+@mixin mainBorder(
+	$color: variables.$color-primary,
+	$width: 0.5rem,
+	$rounded: 1rem
+) {
 	border: $width solid $color;
 	border-radius: $rounded;
 	overflow: hidden;

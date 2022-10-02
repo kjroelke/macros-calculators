@@ -1,3 +1,6 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
 *,
 *::after,
 *::before {
@@ -7,28 +10,27 @@
 }
 
 html {
-	// This defines what 1rem is
 	font-size: 62.5%;
 }
 
 body {
 	box-sizing: border-box;
 	font-size: 1.6rem;
-	font-family: $font-body;
-	background-color: $color-secondary--light;
+	font-family: variables.$font-body;
+	background-color: variables.$color-secondary--light;
 }
 
 main {
 	margin: 0 auto;
 	max-width: 88vw;
 	padding: 6.5rem 0;
-	color: $color-primary;
+	color: variables.$color-primary;
 }
 section {
 	margin-bottom: 2em;
 }
 form {
-	@include mainBorder;
+	@include mixins.mainBorder;
 	font-size: 2rem;
 	fieldset {
 		padding: 2rem;
@@ -37,7 +39,7 @@ form {
 			margin-bottom: 2rem;
 		}
 		legend {
-			color: $color-primary;
+			color: variables.$color-primary;
 			font-weight: 700;
 		}
 		label {

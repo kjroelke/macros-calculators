@@ -225,7 +225,7 @@ footer a:hover, footer a:focus, footer a:active {
   display: flex;
 }
 
-.form__submission button, .form__submission #reset {
+.form__submission button {
   margin-bottom: 1em;
 }
 
@@ -255,14 +255,14 @@ footer a:hover, footer a:focus, footer a:active {
   margin-top: 2rem;
 }
 
-#modifiers .form__content > *, main .calculators #protein-calculator .form__content > *, main .calculators #macro-calculator .form__content > * {
+#modifiers .form__content > * {
   flex-flow: column wrap;
   justify-content: flex-start;
   align-items: flex-start;
   display: flex;
 }
 
-#modifiers .form__content > :not(:last-child), main .calculators #protein-calculator .form__content > :not(:last-child), main .calculators #macro-calculator .form__content > :not(:last-child) {
+#modifiers .form__content > :not(:last-child) {
   margin-bottom: 1em;
 }
 

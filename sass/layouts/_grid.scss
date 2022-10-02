@@ -1,3 +1,6 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
 body {
 	display: grid;
 	grid-template-columns: minmax(0, 6%) [content-start] auto [content-end] minmax(
@@ -9,7 +12,7 @@ body {
 	header {
 		grid-row: header / content-start;
 		grid-column: 1 / -1;
-		@include displayFlex(column, flex-start, center);
+		@include mixins.displayFlex(column, flex-start, center);
 	}
 	main {
 		grid-row: content-start / content-end;
@@ -18,20 +21,20 @@ body {
 	footer {
 		grid-row: content-end / footer;
 		grid-column: 1 / -1;
-		@include displayFlex(column, center, stretch);
+		@include mixins.displayFlex(column, center, stretch);
 	}
 }
 main {
-	@include displayFlex(column);
+	@include mixins.displayFlex(column);
 	.answer {
 		align-self: stretch;
-		@include displayFlex(column, flex-start, stretch);
-		@include responsive($bp-mobile) {
+		@include mixins.displayFlex(column, flex-start, stretch);
+		@include mixins.responsive(variables.$bp-mobile) {
 			order: 2;
 		}
 	}
 	.calculators {
-		@include responsive($bp-tablet) {
+		@include mixins.responsive(variables.$bp-tablet) {
 			order: 1;
 			& > * {
 				align-self: stretch;
@@ -41,8 +44,8 @@ main {
 		grid-template-columns: repeat(2, 1fr);
 		grid-template-rows: repeat(2, 1fr);
 		gap: 2em;
-		@include responsive($bp-tablet) {
-			@include displayFlex(column);
+		@include mixins.responsive(variables.$bp-tablet) {
+			@include mixins.displayFlex(column);
 		}
 		#bmr-calculator {
 			grid-column: 1 / 2;
