@@ -535,15 +535,16 @@ function hmrAcceptRun(bundle, id) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _controller = require("./controller");
 var _controllerDefault = parcelHelpers.interopDefault(_controller);
+var _utilities = require("./modules/utilities");
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 // import '../sass/main.scss';
 function init() {
-    (0, _viewDefault.default).addHandlerRender((0, _controllerDefault.default).onFormSubmit);
+    (0, _utilities.myCopyright)("Macros by Sara", "K.J. Roelke", "kjroelke.online");
 }
 init();
 
-},{"./controller":"gCE4p","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gCE4p":[function(require,module,exports) {
+},{"./controller":"gCE4p","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/utilities":"5HnRK"}],"gCE4p":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _model = require("./model");
@@ -554,11 +555,11 @@ class Controller {
     constructor(Model, View){
         this.model = Model;
         this.view = View;
+        this.view.addHandlerRender(this.onFormSubmit);
     }
-    /** Subscribed to the AddHandlerRender(), this prevents page reload and calls in the Maths.
+    /** Subscribed to the AddHandlerRender(), this calls in the Maths.
 	 * @param ev {object} - the Event
 	 */ onFormSubmit(ev) {
-        ev.preventDefault();
         // The Maths by Model
         (0, _modelDefault.default).calculate(ev.target, ev.target.id);
         // The Output by View
@@ -761,9 +762,8 @@ exports.export = function(dest, destName, get) {
 },{}],"ai2uB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _copyright = require("./modules/copyright");
-var _copyrightDefault = parcelHelpers.interopDefault(_copyright);
 var _form = require("./modules/Form");
+var _utilities = require("./modules/utilities");
 class View {
     forms = document.querySelectorAll("form");
     reset = document.getElementById("reset");
@@ -776,14 +776,29 @@ class View {
     submissionMessage = `<span>Thanks! On to the next step.</span>`;
     finalMessage = `<span>All done! Check the breakdown</span>`;
     constructor(){
-        (0, _copyrightDefault.default)("KJ Roelke", "kjroelke.online");
+        this.#disabledForms();
+        this.#handleSticky(true);
+        this.renderConfirmation();
+        this.reset.addEventListener("click", ()=>this.resetForm());
+    }
+    /** disables input inside of forms */  #disabledForms() {
         this.forms.forEach((form, i)=>{
             if (i === 0) return;
-            // Disable all form controls
             for(i = 0; i < form.length; i++)form[i].setAttribute("disabled", "");
         });
-        this.renderConfirmation();
-        this.reset.addEventListener("click", this.resetForm.bind(this));
+    }
+    /** Handles stickyness of `answer` div.
+	 * @param {boolean} sticky  whether or not to set the id of the `answer` to sticky.
+	 */  #handleSticky(sticky) {
+        const output = (0, _utilities.querySelector)(".answer");
+        if (sticky) {
+            if (output.id != "sticky") document.addEventListener("scroll", ()=>{
+                output.id = "sticky";
+            }, {
+                once: true
+            });
+        }
+        if (!sticky) output.id = "";
     }
     /** Attaches a callback function to each form's 'submit' and passes along the event. Implemented in the `init()` at index.js
 	 * @param handler {function} - the callback function
@@ -792,9 +807,12 @@ class View {
             form.addEventListener("submit", handler);
         });
     }
-    renderConfirmation() {
+    /**
+	 * Adds `submit` listener to each form that adds a message on submit and toggles active/inactive state of each form.
+	 */ renderConfirmation() {
         this.forms.forEach((form, i)=>{
             form.addEventListener("submit", (e)=>{
+                e.preventDefault();
                 const form = e.target;
                 const id = form.dataset.step;
                 const submission = form.querySelector(".form__submission");
@@ -809,14 +827,15 @@ class View {
             });
         });
     }
-    resetForm() {
+    /** Resets the app's state to init */ resetForm() {
         window.scrollTo(0, this.coords.y);
         location.reload();
+        this.handleSticky(false);
     }
-     #toggleStyle(forms) {
+    /** Adds '.inactive' class to each form for more clear UI. */  #toggleStyle(forms) {
         forms.forEach((form)=>form.classList.toggle("inactive"));
     }
-     #enableForm(form) {
+    /** Enables form field inputs */  #enableForm(form) {
         for(let i = 0; i < form.length; i++)form[i].disabled = false;
     }
     handleOutput(form, state) {
@@ -833,19 +852,7 @@ class View {
 }
 exports.default = new View();
 
-},{"./modules/copyright":"8Y6tQ","./modules/Form":"6DnbK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8Y6tQ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function myCopyright(brandName, builder, site) {
-    const copyright = document.getElementById("copyright");
-    const thisYear = new Date().getFullYear();
-    const brand = brandName.replace(/ /g, "");
-    const builderLink = `<a href="https://${site}?utm_source=${brand}&utm_medium=website_footer&utm_campaign=copyright" target ="_blank">${builder}</a>`;
-    copyright.innerHTML = `<p>&copy; ${thisYear} ${brandName} All Rights Reserved.<br/>Site built by ${builderLink}</p>`;
-}
-exports.default = myCopyright;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6DnbK":[function(require,module,exports) {
+},{"./modules/Form":"6DnbK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/utilities":"5HnRK"}],"6DnbK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "bmr", ()=>bmr);
@@ -940,6 +947,31 @@ class ProteinForm extends Form {
     }
 }
 const protein = new ProteinForm("protein-calculator");
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5HnRK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * Create copyright text with a dynamic date and URL campaign builder for GA inside a div with the ID of 'copyright.'
+ * @param {string} brandName Name of the brand
+ * @param {string} builder Name of the person/org building the site
+ * @param {string} site Home URL of the builder. HTTP is added automatically.
+ */ parcelHelpers.export(exports, "myCopyright", ()=>myCopyright);
+/** Shorthand for Query Selector Function.
+ * @param selector {string} CSS Selector. Must include class ('.') marker if needed
+ * @param  [all] {boolean} optional to call querySelectorAll.
+ * @return {Element} HTML Element
+ * */ parcelHelpers.export(exports, "querySelector", ()=>querySelector);
+function myCopyright(brandName, builder, site) {
+    const copyright = document.getElementById("copyright");
+    const thisYear = new Date().getFullYear();
+    const brand = brandName.replace(/ /g, "");
+    const builderLink = `<a href="https://${site}?utm_source=${brand}&utm_medium=website_footer&utm_campaign=copyright" target ="_blank">${builder}</a>`;
+    copyright.insertAdjacentHTML("afterbegin", `<p>&copy; ${thisYear} ${brandName} All Rights Reserved.<br/>Site built by ${builderLink}</p>`);
+}
+function querySelector(selector, all = false) {
+    return all === false ? document.querySelector(selector) : document.querySelectorAll(selector);
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["ShInH","8lqZg"], "8lqZg", "parcelRequirece37")
 

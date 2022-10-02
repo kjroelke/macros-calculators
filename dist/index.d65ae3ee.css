@@ -7,7 +7,7 @@
   transition: opacity .2s .25s;
 }
 
-.sticky {
+#sticky {
   position: sticky;
 }
 
@@ -144,6 +144,7 @@ header h1 {
 }
 
 footer {
+  color: #fff;
   background-color: #743c18;
   background-image: linear-gradient(to bottom right, #0000, #00000059);
   padding: 6.5rem 0;

@@ -13,7 +13,7 @@ Body: Mulish
   transition-delay: 250ms;
 }
 
-.sticky {
+#sticky {
   position: -webkit-sticky;
   position: sticky;
 }
@@ -150,6 +150,7 @@ header h1 {
 footer {
   background-color: rgb(116, 60, 24);
   background-image: linear-gradient(to right bottom, transparent, rgba(0, 0, 0, 0.35));
+  color: white;
   padding: 6.5rem 0;
 }
 footer > * {

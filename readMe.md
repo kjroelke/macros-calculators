@@ -6,6 +6,17 @@ Developed in MVC Pattern with 7-1 SCSS structure.
 
 # Changelog
 
+## v1.2.1
+
+- Begin to refactor JS for cleaner MVC architecture.
+
+## v1.2
+
+- Implement crude 'sticky' feature
+- Fire `myCopright()` inside `init()`
+  - `myCopyright()` is now located inside of newly-renamed `utilities.js` module
+- Added docs in `view.js`
+
 ## v1.1
 
 ### Style Changes

@@ -4,6 +4,7 @@
 footer {
 	background-color: variables.$color-primary--light;
 	@include mixins.linearGradientDarken;
+	color: white;
 	padding: 6.5rem 0;
 	& > * {
 		color: white;
