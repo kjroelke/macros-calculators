@@ -11,7 +11,7 @@ Developed in MVC Pattern with 7-1 SCSS structure.
 ### Style Changes
 
 - Refactor SCSS to implement `@use` in favor of deprecated `@import`
-- Switch layout from 'grid' to 1/3 | 2/3 layout for future scrollytelling implementation
+- Switch layout from 'grid' to `40% / 60%` layout for future scrollytelling implementation
 
 ## v 1.0
 

@@ -13,6 +13,11 @@ Body: Mulish
   transition-delay: 250ms;
 }
 
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
 *,
 *::after,
 *::before {
@@ -98,54 +103,36 @@ body footer {
 }
 
 main {
+  position: relative;
+  width: 88%;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
 }
 main .answer {
-  align-self: stretch;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch;
-}
-@media screen and (max-width: 25.875em) {
-  main .answer {
-    order: 2;
-  }
+  position: absolute;
+  max-width: 76rem;
+  top: 0%;
+  left: 40%;
+  z-index: 2;
+  transform: translateY(20%);
 }
 main .calculators {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: 2em;
-}
-@media screen and (max-width: 53.75em) {
-  main .calculators {
-    order: 1;
-  }
-  main .calculators > * {
-    align-self: stretch;
-  }
-}
-@media screen and (max-width: 53.75em) {
-  main .calculators {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-}
-main .calculators #bmr-calculator {
-  grid-column: 1/2;
-  grid-row: 1/-1;
-}
-main .calculators #modifiers, main .calculators #macro-calculator, main .calculators #protein-calculator {
-  grid-column: 2/3;
+  width: 35%;
 }
 header {
   background-color: rgb(140, 101, 72);

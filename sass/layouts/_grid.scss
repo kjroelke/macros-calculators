@@ -1,6 +1,6 @@
 @use '../abstracts/variables';
 @use '../abstracts/mixins';
-
+// @use '.sass/math';
 body {
 	display: grid;
 	grid-template-columns: minmax(0, 6%) [content-start] auto [content-end] minmax(
@@ -25,40 +25,34 @@ body {
 	}
 }
 main {
-	@include mixins.displayFlex(column);
+	position: relative;
+	width: 88%;
+	max-width: 1200px;
+	@include mixins.displayFlex(column, flex-start, flex-start, nowrap);
 	.answer {
-		align-self: stretch;
 		@include mixins.displayFlex(column, flex-start, stretch);
-		@include mixins.responsive(variables.$bp-mobile) {
-			order: 2;
-		}
+		position: absolute;
+		max-width: 76rem;
+		top: 0%;
+		left: 40%;
+		z-index: 2;
+		transform: translateY(20%);
 	}
 	.calculators {
-		@include mixins.responsive(variables.$bp-tablet) {
-			order: 1;
-			& > * {
-				align-self: stretch;
-			}
-		}
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(2, 1fr);
+		@include mixins.displayFlex(column);
 		gap: 2em;
-		@include mixins.responsive(variables.$bp-tablet) {
-			@include mixins.displayFlex(column);
-		}
+		width: 35%;
 		#bmr-calculator {
-			grid-column: 1 / 2;
-			grid-row: 1 / -1;
+			// @include mixins.displayFlex(column);
 		}
 		#modifiers {
-			grid-column: 2 / 3;
+			// @include mixins.displayFlex(column);
 		}
 		#protein-calculator {
-			@extend #modifiers;
+			// @extend #modifiers;
 		}
 		#macro-calculator {
-			@extend #modifiers;
+			// @extend #modifiers;
 		}
 	}
 }
