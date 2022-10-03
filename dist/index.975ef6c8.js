@@ -538,13 +538,13 @@ var _controllerDefault = parcelHelpers.interopDefault(_controller);
 var _utilities = require("./modules/utilities");
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-// import '../sass/main.scss';
+var _mainScss = require("../sass/main.scss");
 function init() {
     (0, _utilities.myCopyright)("Macros by Sara", "K.J. Roelke", "kjroelke.online");
 }
 init();
 
-},{"./controller":"gCE4p","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/utilities":"5HnRK"}],"gCE4p":[function(require,module,exports) {
+},{"./controller":"gCE4p","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/utilities":"5HnRK","../sass/main.scss":"5Izhf"}],"gCE4p":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _model = require("./model");
@@ -973,6 +973,6 @@ function querySelector(selector, all = false) {
     return all === false ? document.querySelector(selector) : document.querySelectorAll(selector);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["ShInH","8lqZg"], "8lqZg", "parcelRequirece37")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5Izhf":[function() {},{}]},["ShInH","8lqZg"], "8lqZg", "parcelRequirece37")
 
 //# sourceMappingURL=index.975ef6c8.js.map
