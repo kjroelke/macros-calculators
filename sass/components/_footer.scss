@@ -2,7 +2,7 @@
 @use '../abstracts/mixins';
 
 footer {
-	background-color: variables.$color-primary--light;
+	background-color: variables.$color-primary;
 	@include mixins.linearGradientDarken;
 	color: white;
 	padding: 6.5rem 0;
