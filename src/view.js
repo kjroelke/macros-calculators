@@ -1,11 +1,8 @@
 import * as form from './modules/Form';
-import { querySelector } from './modules/utilities';
 
 class View {
 	forms = document.querySelectorAll('form');
 	reset = document.getElementById('reset');
-	main = document.querySelector('main');
-	coords = this.main.getBoundingClientRect();
 	mods = form.mods;
 	calorieGoal = form.calories;
 	bmr = form.bmr;
@@ -14,7 +11,9 @@ class View {
 	finalMessage = `<span>All done! Check the breakdown</span>`;
 	constructor() {
 		this.simpleProtection();
+		this.reset.addEventListener('click', this.resetForm);
 	}
+	/** Adds simple password protection that gets bypassed if IP Address = Roelke Residence. */
 	simpleProtection = async function () {
 		try {
 			const res = await fetch('https://api.ipify.org/?format=json');
@@ -39,53 +38,85 @@ class View {
 		this.renderConfirmation();
 		this.reset.addEventListener('click', () => this.resetForm());
 	};
-	/** disables input inside of forms */
-	#disabledForms() {
-		this.forms.forEach((form, i) => {
-			if (i === 0) return;
-			for (i = 0; i < form.length; i++) {
-				form[i].setAttribute('disabled', '');
+
+	/** Resets the app's state to init */
+	resetForm() {
+		location.reload();
+	}
+	/** Gets form values
+	 * @return object
+	 */
+	getBMRValues(form) {
+		const weightVal = form.querySelector('#weight'),
+			heightFtVal = form.querySelector('#height--ft'),
+			heightInVal = form.querySelector('#height--in'),
+			ageVal = form.querySelector('#age'),
+			genderOptions = form.querySelectorAll('#gender input[type="radio"]');
+		// healthOptions = form.querySelectorAll('#health input[type="radio"]'),
+		const person = {
+			weight: Number(weightVal.value),
+			age: Number(ageVal.value),
+			heightFt: Number(heightFtVal.value),
+			heightIn: Number(heightInVal.value),
+		};
+		genderOptions.forEach((el, i) => {
+			if (el.checked) {
+				person.gender = genderOptions[i].value;
 			}
 		});
+		return person;
+	}
+	#getOptionsValue(el) {
+		const value = +el.options[el.selectedIndex].value;
+		return value;
+	}
+	/** Gets form values
+	 * @return object
+	 */
+	getModsValues(form) {
+		const activityVal = form.querySelector('#tdee'),
+			deficitVal = form.querySelector('#deficit');
+		const modifiers = {
+			activity: this.#getOptionsValue(activityVal),
+			deficit: this.#getOptionsValue(deficitVal),
+		};
+		return modifiers;
 	}
 
-	/** Attaches a callback function to each form's 'submit' and passes along the event. Implemented in the `init()` at index.js
+	getProteinValues(form) {
+		const protein = Number(form.querySelector('#protein-modifier').value);
+		return protein;
+	}
+	/** Attaches a callback function to each form's 'submit' and passes along the event. Calls `#renderConfirmation()`
 	 * @param handler {function} - the callback function
 	 */
 	addHandlerRender(handler) {
-		this.forms.forEach((form) => {
-			form.addEventListener('submit', handler);
-		});
-	}
-	/**
-	 * Adds `submit` listener to each form that adds a message on submit and toggles active/inactive state of each form.
-	 */
-	renderConfirmation() {
 		this.forms.forEach((form, i) => {
-			form.addEventListener('submit', (e) => {
-				e.preventDefault();
-				const form = e.target;
-				const id = form.dataset.step;
-				const submission = form.querySelector('.form__submission');
-				submission.insertAdjacentHTML(
-					'beforeend',
-					i != 2 ? this.submissionMessage : this.finalMessage,
-				);
-				if (id != 3) {
-					this.#toggleStyle([form, this.forms[id]]);
-					this.#enableForm(this.forms[id]);
-				}
+			form.addEventListener('submit', (ev) => {
+				ev.preventDefault();
+				handler(ev);
+				this.#renderConfirmation(ev.target, i);
 			});
 		});
 	}
-	/** Resets the app's state to init */
-	resetForm() {
-		window.scrollTo(0, this.coords.y);
-		location.reload();
-		this.handleSticky(false);
+	/**
+	 * Adds a message on submit and toggles active/inactive state of each form.
+	 */
+	#renderConfirmation(form, i) {
+		const id = +form.dataset.step;
+		const nextForm = i + 1;
+		const submission = form.querySelector('.form__submission');
+		submission.insertAdjacentHTML(
+			'beforeend',
+			i != 2 ? this.submissionMessage : this.finalMessage,
+		);
+		if (id != 2) {
+			this.#toggleStyle([form, this.forms[nextForm]]);
+			this.#enableForm(this.forms[i]);
+		}
 	}
 
-	/** Adds '.inactive' class to each form for more clear UI. */
+	/** Toggles '.inactive' class for each form to clarify UI. */
 	#toggleStyle(forms) {
 		forms.forEach((form) => form.classList.toggle('inactive'));
 	}
@@ -96,18 +127,27 @@ class View {
 			form[i].disabled = false;
 		}
 	}
+	/** disables input inside of forms */
+	#disabledForms() {
+		this.forms.forEach((form, i) => {
+			if (i === 0) return;
+			for (i = 0; i < form.length; i++) {
+				form[i].setAttribute('disabled', '');
+			}
+		});
+	}
 
-	handleOutput(form, state) {
-		if (form === this.bmr.form.id) {
-			this.bmr.renderOutput(state.bmr);
-			this.proteins.updateOptions(state.person.gender);
+	handleOutput(form, data) {
+		if (form === 0) {
+			this.bmr.renderOutput(data.bmr);
+			this.proteins.updateOptions(data.person.gender);
 		}
-		if (form === this.mods.form.id) {
-			this.mods.renderOutput(state.tdee);
-			this.calorieGoal.renderOutput(state.calorieGoal);
+		if (form === 1) {
+			this.mods.renderOutput(data.tdee);
+			this.calorieGoal.renderOutput(data.calorieGoal);
 		}
-		if (form === this.proteins.form.id) {
-			this.proteins.renderMacros(state.macros);
+		if (form === 2) {
+			this.proteins.renderMacros(data.macros);
 		}
 	}
 }
