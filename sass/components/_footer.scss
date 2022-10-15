@@ -1,6 +1,11 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
 footer {
-	background-color: $color-primary--light;
-	@include linearGradientDarken;
+	@include mixins.displayFlex(column, center, stretch);
+	@include mixins.linearGradientDarken;
+	background-color: variables.$color-primary;
+	color: white;
 	padding: 6.5rem 0;
 	& > * {
 		color: white;
@@ -13,7 +18,7 @@ footer {
 		&:focus,
 		&:active {
 			font-size: 1.8rem;
-			@include transitionStandard;
+			@include mixins.transitionStandard;
 		}
 	}
 }

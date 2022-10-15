@@ -1,7 +1,9 @@
 import controller from './controller';
+import { myCopyright } from './modules/utilities';
 import view from './view';
+import '../sass/main.scss';
 
 function init() {
-	view.addHandlerRender(controller.onFormSubmit);
+	myCopyright('Macros by Sara', 'K.J. Roelke', 'kjroelke.online');
 }
 init();

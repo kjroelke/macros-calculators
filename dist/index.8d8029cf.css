@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&display=swap";
 .hidden {
   display: none;
 }
@@ -5,6 +6,10 @@
 .inactive {
   opacity: .6;
   transition: opacity .2s .25s;
+}
+
+#sticky {
+  position: sticky;
 }
 
 *, :after, :before {
@@ -19,16 +24,7 @@ html {
 
 body {
   box-sizing: border-box;
-  background-color: #d2bdb6;
-  font-family: Arial;
-  font-size: 1.6rem;
-}
-
-main {
-  max-width: 88vw;
-  color: #3d1c11;
-  margin: 0 auto;
-  padding: 6.5rem 0;
+  background-color: #d1bcb5;
 }
 
 section {
@@ -36,7 +32,7 @@ section {
 }
 
 form {
-  border: .5rem solid #3d1c11;
+  border: .5rem solid #3c1c12;
   border-radius: 1rem;
   font-size: 2rem;
   overflow: hidden;
@@ -51,7 +47,7 @@ form fieldset:not(:last-child) {
 }
 
 form fieldset legend {
-  color: #3d1c11;
+  color: #3c1c12;
   font-weight: 700;
 }
 
@@ -67,103 +63,100 @@ form fieldset h3 {
 }
 
 body {
-  grid-template-rows: [header] 1fr[content-start] auto[content-end] 1fr[footer];
-  grid-template-columns: minmax(0, 6%)[content-start] auto[content-end] minmax(0, 6%);
-  display: grid;
+  font-family: Montserrat, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
 }
 
-body header {
-  flex-flow: column wrap;
-  grid-area: header / 1 / content-start / -1;
-  justify-content: flex-start;
-  align-items: center;
+h1 {
+  font-size: 4.8rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+input {
+  font-weight: 700;
+}
+
+.container {
+  width: 88%;
+  max-width: 1200px;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin: 0 auto;
+  padding: 6.5rem 0;
   display: flex;
+  position: relative;
 }
 
-body main {
-  grid-area: content-start / content-start / content-end / content-end;
+.container > section {
+  flex: 40%;
+  margin: 0 2rem;
 }
 
-body footer {
+.container .answer {
   flex-flow: column wrap;
-  grid-area: content-end / 1 / footer / -1;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
   display: flex;
+  position: sticky;
+  top: 20%;
 }
 
-main {
+.container .calculators {
   flex-flow: column wrap;
   justify-content: flex-start;
   align-items: flex-start;
   display: flex;
 }
 
-main .answer {
-  flex-flow: column wrap;
-  justify-content: flex-start;
-  align-self: stretch;
-  align-items: stretch;
+.container .calculators form {
+  margin-bottom: 5vw;
+}
+
+.header {
+  background-color: #fff;
+  border-bottom: 2rem solid #3c1c12;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 6.5rem 2rem;
   display: flex;
 }
 
-@media screen and (max-width: 25.875em) {
-  main .answer {
-    order: 2;
-  }
+.header > * {
+  margin-bottom: 3rem;
 }
 
-main .calculators {
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2em;
-  display: grid;
+.header__title {
+  color: #3c1c12;
+  margin-left: 5rem;
 }
 
-@media screen and (max-width: 53.75em) {
-  main .calculators {
-    order: 1;
-  }
-
-  main .calculators > * {
-    align-self: stretch;
-  }
-
-  main .calculators {
-    flex-flow: column wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-  }
-}
-
-main .calculators #bmr-calculator {
-  grid-area: 1 / 1 / -1 / 2;
-}
-
-main .calculators #modifiers, main .calculators #macro-calculator, main .calculators #protein-calculator {
-  grid-column: 2 / 3;
-}
-
-header {
-  background-color: #8c6548;
-  background-image: linear-gradient(to bottom right, #0000, #00000059);
-  padding: 6.5rem 2rem;
-}
-
-header > * {
-  color: #fff;
-  text-align: center;
-}
-
-header h1 {
-  margin-bottom: 1em;
+.header__img svg {
+  height: 20rem;
+  width: 20rem;
 }
 
 footer {
-  background-color: #743c18;
+  color: #fff;
+  background-color: #3c1c12;
   background-image: linear-gradient(to bottom right, #0000, #00000059);
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: stretch;
   padding: 6.5rem 0;
+  display: flex;
 }
 
 footer > * {
@@ -190,7 +183,7 @@ footer a:hover, footer a:focus, footer a:active {
 }
 
 .form__header {
-  background-color: #8c6548;
+  background-color: #3c1c12;
   background-image: linear-gradient(to bottom right, #0000, #00000059);
   align-self: stretch;
   padding: 2rem;
@@ -225,7 +218,7 @@ footer a:hover, footer a:focus, footer a:active {
   display: flex;
 }
 
-.form__submission button, .form__submission #reset {
+.form__submission button {
   margin-bottom: 1em;
 }
 
@@ -255,22 +248,22 @@ footer a:hover, footer a:focus, footer a:active {
   margin-top: 2rem;
 }
 
-#modifiers .form__content > *, main .calculators #protein-calculator .form__content > *, main .calculators #macro-calculator .form__content > * {
+#modifiers .form__content > * {
   flex-flow: column wrap;
   justify-content: flex-start;
   align-items: flex-start;
   display: flex;
 }
 
-#modifiers .form__content > :not(:last-child), main .calculators #protein-calculator .form__content > :not(:last-child), main .calculators #macro-calculator .form__content > :not(:last-child) {
+#modifiers .form__content > :not(:last-child) {
   margin-bottom: 1em;
 }
 
 button, #reset {
   color: #fff;
   cursor: pointer;
-  background-color: #3d1c11;
-  border: .5rem solid #3d1c11;
+  background-color: #875242;
+  border: .5rem solid #875242;
   border-radius: 1rem;
   margin-top: 3rem;
   padding: 1rem 2rem;
@@ -280,11 +273,8 @@ button, #reset {
 }
 
 button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:active {
-  color: #3d1c11;
+  color: #875242;
   background-color: #0000;
-  border: .5rem solid #3d1c11;
-  border-radius: 1rem;
-  overflow: hidden;
   transform: scale(1.03);
   box-shadow: 2px 2px 4px #00000059;
 }
@@ -294,15 +284,15 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
 }
 
 .answer {
-  color: #3d1c11;
+  color: #3c1c12;
   background-color: #fff;
-  border: .5rem solid #3d1c11;
+  border: .5rem solid #3c1c12;
   border-radius: 1rem;
   overflow: hidden;
 }
 
 .answer * {
-  color: #3d1c11;
+  color: #3c1c12;
 }
 
 .answer__header {
@@ -362,4 +352,4 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
   }
 }
 
-/*# sourceMappingURL=index.d65ae3ee.css.map */
+/*# sourceMappingURL=index.8d8029cf.css.map */

@@ -1,9 +1,12 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
 button {
-	@include transitionStandard;
-	@include mainBorder;
+	@include mixins.transitionStandard;
+	@include mixins.mainBorder(variables.$color-brick);
 	font-size: 1.6rem;
 	padding: 1rem 2rem;
-	background-color: $color-primary;
+	background-color: variables.$color-brick;
 	color: white;
 	margin-top: 3rem;
 	cursor: pointer;
@@ -11,9 +14,8 @@ button {
 	&:focus,
 	&:active {
 		background-color: transparent;
-		@include mainBorder;
-		@include cssHover;
-		color: $color-primary;
+		@include mixins.cssHover;
+		color: variables.$color-brick;
 	}
 }
 #reset {

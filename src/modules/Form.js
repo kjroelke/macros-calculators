@@ -16,7 +16,6 @@ class Form {
 	}
 }
 export const bmr = new Form('bmr-calculator');
-
 export const mods = new Form('modifiers');
 export const calories = new Form('calorie-goal');
 

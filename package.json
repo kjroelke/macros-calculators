@@ -9,6 +9,7 @@
   "author": "KJ Roelke",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.7.0",
     "dotenv": "^16.0.2",
     "parcel": "^2.2.1"
   }

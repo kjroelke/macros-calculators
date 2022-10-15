@@ -1,9 +1,12 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
 .form {
 	background-color: white;
-	@include displayFlex(column);
+	@include mixins.displayFlex(column);
 	&__header {
-		@include linearGradientDarken;
-		background-color: $color-secondary;
+		@include mixins.linearGradientDarken;
+		background-color: variables.$color-primary;
 		padding: 2rem;
 		align-self: stretch;
 		h2 {
@@ -12,14 +15,14 @@
 		}
 	}
 	&__content {
-		@include displayFlex(column, flex-start, stretch);
+		@include mixins.displayFlex(column, flex-start, stretch);
 		padding: 3rem;
 		&--fields {
-			@include displayFlex(row, space-around);
+			@include mixins.displayFlex(row, space-around);
 		}
 	}
 	&__submission {
-		@include displayFlex(column);
+		@include mixins.displayFlex(column);
 		margin-left: 1em;
 		margin-bottom: 1em;
 		button {
@@ -32,9 +35,9 @@
 }
 
 #bmr-calculator {
-	@include displayFlex(column, flex-start, stretch);
+	@include mixins.displayFlex(column, flex-start, stretch);
 	.form__content {
-		@include displayFlex(row, space-between);
+		@include mixins.displayFlex(row, space-between);
 		& *:first-child {
 			margin-right: 2rem;
 		}
@@ -46,7 +49,7 @@
 #modifiers {
 	.form__content {
 		& > * {
-			@include displayFlex(column);
+			@include mixins.displayFlex(column);
 			&:not(:last-child) {
 				margin-bottom: 1em;
 			}
