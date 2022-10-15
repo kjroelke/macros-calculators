@@ -19,6 +19,9 @@
 	}
 	.calculators {
 		@include mixins.displayFlex(column);
+		& form {
+			margin-bottom: 5vw;
+		}
 		#bmr-calculator {
 			// @include mixins.displayFlex(column);
 		}

@@ -6,7 +6,9 @@
 	padding: 6.5rem 2rem;
 	background-color: white;
 	border-bottom: 2rem solid variables.$color-primary;
-
+	& > * {
+		margin-bottom: 3rem;
+	}
 	&__title {
 		color: variables.$color-primary;
 		margin-left: 5rem;

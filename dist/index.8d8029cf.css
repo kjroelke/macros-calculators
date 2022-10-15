@@ -120,6 +120,10 @@ input {
   display: flex;
 }
 
+.container .calculators form {
+  margin-bottom: 5vw;
+}
+
 .header {
   background-color: #fff;
   border-bottom: 2rem solid #3c1c12;
@@ -128,6 +132,10 @@ input {
   align-items: center;
   padding: 6.5rem 2rem;
   display: flex;
+}
+
+.header > * {
+  margin-bottom: 3rem;
 }
 
 .header__title {
