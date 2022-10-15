@@ -6,7 +6,7 @@ button {
 	@include mixins.mainBorder;
 	font-size: 1.6rem;
 	padding: 1rem 2rem;
-	background-color: variables.$color-primary;
+	background-color: variables.$color-brick;
 	color: white;
 	margin-top: 3rem;
 	cursor: pointer;

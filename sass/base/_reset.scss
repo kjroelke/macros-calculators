@@ -15,15 +15,9 @@ html {
 
 body {
 	box-sizing: border-box;
-	background-color: variables.$color-secondary--light;
+	background-color: variables.$color-secondary;
 }
 
-main {
-	margin: 0 auto;
-	max-width: 88vw;
-	padding: 6.5rem 0;
-	color: variables.$color-primary;
-}
 section {
 	margin-bottom: 2em;
 }

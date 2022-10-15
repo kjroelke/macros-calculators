@@ -1,42 +1,21 @@
 @use '../abstracts/variables';
 @use '../abstracts/mixins';
-// @use '.sass/math';
-body {
-	display: grid;
-	grid-template-columns: minmax(0, 6%) [content-start] auto [content-end] minmax(
-			0,
-			6%
-		);
-	grid-template-rows: [header] 1fr [content-start] auto [content-end] 1fr [footer];
 
-	header {
-		grid-row: header / content-start;
-		grid-column: 1 / -1;
-		@include mixins.displayFlex(column, flex-start, center);
-	}
-	main {
-		grid-row: content-start / content-end;
-		grid-column: content-start / content-end;
-	}
-	footer {
-		grid-row: content-end / footer;
-		grid-column: 1 / -1;
-		@include mixins.displayFlex(column, center, stretch);
-	}
-}
-main {
+.container {
+	@include mixins.displayFlex(row, space-evenly);
 	position: relative;
+	margin: 0 auto;
+	padding: 6.5rem 0;
 	width: 88%;
 	max-width: 1200px;
-	@include mixins.displayFlex(column, flex-start, flex-start, nowrap);
+	& > section {
+		flex: 1 1 40%;
+		margin: 0 2rem;
+	}
 	.answer {
 		@include mixins.displayFlex(column, flex-start, stretch);
-		position: absolute;
-		max-width: 76rem;
-		top: 0%;
-		left: 40%;
-		z-index: 2;
-		transform: translateY(20%);
+		position: sticky;
+		top: 20%;
 	}
 	.calculators {
 		@include mixins.displayFlex(column);

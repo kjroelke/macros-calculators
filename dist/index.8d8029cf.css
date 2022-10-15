@@ -24,14 +24,7 @@ html {
 
 body {
   box-sizing: border-box;
-  background-color: #d2bdb6;
-}
-
-main {
-  max-width: 88vw;
-  color: #3c1c12;
-  margin: 0 auto;
-  padding: 6.5rem 0;
+  background-color: #d1bcb5;
 }
 
 section {
@@ -86,56 +79,33 @@ h3 {
   font-size: 2.4rem;
 }
 
-body {
-  grid-template-rows: [header] 1fr[content-start] auto[content-end] 1fr[footer];
-  grid-template-columns: minmax(0, 6%)[content-start] auto[content-end] minmax(0, 6%);
-  display: grid;
-}
-
-body header {
-  flex-flow: column wrap;
-  grid-area: header / 1 / content-start / -1;
-  justify-content: flex-start;
-  align-items: center;
-  display: flex;
-}
-
-body main {
-  grid-area: content-start / content-start / content-end / content-end;
-}
-
-body footer {
-  flex-flow: column wrap;
-  grid-area: content-end / 1 / footer / -1;
-  justify-content: center;
-  align-items: stretch;
-  display: flex;
-}
-
-main {
+.container {
   width: 88%;
   max-width: 1200px;
-  flex-flow: column;
-  justify-content: flex-start;
+  flex-flow: wrap;
+  justify-content: space-evenly;
   align-items: flex-start;
+  margin: 0 auto;
+  padding: 6.5rem 0;
   display: flex;
   position: relative;
 }
 
-main .answer {
-  max-width: 76rem;
-  z-index: 2;
+.container > section {
+  flex: 40%;
+  margin: 0 2rem;
+}
+
+.container .answer {
   flex-flow: column wrap;
   justify-content: flex-start;
   align-items: stretch;
   display: flex;
-  position: absolute;
-  top: 0%;
-  left: 40%;
-  transform: translateY(20%);
+  position: sticky;
+  top: 20%;
 }
 
-main .calculators {
+.container .calculators {
   width: 35%;
   flex-flow: column wrap;
   justify-content: flex-start;
@@ -168,7 +138,11 @@ footer {
   color: #fff;
   background-color: #3c1c12;
   background-image: linear-gradient(to bottom right, #0000, #00000059);
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: stretch;
   padding: 6.5rem 0;
+  display: flex;
 }
 
 footer > * {
@@ -195,7 +169,7 @@ footer a:hover, footer a:focus, footer a:active {
 }
 
 .form__header {
-  background-color: #d1bcb5;
+  background-color: #3c1c12;
   background-image: linear-gradient(to bottom right, #0000, #00000059);
   align-self: stretch;
   padding: 2rem;
@@ -274,7 +248,7 @@ footer a:hover, footer a:focus, footer a:active {
 button, #reset {
   color: #fff;
   cursor: pointer;
-  background-color: #3c1c12;
+  background-color: #875242;
   border: .5rem solid #3c1c12;
   border-radius: 1rem;
   margin-top: 3rem;

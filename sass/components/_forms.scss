@@ -6,7 +6,7 @@
 	@include mixins.displayFlex(column);
 	&__header {
 		@include mixins.linearGradientDarken;
-		background-color: variables.$color-secondary;
+		background-color: variables.$color-primary;
 		padding: 2rem;
 		align-self: stretch;
 		h2 {
