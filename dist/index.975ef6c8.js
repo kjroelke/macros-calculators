@@ -552,6 +552,7 @@ var _modelDefault = parcelHelpers.interopDefault(_model);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class Controller {
+    #demo;
     constructor(Model, View){
         this.model = Model;
         this.view = View;
@@ -776,11 +777,35 @@ class View {
     submissionMessage = `<span>Thanks! On to the next step.</span>`;
     finalMessage = `<span>All done! Check the breakdown</span>`;
     constructor(){
+        this.simpleProtection();
+    }
+    simpleProtection = async function() {
+        const myIP = "76.253.164.85";
+        let home;
+        try {
+            const res = await fetch("https://api.ipify.org/?format=json");
+            if (!res.ok) throw new Error();
+            const { ip  } = await res.json();
+            home = ip === myIP ? true : false;
+            if (home) return;
+            const allowed = prompt("Password");
+            const denial = `
+			<main>
+				<h1>You are not allowed to use this calculator.</h1>
+				<span>If you have forgotten your password or feel you are being shown this message in error, please contact <a href="mailto:kj.roelke@gmail.com">KJ Roelke</a> and ask for help.</span>
+			</main>`;
+            if (allowed != "Elliecat29!") {
+                document.querySelector("main").innerHTML = denial;
+                return;
+            }
+        } catch (err) {
+            console.error(err);
+        }
         this.#disabledForms();
         this.#handleSticky(true);
         this.renderConfirmation();
         this.reset.addEventListener("click", ()=>this.resetForm());
-    }
+    };
     /** disables input inside of forms */  #disabledForms() {
         this.forms.forEach((form, i)=>{
             if (i === 0) return;
