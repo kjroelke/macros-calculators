@@ -1,15 +1,19 @@
 @use '../abstracts/variables';
 @use '../abstracts/mixins';
 
-header {
-	background-color: variables.$color-secondary;
-	@include mixins.linearGradientDarken;
+.header {
+	@include mixins.displayFlex(row, center, center);
 	padding: 6.5rem 2rem;
-	& > * {
-		color: white;
-		text-align: center;
+	background-color: white;
+	border-bottom: 2rem solid variables.$color-primary;
+
+	&__title {
+		color: variables.$color-primary;
+		margin-left: 5rem;
 	}
-	h1 {
-		margin-bottom: 1em;
+
+	&__img svg {
+		height: 20rem;
+		width: 20rem;
 	}
 }

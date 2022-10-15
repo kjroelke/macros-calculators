@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&display=swap";
 .hidden {
   display: none;
 }
@@ -24,13 +25,11 @@ html {
 body {
   box-sizing: border-box;
   background-color: #d2bdb6;
-  font-family: Arial;
-  font-size: 1.6rem;
 }
 
 main {
   max-width: 88vw;
-  color: #3d1c11;
+  color: #3c1c12;
   margin: 0 auto;
   padding: 6.5rem 0;
 }
@@ -40,7 +39,7 @@ section {
 }
 
 form {
-  border: .5rem solid #3d1c11;
+  border: .5rem solid #3c1c12;
   border-radius: 1rem;
   font-size: 2rem;
   overflow: hidden;
@@ -55,7 +54,7 @@ form fieldset:not(:last-child) {
 }
 
 form fieldset legend {
-  color: #3d1c11;
+  color: #3c1c12;
   font-weight: 700;
 }
 
@@ -68,6 +67,23 @@ form fieldset label {
 form fieldset h3 {
   margin-top: 2rem;
   font-size: 2rem;
+}
+
+body {
+  font-family: Montserrat;
+  font-size: 1.6rem;
+}
+
+h1 {
+  font-size: 4.8rem;
+}
+
+h2 {
+  font-size: 3.2rem;
+}
+
+h3 {
+  font-size: 2.4rem;
 }
 
 body {
@@ -128,24 +144,29 @@ main .calculators {
   display: flex;
 }
 
-header {
-  background-color: #8c6548;
-  background-image: linear-gradient(to bottom right, #0000, #00000059);
+.header {
+  background-color: #fff;
+  border-bottom: 2rem solid #3c1c12;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: center;
   padding: 6.5rem 2rem;
+  display: flex;
 }
 
-header > * {
-  color: #fff;
-  text-align: center;
+.header__title {
+  color: #3c1c12;
+  margin-left: 5rem;
 }
 
-header h1 {
-  margin-bottom: 1em;
+.header__img svg {
+  height: 20rem;
+  width: 20rem;
 }
 
 footer {
   color: #fff;
-  background-color: #743c18;
+  background-color: #8a412a;
   background-image: linear-gradient(to bottom right, #0000, #00000059);
   padding: 6.5rem 0;
 }
@@ -174,7 +195,7 @@ footer a:hover, footer a:focus, footer a:active {
 }
 
 .form__header {
-  background-color: #8c6548;
+  background-color: #d1bcb5;
   background-image: linear-gradient(to bottom right, #0000, #00000059);
   align-self: stretch;
   padding: 2rem;
@@ -253,8 +274,8 @@ footer a:hover, footer a:focus, footer a:active {
 button, #reset {
   color: #fff;
   cursor: pointer;
-  background-color: #3d1c11;
-  border: .5rem solid #3d1c11;
+  background-color: #3c1c12;
+  border: .5rem solid #3c1c12;
   border-radius: 1rem;
   margin-top: 3rem;
   padding: 1rem 2rem;
@@ -264,9 +285,9 @@ button, #reset {
 }
 
 button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:active {
-  color: #3d1c11;
+  color: #3c1c12;
   background-color: #0000;
-  border: .5rem solid #3d1c11;
+  border: .5rem solid #3c1c12;
   border-radius: 1rem;
   overflow: hidden;
   transform: scale(1.03);
@@ -278,15 +299,15 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
 }
 
 .answer {
-  color: #3d1c11;
+  color: #3c1c12;
   background-color: #fff;
-  border: .5rem solid #3d1c11;
+  border: .5rem solid #3c1c12;
   border-radius: 1rem;
   overflow: hidden;
 }
 
 .answer * {
-  color: #3d1c11;
+  color: #3c1c12;
 }
 
 .answer__header {
