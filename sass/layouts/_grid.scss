@@ -19,8 +19,6 @@
 	}
 	.calculators {
 		@include mixins.displayFlex(column);
-		gap: 2em;
-		width: 35%;
 		#bmr-calculator {
 			// @include mixins.displayFlex(column);
 		}

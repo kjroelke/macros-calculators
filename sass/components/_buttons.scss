@@ -3,7 +3,7 @@
 
 button {
 	@include mixins.transitionStandard;
-	@include mixins.mainBorder;
+	@include mixins.mainBorder(variables.$color-brick);
 	font-size: 1.6rem;
 	padding: 1rem 2rem;
 	background-color: variables.$color-brick;
@@ -14,9 +14,8 @@ button {
 	&:focus,
 	&:active {
 		background-color: transparent;
-		@include mixins.mainBorder;
 		@include mixins.cssHover;
-		color: variables.$color-primary;
+		color: variables.$color-brick;
 	}
 }
 #reset {
