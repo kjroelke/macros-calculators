@@ -16,13 +16,12 @@ class View {
 		this.simpleProtection();
 	}
 	simpleProtection = async function () {
-		const myIP = '76.253.164.85';
 		let home;
 		try {
 			const res = await fetch('https://api.ipify.org/?format=json');
 			if (!res.ok) throw new Error();
 			const { ip } = await res.json();
-			home = ip === myIP ? true : false;
+			home = ip === process.env.myIP ? true : false;
 			if (home) return;
 			const allowed = prompt('Password');
 			const denial = `
