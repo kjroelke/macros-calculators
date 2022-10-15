@@ -19,15 +19,15 @@
 	}
 	&__container {
 		@include mixins.displayFlex(row, space-around, center);
-		padding: 3em;
+		padding: 1rem;
 		@include mixins.responsive(variables.$bp-mobile) {
-			padding: 1em;
+			padding: 1rem;
 		}
 		& > * {
 			margin: 1em;
 		}
 		.percents {
-			@include mixins.displayFlex(row, center);
+			@include mixins.displayFlex(row);
 			& > * {
 				margin: 0 0.5em;
 			}

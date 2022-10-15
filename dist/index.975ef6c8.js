@@ -636,7 +636,25 @@ exports.default = new Controller((0, _modelDefault.default), (0, _viewDefault.de
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class Model {
-    state = {};
+    state = {
+        macros: {
+            fats: {
+                percentage: 30,
+                grams: 0,
+                calories: 0
+            },
+            proteins: {
+                percentage: 30,
+                grams: 0,
+                calories: 0
+            },
+            carbs: {
+                percentage: 0,
+                grams: 0,
+                calories: 0
+            }
+        }
+    };
     calcBMR() {
         let bmr;
         const height = this.state.person.heightFt * 12 + this.state.person.heightIn;
@@ -649,7 +667,6 @@ class Model {
         // calc TDEE
         this.state.tdee = Math.round(this.state.bmr * this.state.modifiers.activity);
         this.state.calorieGoal = this.#calcCalorieGoal(this.state.tdee, this.state.modifiers.deficit);
-        console.log(this.state);
     }
      #calcCalorieGoal(tdee, deficit) {
         let calories;
@@ -663,11 +680,10 @@ class Model {
         else if (deficit > 1) calories = Math.round(tdee * deficit);
         return calories;
     }
-    calcMacros(form) {
+    calcMacros() {
         if (this.state.tdee === 0) throw "Do the rest of the form first!";
-        // Destructure State
-        let { macros , modifiers  } = this.state;
-        const { calorieGoal  } = this.state;
+        // Destructure State for easier typing
+        const { macros , modifiers , calorieGoal  } = this.state;
         // Calc Proteins
         this.#calcProteins(macros.proteins, modifiers.protein);
         // Calc Fats
@@ -679,7 +695,8 @@ class Model {
         let { grams , calories: calories1 , percentage  } = proteins;
         grams = Math.round(this.state.person.weight * modifier);
         calories1 = Math.round(grams * 4);
-        percentage = Math.round(calories1 / calories1 * 100);
+        console.log(calories1);
+        percentage = Math.round(calories1 / this.state.calorieGoal * 100);
         this.state.macros.proteins = {
             grams: grams,
             calories: calories1,

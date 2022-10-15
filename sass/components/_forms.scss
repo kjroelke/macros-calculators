@@ -3,7 +3,10 @@
 
 .form {
 	background-color: white;
-	@include mixins.displayFlex(column);
+	@include mixins.displayFlex(column, flex-start, stretch);
+	& * {
+		flex: 1 1 auto;
+	}
 	&__header {
 		@include mixins.linearGradientDarken;
 		background-color: variables.$color-primary;
@@ -23,14 +26,10 @@
 	}
 	&__submission {
 		@include mixins.displayFlex(column);
-		margin-left: 1em;
-		margin-bottom: 1em;
+		padding: 2rem;
 		button {
 			margin-bottom: 1em;
 		}
-	}
-	.answer {
-		align-self: start;
 	}
 }
 
@@ -54,5 +53,10 @@
 				margin-bottom: 1em;
 			}
 		}
+	}
+}
+#protein-calculator {
+	label {
+		margin-bottom: 2rem;
 	}
 }

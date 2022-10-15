@@ -1,5 +1,23 @@
 class Model {
-	state = {};
+	state = {
+		macros: {
+			fats: {
+				percentage: 30,
+				grams: 0,
+				calories: 0,
+			},
+			proteins: {
+				percentage: 30,
+				grams: 0,
+				calories: 0,
+			},
+			carbs: {
+				percentage: 0,
+				grams: 0,
+				calories: 0,
+			},
+		},
+	};
 	calcBMR() {
 		let bmr;
 		const height = this.state.person.heightFt * 12 + this.state.person.heightIn;
@@ -28,7 +46,6 @@ class Model {
 			this.state.tdee,
 			this.state.modifiers.deficit,
 		);
-		console.log(this.state);
 	}
 
 	#calcCalorieGoal(tdee, deficit) {
@@ -45,14 +62,13 @@ class Model {
 		return calories;
 	}
 
-	calcMacros(form) {
+	calcMacros() {
 		if (this.state.tdee === 0) {
 			throw 'Do the rest of the form first!';
 		}
 
-		// Destructure State
-		let { macros, modifiers } = this.state;
-		const { calorieGoal } = this.state;
+		// Destructure State for easier typing
+		const { macros, modifiers, calorieGoal } = this.state;
 
 		// Calc Proteins
 		this.#calcProteins(macros.proteins, modifiers.protein);
@@ -68,7 +84,8 @@ class Model {
 		let { grams, calories, percentage } = proteins;
 		grams = Math.round(this.state.person.weight * modifier);
 		calories = Math.round(grams * 4);
-		percentage = Math.round((calories / calories) * 100);
+		console.log(calories);
+		percentage = Math.round((calories / this.state.calorieGoal) * 100);
 		this.state.macros.proteins = {
 			grams: grams,
 			calories: calories,

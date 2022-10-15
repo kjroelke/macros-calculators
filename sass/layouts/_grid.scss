@@ -12,12 +12,34 @@
 		flex: 1 1 40%;
 		margin: 0 2rem;
 	}
+	@include mixins.responsive(48rem) {
+		padding-top: 0;
+		width: 100%;
+		& > section:first-child {
+			margin-top: 2rem;
+		}
+	}
 	.answer {
 		@include mixins.displayFlex(column, flex-start, stretch);
 		position: sticky;
 		top: 10%;
+		@include mixins.responsive(48rem) {
+			flex: 1 1 auto;
+			margin: 0;
+			top: 0%;
+			order: 1;
+			width: 100%;
+			border-radius: unset;
+			border-left: unset;
+			border-right: unset;
+			margin-bottom: 2rem;
+			box-shadow: 2px 2px 4px 4px rgba(variables.$color-primary, 0.35);
+		}
 	}
 	.calculators {
+		@include mixins.responsive(48rem) {
+			order: 2;
+		}
 		@include mixins.displayFlex(column);
 		& form {
 			margin-bottom: 5vw;

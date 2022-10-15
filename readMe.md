@@ -6,6 +6,11 @@ Developed in MVC Pattern with 7-1 SCSS structure.
 
 # Changelog
 
+## v1.2.2
+
+- Bug fixes.
+- Better UI for mobile devices.
+
 ## v1.2.1
 
 Refactored underlying JS for proper MVC architecture.
