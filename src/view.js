@@ -16,12 +16,11 @@ class View {
 		this.simpleProtection();
 	}
 	simpleProtection = async function () {
-		let home;
 		try {
 			const res = await fetch('https://api.ipify.org/?format=json');
 			if (!res.ok) throw new Error();
 			const { ip } = await res.json();
-			home = ip === process.env.myIP ? true : false;
+			const home = ip === process.env.myIP ? true : false;
 			if (home) return;
 			const allowed = prompt('Password');
 			const denial = `
@@ -37,7 +36,6 @@ class View {
 			console.error(err);
 		}
 		this.#disabledForms();
-		this.#handleSticky(true);
 		this.renderConfirmation();
 		this.reset.addEventListener('click', () => this.resetForm());
 	};
@@ -49,27 +47,6 @@ class View {
 				form[i].setAttribute('disabled', '');
 			}
 		});
-	}
-	/** Handles stickyness of `answer` div.
-	 * @param {boolean} sticky  whether or not to set the id of the `answer` to sticky.
-	 */
-	#handleSticky(sticky) {
-		const output = querySelector('.answer');
-		if (sticky) {
-			if (output.id != 'sticky') {
-				document.addEventListener(
-					'scroll',
-					() => {
-						output.id = 'sticky';
-					},
-
-					{ once: true },
-				);
-			}
-		}
-		if (!sticky) {
-			output.id = '';
-		}
 	}
 
 	/** Attaches a callback function to each form's 'submit' and passes along the event. Implemented in the `init()` at index.js
