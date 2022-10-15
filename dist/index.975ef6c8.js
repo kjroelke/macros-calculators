@@ -622,6 +622,10 @@ class Controller {
                 (0, _modelDefault.default).state.modifiers = (0, _viewDefault.default).getModsValues(ev.target);
                 (0, _modelDefault.default).calcTDEE();
                 break;
+            case "protein-calculator":
+                (0, _modelDefault.default).state.modifiers.protein = (0, _viewDefault.default).getProteinValues(ev.target);
+                (0, _modelDefault.default).calcMacros();
+                break;
         }
         (0, _viewDefault.default).handleOutput(+ev.target.dataset.step, (0, _modelDefault.default).state);
     }
@@ -632,28 +636,7 @@ exports.default = new Controller((0, _modelDefault.default), (0, _viewDefault.de
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class Model {
-    state = {
-        macros: {
-            fats: {
-                percentage: 30,
-                grams: 0,
-                calories: 0
-            },
-            proteins: {
-                percentage: 30,
-                grams: 0,
-                calories: 0
-            },
-            carbs: {
-                percentage: 0,
-                grams: 0,
-                calories: 0
-            }
-        }
-    };
-    calculate(id) {
-        if (id === "protein-calculator") this.#calcMacros();
-    }
+    state = {};
     calcBMR() {
         let bmr;
         const height = this.state.person.heightFt * 12 + this.state.person.heightIn;
@@ -661,37 +644,30 @@ class Model {
         bmr = gender === "Female" ? 655 + 4.35 * this.state.person.weight + 4.7 * height - 4.7 * this.state.person.age : 66 + 6.23 * this.state.person.weight + 12.7 * height - 6.8 * this.state.person.age;
         this.state.bmr = Math.round(bmr);
     }
-     #getOptionsValue(el) {
-        const value = +el.options[el.selectedIndex].value;
-        return value;
-    }
     calcTDEE() {
         if (this.state.bmr === 0) throw "Calculate BMR First!!";
         // calc TDEE
         this.state.tdee = Math.round(this.state.bmr * this.state.modifiers.activity);
         this.state.calorieGoal = this.#calcCalorieGoal(this.state.tdee, this.state.modifiers.deficit);
+        console.log(this.state);
     }
      #calcCalorieGoal(tdee, deficit) {
         let calories;
-        const check = Math.round(tdee - tdee * deficit) < this.state.bmr;
-        if (check) {
-            calories = "Too low!";
-            return calories;
-        }
-        if (deficit < 1) calories = Math.round(tdee - tdee * deficit);
-        else if (deficit === 1) calories = tdee;
+        if (deficit < 1) {
+            if (Math.round(tdee - tdee * deficit) < this.state.bmr) {
+                calories = "Too low!";
+                return calories;
+            }
+            calories = Math.round(tdee - tdee * deficit);
+        } else if (deficit === 1) calories = tdee;
         else if (deficit > 1) calories = Math.round(tdee * deficit);
         return calories;
     }
-     #calcMacros(form) {
+    calcMacros(form) {
         if (this.state.tdee === 0) throw "Do the rest of the form first!";
-        // Get Form
-        const proteinMod = form.querySelector("#protein-modifier");
         // Destructure State
         let { macros , modifiers  } = this.state;
         const { calorieGoal  } = this.state;
-        // Set Protein Modifier to State
-        modifiers.protein = this.#getOptionsValue(proteinMod);
         // Calc Proteins
         this.#calcProteins(macros.proteins, modifiers.protein);
         // Calc Fats
@@ -720,8 +696,8 @@ class Model {
             percentage: percentage1
         };
     }
-     #calcCarbs(macros1, goal) {
-        let { carbs: { grams: cGrams , percentage: cPercent , calories: cCals  } , fats: { calories: fCals  } , proteins: { calories: pCals  } ,  } = macros1;
+     #calcCarbs(macros, goal) {
+        let { carbs: { grams: cGrams , percentage: cPercent , calories: cCals  } , fats: { calories: fCals  } , proteins: { calories: pCals  } ,  } = macros;
         cCals = Math.round(goal - fCals - pCals);
         cGrams = Math.round(cCals / 4);
         cPercent = Math.round(cCals / goal * 100);
@@ -741,8 +717,6 @@ var _form = require("./modules/Form");
 class View {
     forms = document.querySelectorAll("form");
     reset = document.getElementById("reset");
-    main = document.querySelector("main");
-    coords = this.main.getBoundingClientRect();
     mods = _form.mods;
     calorieGoal = _form.calories;
     bmr = _form.bmr;
@@ -751,6 +725,7 @@ class View {
     finalMessage = `<span>All done! Check the breakdown</span>`;
     constructor(){
         this.simpleProtection();
+        this.reset.addEventListener("click", this.resetForm);
     }
     /** Adds simple password protection that gets bypassed if IP Address = Roelke Residence. */ simpleProtection = async function() {
         try {
@@ -777,7 +752,6 @@ class View {
         this.reset.addEventListener("click", ()=>this.resetForm());
     };
     /** Resets the app's state to init */ resetForm() {
-        window.scrollTo(0, this.coords.y);
         location.reload();
     }
     /** Gets form values
@@ -809,6 +783,10 @@ class View {
             deficit: this.#getOptionsValue(deficitVal)
         };
         return modifiers;
+    }
+    getProteinValues(form) {
+        const protein = Number(form.querySelector("#protein-modifier").value);
+        return protein;
     }
     /** Attaches a callback function to each form's 'submit' and passes along the event. Calls `#renderConfirmation()`
 	 * @param handler {function} - the callback function
@@ -894,24 +872,12 @@ class ProteinForm extends Form {
     updateOptions(gender) {
         if (gender === "Female") this.#formContent = `
 			<label for="protein">
-				<strong>${gender}</strong> Protein Modifier (grams per lb.)</label>
-					<select name="protein" id="protein-modifier">
-						<option value="0.6">0.6</option>
-						<option value="0.7">.07</option>
-						<option value="0.8" selected>0.8</option>
-						<option value="0.9">0.9</option>
-						<option value="1.0">1.0</option>
-					</select>`;
+				<strong>${gender}</strong> Protein Modifier (grams per lb.)<br/>Recommended range is 0.6 &ndash; 1.0</label>
+					<input type='number' step="0.1" name="protein" id="protein-modifier">`;
         if (gender === "Male") this.#formContent = `
 			<label for="protein">
-				<strong>${gender}</strong> Protein Modifier (grams per lb.)</label>
-					<select name="protein" id="protein-modifier">
-						<option value="0.8">0.8</option>
-						<option value="0.9">0.9</option>
-						<option value="1.0" selected>1.0</option>
-						<option value="1.1">1.1</option>
-						<option value="1.2">1.2</option>
-					</select>`;
+				<strong>${gender}</strong> Protein Modifier (grams per lb.)<br/>Recommended range is 0.8 &ndash; 1.2</label>
+					<input type='number' step="0.1" name="protein" id="protein-modifier">`;
         this.form.querySelector(".form__content").innerHTML = this.#formContent;
     }
     renderMacros(markup) {
@@ -932,7 +898,7 @@ class ProteinForm extends Form {
     customMacros() {
         const markup = `
 		<label for="custom-macros">Custom Macro Selectors</label>
-			<select name="custom-macros" id="custom-macos">
+			<select name="custom-macros" id="custom-macros">
 				<option value="0.6">0.6</option>
 				<option value="0.7">.07</option>
 				<option value="0.8" selected>0.8</option>

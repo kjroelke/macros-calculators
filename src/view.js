@@ -3,8 +3,6 @@ import * as form from './modules/Form';
 class View {
 	forms = document.querySelectorAll('form');
 	reset = document.getElementById('reset');
-	main = document.querySelector('main');
-	coords = this.main.getBoundingClientRect();
 	mods = form.mods;
 	calorieGoal = form.calories;
 	bmr = form.bmr;
@@ -13,6 +11,7 @@ class View {
 	finalMessage = `<span>All done! Check the breakdown</span>`;
 	constructor() {
 		this.simpleProtection();
+		this.reset.addEventListener('click', this.resetForm);
 	}
 	/** Adds simple password protection that gets bypassed if IP Address = Roelke Residence. */
 	simpleProtection = async function () {
@@ -42,7 +41,6 @@ class View {
 
 	/** Resets the app's state to init */
 	resetForm() {
-		window.scrollTo(0, this.coords.y);
 		location.reload();
 	}
 	/** Gets form values
@@ -85,6 +83,10 @@ class View {
 		return modifiers;
 	}
 
+	getProteinValues(form) {
+		const protein = Number(form.querySelector('#protein-modifier').value);
+		return protein;
+	}
 	/** Attaches a callback function to each form's 'submit' and passes along the event. Calls `#renderConfirmation()`
 	 * @param handler {function} - the callback function
 	 */

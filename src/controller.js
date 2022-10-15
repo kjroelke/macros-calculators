@@ -20,6 +20,10 @@ class Controller {
 				model.state.modifiers = View.getModsValues(ev.target);
 				model.calcTDEE();
 				break;
+			case 'protein-calculator':
+				model.state.modifiers.protein = View.getProteinValues(ev.target);
+				model.calcMacros();
+				break;
 		}
 		View.handleOutput(+ev.target.dataset.step, model.state);
 	}

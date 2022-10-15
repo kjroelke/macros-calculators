@@ -29,26 +29,14 @@ class ProteinForm extends Form {
 		if (gender === 'Female') {
 			this.#formContent = `
 			<label for="protein">
-				<strong>${gender}</strong> Protein Modifier (grams per lb.)</label>
-					<select name="protein" id="protein-modifier">
-						<option value="0.6">0.6</option>
-						<option value="0.7">.07</option>
-						<option value="0.8" selected>0.8</option>
-						<option value="0.9">0.9</option>
-						<option value="1.0">1.0</option>
-					</select>`;
+				<strong>${gender}</strong> Protein Modifier (grams per lb.)<br/>Recommended range is 0.6 &ndash; 1.0</label>
+					<input type='number' step="0.1" name="protein" id="protein-modifier">`;
 		}
 		if (gender === 'Male') {
 			this.#formContent = `
 			<label for="protein">
-				<strong>${gender}</strong> Protein Modifier (grams per lb.)</label>
-					<select name="protein" id="protein-modifier">
-						<option value="0.8">0.8</option>
-						<option value="0.9">0.9</option>
-						<option value="1.0" selected>1.0</option>
-						<option value="1.1">1.1</option>
-						<option value="1.2">1.2</option>
-					</select>`;
+				<strong>${gender}</strong> Protein Modifier (grams per lb.)<br/>Recommended range is 0.8 &ndash; 1.2</label>
+					<input type='number' step="0.1" name="protein" id="protein-modifier">`;
 		}
 		this.form.querySelector('.form__content').innerHTML = this.#formContent;
 	}
@@ -70,7 +58,7 @@ class ProteinForm extends Form {
 	customMacros() {
 		const markup = `
 		<label for="custom-macros">Custom Macro Selectors</label>
-			<select name="custom-macros" id="custom-macos">
+			<select name="custom-macros" id="custom-macros">
 				<option value="0.6">0.6</option>
 				<option value="0.7">.07</option>
 				<option value="0.8" selected>0.8</option>
