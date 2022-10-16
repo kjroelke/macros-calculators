@@ -44,3 +44,25 @@
 		}
 	}
 }
+
+.answer {
+	@include mixins.responsive(48rem) {
+		&__header {
+			padding: 1rem;
+		}
+		&__container {
+			@include mixins.displayFlex(column, flex-start, stretch);
+			h2 {
+				font-size: 2rem;
+			}
+			.totals,
+			.percents {
+				@include mixins.displayFlex(row, center);
+				margin: 1rem;
+			}
+		}
+		#reset {
+			margin-top: 1rem;
+		}
+	}
+}

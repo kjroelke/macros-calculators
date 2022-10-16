@@ -6,6 +6,10 @@ Developed in MVC Pattern with 7-1 SCSS structure.
 
 # Changelog
 
+## v1.2.3
+
+- Fixed UI for mobile devices so the output isn't hilariously large.
+
 ## v1.2.2
 
 - Bug fixes.
