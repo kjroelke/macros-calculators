@@ -9,13 +9,25 @@
 	& > * {
 		margin-bottom: 3rem;
 	}
+	@include mixins.responsive(48rem) {
+		padding: 3rem 2rem;
+	}
 	&__title {
 		color: variables.$color-primary;
 		margin-left: 5rem;
+		@include mixins.responsive(48rem) {
+			h1 {
+				font-size: 3.2rem;
+			}
+		}
 	}
 
 	&__img svg {
 		height: 20rem;
 		width: 20rem;
+		@include mixins.responsive(48rem) {
+			height: 10rem;
+			width: 10rem;
+		}
 	}
 }

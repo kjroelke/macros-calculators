@@ -30,13 +30,13 @@ class ProteinForm extends Form {
 			this.#formContent = `
 			<label for="protein">
 				<strong>${gender}</strong> Protein Modifier (grams per lb.)<br/>Recommended range is 0.6 &ndash; 1.0</label>
-					<input type='number' step="0.1" name="protein" id="protein-modifier">`;
+					<input type='number' inputmode="decimal" step="0.1" name="protein" id="protein-modifier">`;
 		}
 		if (gender === 'Male') {
 			this.#formContent = `
 			<label for="protein">
 				<strong>${gender}</strong> Protein Modifier (grams per lb.)<br/>Recommended range is 0.8 &ndash; 1.2</label>
-					<input type='number' step="0.1" name="protein" id="protein-modifier">`;
+					<input type='number' step="0.1" inputmode="decimal" name="protein" id="protein-modifier">`;
 		}
 		this.form.querySelector('.form__content').innerHTML = this.#formContent;
 	}
