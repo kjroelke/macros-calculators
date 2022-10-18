@@ -84,7 +84,6 @@ class Model {
 		let { grams, calories, percentage } = proteins;
 		grams = Math.round(this.state.person.weight * modifier);
 		calories = Math.round(grams * 4);
-		console.log(calories);
 		percentage = Math.round((calories / this.state.calorieGoal) * 100);
 		this.state.macros.proteins = {
 			grams: grams,
