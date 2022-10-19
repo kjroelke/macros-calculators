@@ -5,6 +5,7 @@
 	@include mixins.mainBorder(variables.$color-primary);
 	background-color: white;
 	color: variables.$color-primary;
+	box-shadow: 2px 2px 4px 4px rgba(variables.$color-primary, 0.35);
 	& * {
 		color: variables.$color-primary;
 	}
@@ -31,6 +32,9 @@
 			& > * {
 				margin: 0 0.5em;
 			}
+			h2 {
+				font-size: 2.4rem;
+			}
 			@include mixins.responsive(variables.$bp-mobile) {
 				@include mixins.displayFlex(column);
 				& > * {
@@ -47,6 +51,10 @@
 
 .answer {
 	@include mixins.responsive(48rem) {
+		border-radius: unset;
+		border-left: unset;
+		border-right: unset;
+		margin-bottom: 2rem;
 		&__header {
 			padding: 1rem;
 		}
