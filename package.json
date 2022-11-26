@@ -1,6 +1,6 @@
 {
   "name": "macros-calculators",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A simple, HTML based calculator for macros",
   "scripts": {
     "start": "parcel index.html",

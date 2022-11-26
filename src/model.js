@@ -23,7 +23,7 @@ class Model {
 		const height = this.state.person.heightFt * 12 + this.state.person.heightIn;
 		// Calc BMR
 		bmr =
-			gender === 'Female'
+			this.state.gender === 'Female'
 				? 655 +
 				  4.35 * this.state.person.weight +
 				  4.7 * height -
