@@ -20,34 +20,36 @@ class Model {
 	};
 	calcBMR() {
 		let bmr;
-		const height = this.state.person.heightFt * 12 + this.state.person.heightIn;
+		const height = this.#calcHeight();
 		// Calc BMR
-		bmr =
+		this.state.bmr =
 			this.state.person.gender === 'Female'
 				? this.#calcFemaleBMR(height)
 				: this.#calcMaleBMR(height);
-		this.state.bmr = Math.round(bmr);
+	}
+	#calcHeight() {
+		return (
+			parseInt(this.state.person.heightFt) * 12 +
+			parseInt(this.state.person.heightIn)
+		);
 	}
 	#calcFemaleBMR(height) {
-		return (
+		return Math.round(
 			655 +
-			4.35 * this.state.person.weight +
-			4.7 * height -
-			4.7 * this.state.person.age
+				4.35 * this.state.person.weight +
+				4.7 * height -
+				4.7 * this.state.person.age,
 		);
 	}
 	#calcMaleBMR() {
-		return (
+		return Math.round(
 			66 +
-			6.23 * this.state.person.weight +
-			12.7 * height -
-			6.8 * this.state.person.age
+				6.23 * this.state.person.weight +
+				12.7 * height -
+				6.8 * this.state.person.age,
 		);
 	}
 	calcTDEE() {
-		if (this.state.bmr === 0) {
-			throw 'Calculate BMR First!!';
-		}
 		// calc TDEE
 		this.state.tdee = Math.round(
 			this.state.bmr * this.state.modifiers.activity,
@@ -68,25 +70,14 @@ class Model {
 			calories = Math.round(tdee - tdee * deficit);
 		} else if (deficit === 1) calories = tdee;
 		else if (deficit > 1) calories = Math.round(tdee * deficit);
-
 		return calories;
 	}
 
 	calcMacros() {
-		if (this.state.tdee === 0) {
-			throw 'Do the rest of the form first!';
-		}
-
 		// Destructure State for easier typing
 		const { macros, modifiers, calorieGoal } = this.state;
-
-		// Calc Proteins
 		this.#calcProteins(macros.proteins, modifiers.protein);
-
-		// Calc Fats
 		this.#calcFats(macros.fats);
-
-		// Calc Carbs
 		this.#calcCarbs(macros, calorieGoal);
 	}
 
