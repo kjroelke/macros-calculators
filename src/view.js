@@ -10,7 +10,7 @@ class View {
 	submissionMessage = `<span>Thanks! On to the next step.</span>`;
 	finalMessage = `<span>All done! Check the breakdown</span>`;
 	constructor() {
-		this.simpleProtection();
+		// this.simpleProtection();
 		this.reset.addEventListener('click', this.resetForm);
 	}
 	/** Adds simple password protection that gets bypassed if IP Address = Roelke Residence. */
@@ -47,24 +47,9 @@ class View {
 	 * @return object
 	 */
 	getBMRValues(form) {
-		const weightVal = form.querySelector('#weight'),
-			heightFtVal = form.querySelector('#height--ft'),
-			heightInVal = form.querySelector('#height--in'),
-			ageVal = form.querySelector('#age'),
-			genderOptions = form.querySelectorAll('#gender input[type="radio"]');
-		// healthOptions = form.querySelectorAll('#health input[type="radio"]'),
-		const person = {
-			weight: Number(weightVal.value),
-			age: Number(ageVal.value),
-			heightFt: Number(heightFtVal.value),
-			heightIn: Number(heightInVal.value),
-		};
-		genderOptions.forEach((el, i) => {
-			if (el.checked) {
-				person.gender = genderOptions[i].value;
-			}
-		});
-		return person;
+		const formData = new FormData(form);
+		const data = Object.fromEntries(formData);
+		return data;
 	}
 	#getOptionsValue(el) {
 		const value = +el.options[el.selectedIndex].value;

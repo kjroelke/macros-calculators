@@ -1,3 +1,5 @@
+import { toInt } from './modules/utilities';
+
 class Model {
 	state = {
 		macros: {
@@ -19,20 +21,21 @@ class Model {
 		},
 	};
 	calcBMR() {
+		const { gender, weight: w, heightFt, heightIn, age: a } = this.state.person;
+		const weight = parseInt(w);
+		const age = parseInt(a);
+		console.log(gender, weight, heightFt, heightIn, age);
 		let bmr;
-		const height = this.state.person.heightFt * 12 + this.state.person.heightIn;
+		const height = this.#getHeightInInches(heightFt, heightIn);
 		// Calc BMR
 		bmr =
 			gender === 'Female'
-				? 655 +
-				  4.35 * this.state.person.weight +
-				  4.7 * height -
-				  4.7 * this.state.person.age
-				: 66 +
-				  6.23 * this.state.person.weight +
-				  12.7 * height -
-				  6.8 * this.state.person.age;
+				? 655 + 4.35 * weight + 4.7 * height - 4.7 * age
+				: 66 + 6.23 * weight + 12.7 * height - 6.8 * age;
 		this.state.bmr = Math.round(bmr);
+	}
+	#getHeightInInches(ft, inch) {
+		return parseInt(ft) * 12 + parseInt(inch);
 	}
 	calcTDEE() {
 		if (this.state.bmr === 0) {
