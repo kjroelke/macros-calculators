@@ -615,15 +615,15 @@ class Controller {
 	 */ onFormSubmit(ev) {
         switch(ev.target.id){
             case "bmr-calculator":
-                (0, _modelDefault.default).state.person = (0, _viewDefault.default).getBMRValues(ev.target);
+                (0, _modelDefault.default).state.person = (0, _viewDefault.default).bmr.getFormValues();
                 (0, _modelDefault.default).calcBMR();
                 break;
             case "modifiers":
-                (0, _modelDefault.default).state.modifiers = (0, _viewDefault.default).getModsValues(ev.target);
-                (0, _modelDefault.default).calcTDEE();
+                (0, _modelDefault.default).state.modifiers = (0, _viewDefault.default).mods.getFormValues();
+                (0, _modelDefault.default).calcCalories();
                 break;
             case "protein-calculator":
-                (0, _modelDefault.default).state.modifiers.protein = (0, _viewDefault.default).getProteinValues(ev.target);
+                (0, _modelDefault.default).state.modifiers.protein = (0, _viewDefault.default).proteins.getFormValues();
                 (0, _modelDefault.default).calcMacros();
                 break;
         }
@@ -635,7 +635,6 @@ exports.default = new Controller((0, _modelDefault.default), (0, _viewDefault.de
 },{"./model":"dEDha","./view":"ai2uB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _utilities = require("./modules/utilities");
 class Model {
     state = {
         macros: {
@@ -657,53 +656,71 @@ class Model {
         }
     };
     calcBMR() {
+        this.#createPerson();
+        if (this.state.person.gender === "Male") this.state.bmr = this.#calcMaleBMR(this.state.person);
+        else if (this.state.person.gender === "Female") this.state.bmr = this.#calcFemaleBMR(this.state.person);
+        else {
+            console.error("Gender did not equal Male or Female!");
+            alert("Error! Check the console for more details");
+        }
+    }
+     #createPerson() {
         const { gender , weight: w , heightFt , heightIn , age: a  } = this.state.person;
         const weight = parseInt(w);
         const age = parseInt(a);
-        console.log(gender, weight, heightFt, heightIn, age);
-        let bmr;
         const height = this.#getHeightInInches(heightFt, heightIn);
-        // Calc BMR
-        bmr = gender === "Female" ? 655 + 4.35 * weight + 4.7 * height - 4.7 * age : 66 + 6.23 * weight + 12.7 * height - 6.8 * age;
-        this.state.bmr = Math.round(bmr);
+        this.state.person = {
+            gender: gender,
+            weight: weight,
+            height: height,
+            age: age
+        };
     }
      #getHeightInInches(ft, inch) {
         return parseInt(ft) * 12 + parseInt(inch);
     }
-    calcTDEE() {
-        if (this.state.bmr === 0) throw "Calculate BMR First!!";
-        // calc TDEE
-        this.state.tdee = Math.round(this.state.bmr * this.state.modifiers.activity);
-        this.state.calorieGoal = this.#calcCalorieGoal(this.state.tdee, this.state.modifiers.deficit);
+     #calcFemaleBMR({ weight: weight1 , age: age1 , height: height1  }) {
+        return Math.round(655 + 4.35 * weight1 + 4.7 * height1 - 4.7 * age1);
     }
-     #calcCalorieGoal(tdee, deficit) {
+     #calcMaleBMR({ weight: weight2 , age: age2 , height: height2  }) {
+        return Math.round(66 + 6.23 * weight2 + 12.7 * height2 - 6.8 * age2);
+    }
+    calcCalories() {
+        this.state.tdee = this.#calcTDEE();
+        this.state.calorieGoal = this.#calcCalorieGoal(this.state.modifiers);
+    }
+     #calcTDEE() {
+        return Math.round(this.state.bmr * this.state.modifiers.activity);
+    }
+     #calcCalorieGoal({ deficit: d  }) {
+        const deficit = parseFloat(d);
         let calories;
-        if (deficit < 1) {
-            if (Math.round(tdee - tdee * deficit) < this.state.bmr) {
-                calories = "Too low!";
-                return calories;
-            }
-            calories = Math.round(tdee - tdee * deficit);
-        } else if (deficit === 1) calories = tdee;
-        else if (deficit > 1) calories = Math.round(tdee * deficit);
+        if (deficit < 1) calories = this.#calorieGoalIsTooLow() ? "Too low!" : this.#calcCalorieDeficit();
+        if (deficit === 1) calories = this.state.tdee;
+        if (deficit > 1) calories = this.#calcCalorieSurplus();
         return calories;
     }
+     #calorieGoalIsTooLow() {
+        return this.#calcCalorieDeficit() < this.state.bmr ? true : false;
+    }
+     #calcCalorieDeficit() {
+        return Math.round(this.state.tdee - this.state.tdee * this.state.modifiers.deficit);
+    }
+     #calcCalorieSurplus() {
+        return Math.round(this.state.tdee * this.state.modifiers.deficit);
+    }
     calcMacros() {
-        if (this.state.tdee === 0) throw "Do the rest of the form first!";
-        // Destructure State for easier typing
-        const { macros , modifiers , calorieGoal  } = this.state;
-        // Calc Proteins
-        this.#calcProteins(macros.proteins, modifiers.protein);
-        // Calc Fats
-        this.#calcFats(macros.fats);
-        // Calc Carbs
-        this.#calcCarbs(macros, calorieGoal);
+        this.#calcProteins(this.state.macros.proteins, this.state.modifiers.protein.protein);
+        this.#calcFats(this.state.macros.fats);
+        this.#calcCarbs(this.state.macros, this.state.calorieGoal);
     }
      #calcProteins(proteins, modifier) {
+        const mod = parseFloat(modifier);
         let { grams , calories: calories1 , percentage  } = proteins;
-        grams = Math.round(this.state.person.weight * modifier);
+        grams = Math.round(this.state.person.weight * mod);
         calories1 = Math.round(grams * 4);
         percentage = Math.round(calories1 / this.state.calorieGoal * 100);
+        console.log(grams, calories1, percentage, mod, this.state.person);
         this.state.macros.proteins = {
             grams: grams,
             calories: calories1,
@@ -734,7 +751,7 @@ class Model {
 }
 exports.default = new Model();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./modules/utilities":"5HnRK"}],"ai2uB":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ai2uB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _form = require("./modules/Form");
@@ -775,33 +792,8 @@ class View {
         this.renderConfirmation();
         this.reset.addEventListener("click", ()=>this.resetForm());
     };
-    /** Resets the app's state to init */ resetForm() {
+    resetForm() {
         location.reload();
-    }
-    /** Gets form values
-	 * @return object
-	 */ getBMRValues(form) {
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-        return data;
-    }
-     #getOptionsValue(el) {
-        const value = +el.options[el.selectedIndex].value;
-        return value;
-    }
-    /** Gets form values
-	 * @return object
-	 */ getModsValues(form) {
-        const activityVal = form.querySelector("#tdee"), deficitVal = form.querySelector("#deficit");
-        const modifiers = {
-            activity: this.#getOptionsValue(activityVal),
-            deficit: this.#getOptionsValue(deficitVal)
-        };
-        return modifiers;
-    }
-    getProteinValues(form) {
-        const protein = Number(form.querySelector("#protein-modifier").value);
-        return protein;
     }
     /** Attaches a callback function to each form's 'submit' and passes along the event. Calls `#renderConfirmation()`
 	 * @param handler {function} - the callback function
@@ -814,9 +806,7 @@ class View {
             });
         });
     }
-    /**
-	 * Adds a message on submit and toggles active/inactive state of each form.
-	 */  #renderConfirmation(form, i) {
+     #renderConfirmation(form, i) {
         const id = +form.dataset.step;
         const nextForm = i + 1;
         const submission = form.querySelector(".form__submission");
@@ -829,13 +819,13 @@ class View {
             this.#enableForm(this.forms[i]);
         }
     }
-    /** Toggles '.inactive' class for each form to clarify UI. */  #toggleStyle(forms) {
+     #toggleStyle(forms) {
         forms.forEach((form)=>form.classList.toggle("inactive"));
     }
-    /** Enables form field inputs */  #enableForm(form1) {
+     #enableForm(form1) {
         for(let i1 = 0; i1 < form1.length; i1++)form1[i1].disabled = false;
     }
-    /** disables input inside of forms */  #disabledForms() {
+     #disabledForms() {
         this.forms.forEach((form, i)=>{
             if (i === 0) return;
             for(i = 0; i < form.length; i++)form[i].setAttribute("disabled", "");
@@ -869,9 +859,12 @@ class Form {
         this.output = document.querySelector(this.#query.concat(id));
         this.macros = document.querySelector(".percents");
     }
-    /** Takes an HTML string to render to the form's output.
-	 * @param markup {string} - the HTML to markup.
-	 */ renderOutput(markup) {
+    getFormValues() {
+        const formData = new FormData(this.form);
+        const data = Object.fromEntries(formData);
+        return data;
+    }
+    renderOutput(markup) {
         this.output.insertAdjacentHTML("beforeend", `<span>${markup} calories</span>`);
     }
 }

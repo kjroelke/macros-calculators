@@ -39,39 +39,10 @@ class View {
 		this.reset.addEventListener('click', () => this.resetForm());
 	};
 
-	/** Resets the app's state to init */
 	resetForm() {
 		location.reload();
 	}
-	/** Gets form values
-	 * @return object
-	 */
-	getBMRValues(form) {
-		const formData = new FormData(form);
-		const data = Object.fromEntries(formData);
-		return data;
-	}
-	#getOptionsValue(el) {
-		const value = +el.options[el.selectedIndex].value;
-		return value;
-	}
-	/** Gets form values
-	 * @return object
-	 */
-	getModsValues(form) {
-		const activityVal = form.querySelector('#tdee'),
-			deficitVal = form.querySelector('#deficit');
-		const modifiers = {
-			activity: this.#getOptionsValue(activityVal),
-			deficit: this.#getOptionsValue(deficitVal),
-		};
-		return modifiers;
-	}
 
-	getProteinValues(form) {
-		const protein = Number(form.querySelector('#protein-modifier').value);
-		return protein;
-	}
 	/** Attaches a callback function to each form's 'submit' and passes along the event. Calls `#renderConfirmation()`
 	 * @param handler {function} - the callback function
 	 */
@@ -84,9 +55,7 @@ class View {
 			});
 		});
 	}
-	/**
-	 * Adds a message on submit and toggles active/inactive state of each form.
-	 */
+
 	#renderConfirmation(form, i) {
 		const id = +form.dataset.step;
 		const nextForm = i + 1;
@@ -101,18 +70,16 @@ class View {
 		}
 	}
 
-	/** Toggles '.inactive' class for each form to clarify UI. */
 	#toggleStyle(forms) {
 		forms.forEach((form) => form.classList.toggle('inactive'));
 	}
 
-	/** Enables form field inputs */
 	#enableForm(form) {
 		for (let i = 0; i < form.length; i++) {
 			form[i].disabled = false;
 		}
 	}
-	/** disables input inside of forms */
+
 	#disabledForms() {
 		this.forms.forEach((form, i) => {
 			if (i === 0) return;

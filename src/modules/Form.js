@@ -5,9 +5,11 @@ class Form {
 		this.output = document.querySelector(this.#query.concat(id));
 		this.macros = document.querySelector('.percents');
 	}
-	/** Takes an HTML string to render to the form's output.
-	 * @param markup {string} - the HTML to markup.
-	 */
+	getFormValues() {
+		const formData = new FormData(this.form);
+		const data = Object.fromEntries(formData);
+		return data;
+	}
 	renderOutput(markup) {
 		this.output.insertAdjacentHTML(
 			'beforeend',

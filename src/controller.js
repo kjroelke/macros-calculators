@@ -13,15 +13,15 @@ class Controller {
 	onFormSubmit(ev) {
 		switch (ev.target.id) {
 			case 'bmr-calculator':
-				model.state.person = View.getBMRValues(ev.target);
+				model.state.person = View.bmr.getFormValues();
 				model.calcBMR();
 				break;
 			case 'modifiers':
-				model.state.modifiers = View.getModsValues(ev.target);
-				model.calcTDEE();
+				model.state.modifiers = View.mods.getFormValues();
+				model.calcCalories();
 				break;
 			case 'protein-calculator':
-				model.state.modifiers.protein = View.getProteinValues(ev.target);
+				model.state.modifiers.protein = View.proteins.getFormValues();
 				model.calcMacros();
 				break;
 		}
