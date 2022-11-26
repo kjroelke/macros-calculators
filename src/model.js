@@ -41,7 +41,7 @@ class Model {
 				4.7 * this.state.person.age,
 		);
 	}
-	#calcMaleBMR() {
+	#calcMaleBMR(height) {
 		return Math.round(
 			66 +
 				6.23 * this.state.person.weight +
