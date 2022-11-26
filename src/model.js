@@ -23,16 +23,26 @@ class Model {
 		const height = this.state.person.heightFt * 12 + this.state.person.heightIn;
 		// Calc BMR
 		bmr =
-			this.state.gender === 'Female'
-				? 655 +
-				  4.35 * this.state.person.weight +
-				  4.7 * height -
-				  4.7 * this.state.person.age
-				: 66 +
-				  6.23 * this.state.person.weight +
-				  12.7 * height -
-				  6.8 * this.state.person.age;
+			this.state.person.gender === 'Female'
+				? this.#calcFemaleBMR(height)
+				: this.#calcMaleBMR(height);
 		this.state.bmr = Math.round(bmr);
+	}
+	#calcFemaleBMR(height) {
+		return (
+			655 +
+			4.35 * this.state.person.weight +
+			4.7 * height -
+			4.7 * this.state.person.age
+		);
+	}
+	#calcMaleBMR() {
+		return (
+			66 +
+			6.23 * this.state.person.weight +
+			12.7 * height -
+			6.8 * this.state.person.age
+		);
 	}
 	calcTDEE() {
 		if (this.state.bmr === 0) {
