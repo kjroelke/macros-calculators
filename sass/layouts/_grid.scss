@@ -2,54 +2,22 @@
 @use '../abstracts/mixins';
 
 .container {
-	@include mixins.displayFlex(row, space-evenly);
+	// @include mixins.displayFlex(row, space-evenly);
 	position: relative;
 	margin: 0 auto;
-	padding: 6.5rem 0;
-	width: 88%;
-	max-width: 1200px;
-	& > section {
-		flex: 1 1 40%;
-		margin: 0 2rem;
-	}
-	@include mixins.responsive(48rem) {
-		padding-top: 0;
-		width: 100%;
-		& > section:first-child {
-			margin-top: 2rem;
-		}
-	}
-	.answer {
-		@include mixins.displayFlex(column, flex-start, stretch);
-		position: sticky;
-		top: 10%;
-		@include mixins.responsive(48rem) {
-			flex: 1 1 auto;
-			margin: 0;
-			top: 0%;
-			order: 1;
-			width: 100%;
-		}
-	}
+	// padding: 6.5rem 0;
+	// & > section {
+	// flex: 1 1 40%;
+	// margin: 0 2rem;
+	// }
+
 	.calculators {
-		@include mixins.responsive(48rem) {
-			order: 2;
-		}
+		width: 88%;
+		max-width: 120rem;
+		margin: 0 auto;
 		@include mixins.displayFlex(column);
 		& form {
 			margin-bottom: 5vw;
-		}
-		#bmr-calculator {
-			// @include mixins.displayFlex(column);
-		}
-		#modifiers {
-			// @include mixins.displayFlex(column);
-		}
-		#protein-calculator {
-			// @extend #modifiers;
-		}
-		#macro-calculator {
-			// @extend #modifiers;
 		}
 	}
 }

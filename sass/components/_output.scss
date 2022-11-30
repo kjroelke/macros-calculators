@@ -2,75 +2,72 @@
 @use '../abstracts/mixins';
 
 .answer {
-	@include mixins.mainBorder(variables.$color-primary);
+	@include mixins.displayFlex(column, flex-start, stretch);
 	background-color: white;
+	border-bottom: 4px solid variables.$color-primary;
+	box-shadow: 2px 4px 4px 4px rgba(variables.$color-primary, 0.35);
 	color: variables.$color-primary;
-	box-shadow: 2px 2px 4px 4px rgba(variables.$color-primary, 0.35);
+	padding-top: 3rem;
+	position: sticky;
+	top: 0;
+	z-index: 4;
+
 	& * {
 		color: variables.$color-primary;
 	}
 	&__header {
-		background-color: variables.$color-secondary--light;
-		padding: 2em;
 		h2 {
 			text-transform: uppercase;
 			text-align: center;
+			font-size: 3.2rem;
 			font-weight: 700;
 		}
 	}
 	&__container {
-		@include mixins.displayFlex(row, space-around, center);
-		padding: 1rem;
-		@include mixins.responsive(variables.$bp-mobile) {
-			padding: 1rem;
-		}
-		& > * {
-			margin: 1em;
-		}
+		display: grid;
+		grid-template-rows: repeat(2, 1fr);
+		gap: 1rem;
+		padding: 1rem 2rem;
+		margin: 1rem auto 0 auto;
+		width: 88%;
+		max-width: 120rem;
 		.percents {
-			@include mixins.displayFlex(row);
+			@include mixins.displayFlex;
+			grid-row: 2 / 3;
 			& > * {
 				margin: 0 0.5em;
 			}
 			h2 {
-				font-size: 2.4rem;
-			}
-			@include mixins.responsive(variables.$bp-mobile) {
-				@include mixins.displayFlex(column);
-				& > * {
-					margin: 0.5em;
-					@include mixins.displayFlex(column);
-				}
+				font-size: 2rem;
 			}
 		}
 		.totals {
 			@extend .percents;
+			grid-row: 1 / 2;
+		}
+		input[type='reset'] {
+			grid-column: 4 / 5;
+			grid-row: 2 / 3;
 		}
 	}
 }
 
 .answer {
 	@include mixins.responsive(48rem) {
-		border-radius: unset;
-		border-left: unset;
-		border-right: unset;
-		margin-bottom: 2rem;
 		&__header {
-			padding: 1rem;
+			h2 {
+				font-size: 2.4rem;
+			}
 		}
 		&__container {
-			@include mixins.displayFlex(column, flex-start, stretch);
-			h2 {
-				font-size: 2rem;
-			}
-			.totals,
-			.percents {
-				@include mixins.displayFlex(row, center);
-				margin: 1rem;
+			.totals h2,
+			.percents h2 {
+				font-size: 1.4rem;
 			}
 		}
 		#reset {
-			margin-top: 1rem;
+			margin: 1rem;
+			font-size: 1rem;
 		}
 	}
 }
