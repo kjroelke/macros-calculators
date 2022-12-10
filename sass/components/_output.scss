@@ -3,18 +3,14 @@
 
 .answer {
 	@include mixins.displayFlex(column, flex-start, stretch);
-	background-color: white;
-	border-bottom: 4px solid variables.$color-primary;
+	background-color: variables.$color-primary;
 	box-shadow: 2px 4px 4px 4px rgba(variables.$color-primary, 0.35);
-	color: variables.$color-primary;
+	color: white;
 	padding-top: 3rem;
 	position: sticky;
 	top: 0;
 	z-index: 4;
 
-	& * {
-		color: variables.$color-primary;
-	}
 	&__header {
 		h2 {
 			text-transform: uppercase;

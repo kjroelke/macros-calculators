@@ -5,7 +5,7 @@
 	@include mixins.displayFlex(row, center, center);
 	padding: 3rem 2rem;
 	background-color: white;
-	border-bottom: 2rem solid variables.$color-primary;
+	border-bottom: 1rem solid variables.$color-brick;
 	& > * {
 		margin-bottom: 3rem;
 	}
@@ -23,11 +23,7 @@
 	}
 
 	&__img svg {
-		height: 20rem;
-		width: 20rem;
-		@include mixins.responsive(48rem) {
-			height: 10rem;
-			width: 10rem;
-		}
+		height: 10rem;
+		width: 10rem;
 	}
 }

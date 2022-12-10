@@ -21,4 +21,12 @@ button {
 #reset {
 	margin: 0;
 	@extend button;
+	border-color: white;
+	background-color: white;
+	color: variables.$color-primary;
+	&:hover,
+	&:focus,
+	&:active {
+		color: white;
+	}
 }

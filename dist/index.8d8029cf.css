@@ -111,7 +111,7 @@ input[type="submit"], button[type="submit"], input[type="reset"] {
 
 .header {
   background-color: #fff;
-  border-bottom: 2rem solid #3c1c12;
+  border-bottom: 1rem solid #875242;
   flex-flow: wrap;
   justify-content: center;
   align-items: center;
@@ -141,15 +141,8 @@ input[type="submit"], button[type="submit"], input[type="reset"] {
 }
 
 .header__img svg {
-  height: 20rem;
-  width: 20rem;
-}
-
-@media screen and (max-width: 48rem) {
-  .header__img svg {
-    height: 10rem;
-    width: 10rem;
-  }
+  height: 10rem;
+  width: 10rem;
 }
 
 footer {
@@ -287,14 +280,20 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
 }
 
 #reset {
+  color: #3c1c12;
+  background-color: #fff;
+  border-color: #fff;
   margin: 0;
 }
 
+#reset:hover, #reset:focus, #reset:active {
+  color: #fff;
+}
+
 .answer {
-  color: #3c1c12;
+  color: #fff;
   z-index: 4;
-  background-color: #fff;
-  border-bottom: 4px solid #3c1c12;
+  background-color: #3c1c12;
   flex-flow: column wrap;
   justify-content: flex-start;
   align-items: stretch;
@@ -303,10 +302,6 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
   position: sticky;
   top: 0;
   box-shadow: 2px 4px 4px 4px #3c1c1259;
-}
-
-.answer * {
-  color: #3c1c12;
 }
 
 .answer__header h2 {
