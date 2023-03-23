@@ -1,6 +1,6 @@
 # Macro Calculator
 
-A private macro calculator to help simplify calculations for Sara.
+A macro calculator to help simplify calculations for my wife's business.
 
 Developed in MVC Pattern with 7-1 SCSS structure.
 
