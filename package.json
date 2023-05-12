@@ -2,6 +2,7 @@
   "name": "macros-calculators",
   "version": "1.2.2",
   "description": "A simple, HTML based calculator for macros",
+  "browserslist": ">0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"
