@@ -10,7 +10,7 @@ class View {
 	submissionMessage = `<span>Thanks! On to the next step.</span>`;
 	finalMessage = `<span>All done! Check the breakdown</span>`;
 	constructor() {
-		this.simpleProtection();
+		// this.simpleProtection();
 		this.reset.addEventListener('click', this.resetForm);
 	}
 	/** Adds simple password protection that gets bypassed if IP Address = Roelke Residence. */
